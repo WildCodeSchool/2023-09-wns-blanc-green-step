@@ -19,7 +19,7 @@ const start = async () => {
 
   try {
     const { url } = await server.listen({ port });
-    console.log(`Server is running on ${url}!`);
+    console.log(`Server is running on ${url} !`);
   } catch (err) {
     console.error("Error while starting the Server!");
   }
