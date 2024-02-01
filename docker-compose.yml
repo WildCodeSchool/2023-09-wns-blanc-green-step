@@ -21,7 +21,7 @@ services:
       - 3000:3000
     volumes:
       - ./frontend/src/:/app/src/:rw
-      - ./frontend/src/.env.local:/app/.env.local:rw
+      - ./frontend/.env.local:/app/.env.local:rw
       - ./frontend/package.json:/app/package.json:rw
     environment:
       - WDS_SOCKET_HOST=127.0.0.1
