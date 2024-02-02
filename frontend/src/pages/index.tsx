@@ -1,7 +1,9 @@
 function Home() {
   return (
     <>
-      <h1>Salut les green steppers</h1>
+      <h1 className="text-3xl font-bold text-red-500">
+        Salut les green steppers
+      </h1>
     </>
   );
 }

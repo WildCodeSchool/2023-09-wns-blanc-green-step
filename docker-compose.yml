@@ -23,6 +23,8 @@ services:
       - ./frontend/src/:/app/src/:rw
       - ./frontend/.env.local:/app/.env.local:rw
       - ./frontend/package.json:/app/package.json:rw
+      - ./frontend/postcss.config.js:/app/postcss.config.js:rw
+      - ./frontend/tailwind.config.js:/app/tailwind.config.js:rw
     environment:
       - WDS_SOCKET_HOST=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
