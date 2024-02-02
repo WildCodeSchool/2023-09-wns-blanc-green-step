@@ -28,16 +28,16 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
 
-  # images:
-  #   build: ./images
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./images/src/:/app/src/:rw
-  #     - ./images/package.json:/app/package.json:rw
-  #     - ./images/uploads/:/app/uploads/
-  #   environment:
-  #     - WATCHPACK_POLLING=true
+  images:
+    build: ./images
+    ports:
+      - 8000:8000
+    volumes:
+      - ./images/src/:/app/src/:rw
+      - ./images/package.json:/app/package.json:rw
+      - ./images/uploads/:/app/uploads/
+    environment:
+      - WATCHPACK_POLLING=true
 
   db:
     image: postgres
