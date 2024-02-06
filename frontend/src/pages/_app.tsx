@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+import Layout from "../layouts/layout";
 
 import "@/styles/globals.css";
 
@@ -23,7 +24,9 @@ const client = new ApolloClient({
 function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ApolloProvider>
   );
 }
