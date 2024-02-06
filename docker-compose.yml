@@ -4,7 +4,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - 5010:5010
+      - 5000:5000
     volumes:
       - ./backend/package.json:/app/package.json:rw
       - ./backend/.env:/app/.env:rw
