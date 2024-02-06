@@ -4,6 +4,10 @@ import { ApolloServer } from "apollo-server";
 import * as dotenv from "dotenv";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolvers/user.resolver";
+import { ActivityTypeResolver } from "./resolvers/activityType.resolver";
+import { CarbonExpenseResolver } from "./resolvers/carbonExpense.resolver";
+import { ChallengeResolver } from "./resolvers/challenge.resolver";
+import { UserChallengeResolver } from "./resolvers/userChallenge.resolver";
 
 const start = async () => {
   dotenv.config();
@@ -11,7 +15,13 @@ const start = async () => {
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [
+      ActivityTypeResolver,
+      CarbonExpenseResolver,
+      ChallengeResolver,
+      UserResolver,
+      UserChallengeResolver,
+    ],
     validate: { forbidUnknownValues: false },
   });
 
