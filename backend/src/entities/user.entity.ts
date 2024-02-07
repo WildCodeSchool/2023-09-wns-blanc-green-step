@@ -20,7 +20,7 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Field()
-  @Column()
-  image: string;
+  @Field({nullable: true})
+  @Column({nullable: true})
+  image?: string;
 }
