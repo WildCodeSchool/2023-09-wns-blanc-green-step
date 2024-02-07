@@ -1,39 +1,62 @@
 import Link from "next/link";
+import { useState } from "react";
 
 function NavBoard() {
+  const [isBurger, setIsBurger] = useState(false);
+
   return (
-    <nav className="fixed z-10 right-0 top-0 p-5 sm:left-0 bg-green-60 w-fit flex flex-col gap-5 mt-20 sm:mt-0 sm:w-96 text-gray-30 rounded-xl sm:rounded-none h-5/6 sm:h-screen">
-      <Link href="/" className="hidden sm:flex gap-8 items-center">
-        <img className="w-16" src="/images/logo.png" alt="Green Step Logo" />
-
-        <h3 className="font-bold">Green Step</h3>
-      </Link>
-
+    <>
       <img
-        className="w-32 sm:w-52 self-center mb-2"
-        src="/images/blank-avatar.png"
-        alt="blank avatar"
+        className={`${
+          isBurger ? "bg-gray-80" : ""
+        } fixed right-0 top-0 sm:hidden p-4 m-2 rounded-xl`}
+        src="/images/burger-icon.png"
+        alt="Burger Menu Icon"
+        onClick={() => setIsBurger(!isBurger)}
       />
-      <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
-        Bienvenue Jean-Paul !
-      </p>
+      <nav
+        className={`${
+          !isBurger ? "hidden sm:flex" : "flex"
+        } fixed z-10 right-0 top-0 p-5 sm:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 sm:mt-0 sm:w-96 text-gray-30 rounded-xl sm:rounded-none h-5/6 sm:h-screen`}
+      >
+        <Link
+          href="/"
+          className="hidden sm:flex gap-8 items-center sm:border-b sm:pb-6 sm:mx-2 sm:border-gray-30"
+        >
+          <img className="w-16" src="/images/logo.png" alt="Green Step Logo" />
 
-      <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full">
-        <Link href="/my-expenses">
-          <li className="flex gap-4 items-center">
-            <img src="/images/carbon-expenses.png" alt="Carbon Expenses Icon" />
-            Mes Dépenses Carbones
-          </li>
+          <h3 className="font-bold">Green Step</h3>
         </Link>
 
-        <Link className="self-end" href="/">
-          <li className="flex gap-4 items-center">
-            <img src="/images/signout.png" alt="Signout Icon" />
-            Déconnexion
-          </li>
-        </Link>
-      </ul>
-    </nav>
+        <img
+          className="w-32 sm:w-52 self-center mb-2"
+          src="/images/blank-avatar.png"
+          alt="blank avatar"
+        />
+        <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
+          Bienvenue Jean-Paul !
+        </p>
+
+        <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full w-full p-3 sm:pl-8">
+          <Link href="/my-expenses">
+            <li className="flex gap-4 items-center">
+              <img
+                src="/images/carbon-expenses.png"
+                alt="Carbon Expenses Icon"
+              />
+              Mes Dépenses Carbones
+            </li>
+          </Link>
+
+          <Link className="self-end" href="/">
+            <li className="flex gap-4 items-center">
+              <img src="/images/signout.png" alt="Signout Icon" />
+              Déconnexion
+            </li>
+          </Link>
+        </ul>
+      </nav>
+    </>
   );
 }
 

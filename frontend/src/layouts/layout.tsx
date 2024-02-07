@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <NavBoard />
-      <main className="flex justify-center min-h-screen pt-10 bg-gray-100">
+      <main className="flex justify-center min-h-screen pt-10 bg-gray-100 font-poppins">
         {children}
       </main>
     </>
