@@ -56,7 +56,11 @@ module.exports = {
       secondary: colors["blue"],
       thirdly: colors["orange"],
     },
-    extend: {},
+    extend: {
+      width: {
+        dashcontent: "calc(100vw - 24rem)",
+      },
+    },
   },
   plugins: [],
 };

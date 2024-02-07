@@ -9,7 +9,7 @@ function NavBoard() {
       <img
         className={`${
           isBurger ? "bg-gray-80" : ""
-        } fixed right-0 top-0 sm:hidden p-4 m-2 rounded-xl`}
+        } fixed right-0 top-0 sm:hidden p-4 m-2 rounded-xl z-10`}
         src="/images/burger-icon.png"
         alt="Burger Menu Icon"
         onClick={() => setIsBurger(!isBurger)}
