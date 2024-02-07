@@ -1,31 +1,35 @@
+import { Button } from "@/components/Button";
+import { ChallengeCard } from "@/components/ChallengeCard";
+import Article from "@/components/Home/Articles";
 import ButtonLogin from "@/components/Home/ButtonLogin";
-import CardChallenge from "@/components/Home/CardChallenge";
 import Header from "@/components/Home/Header";
+import TopBody from "@/components/Home/TopBody";
+import VegetablesCard from "@/components/Home/VegetablesCard";
+import Waves from "@/components/Waves";
 
 function Home() {
   return (
     <>
       <Header />
-      {/* Titre + Background Bleu */}
-      <div className="text-center">
-        <div className="inline-block relative max-w-md mx-auto">
-          <h1 className="font-poppins font-bold italic text-xl relative z-10 pl-1 pr-1">
-            Bienvenue sur Green Step !
-          </h1>
-          <div className="absolute inset-x-0 bottom-[-5px] h-5 bg-secondary-10 z-[-1]"></div>
-        </div>
-
-        <p className="font-poppins text-center text-base mt-5">
-          L’app qui te permet de calculer tes impacts et participer à des éco-challenges
-        </p>
-
-        <div className="flex justify-center mt-5">
-          <img src="/images/photo-accueil.png" alt="Illustration d'accueil" className="w-72" />
-        </div>
-      </div>
-
+      <TopBody />
       <ButtonLogin />
       
+      <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto">
+        <div className="flex justify-around items-center mb-10 w-full">
+          <ChallengeCard />
+          <ChallengeCard />
+        </div>
+        <Button color="bg-blue-40" textsize="text-sm" content="Accéder à tous les challenges" />
+      </div>
+
+      <div className="flex flex-col justify-center items-center w-[80%] m-auto mb-5">
+        <Article />
+        <div className="w-full h-[1px] bg-gray-70 mx-auto mt-2 mb-2"></div>
+        <Article />
+      </div>
+
+      <VegetablesCard />
+      <Waves />
     </>
   );
 }
