@@ -11,8 +11,6 @@ import { UserChallengeResolver } from "./resolvers/userChallenge.resolver";
 import { verifyToken } from "./services/auth.service";
 import { getById } from "./services/user.service";
 
-
-
 const start = async () => {
   dotenv.config();
   const port: number = parseInt(process.env.PORT as string);
@@ -26,20 +24,19 @@ const start = async () => {
       UserResolver,
       UserChallengeResolver,
     ],
-    validate: { forbidUnknownValues: false },authChecker: async ({ context }) => {
-
+    validate: { forbidUnknownValues: false },
+    authChecker: async ({ context }) => {
       try {
         const payload: any = verifyToken(context.token);
         const userFromDB = await getById(payload.id);
         context.user = userFromDB;
 
         return true;
-      } catch(e) {
+      } catch (e) {
         return false;
       }
-    }
+    },
   });
-
 
   const server = new ApolloServer({
     schema,
@@ -56,7 +53,7 @@ const start = async () => {
         try {
           // if it exist we get the token bearer by spliting the headers authorization
           const bearer = req.headers.authorization.split("Bearer ")[1];
-          
+
           // and we return an object contaning the token bearer value
           return { token: bearer };
         } catch (e) {
