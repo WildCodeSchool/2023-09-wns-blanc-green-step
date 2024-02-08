@@ -1,7 +1,10 @@
 import NavBoard from "@/components/dashboard/NavBoard";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useContext } from "react";
 
 export default function Layout({ children }) {
-  const user = { id: 1 };
+  const { user } = useContext(AuthContext);
+
   return (
     <>
       {user.id !== 0 ? <NavBoard /> : ""}

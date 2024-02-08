@@ -1,8 +1,18 @@
+import { AuthContext } from "@/contexts/AuthContext";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 function NavBoard() {
+  const { user, setUser } = useContext(AuthContext);
+  const router = useRouter();
+
   const [isBurger, setIsBurger] = useState(false);
+
+  const handleDisconnect = () => {
+    setUser({ id: 0 });
+    router.push("/");
+  };
 
   return (
     <>
@@ -49,7 +59,7 @@ function NavBoard() {
           </Link>
 
           <Link className="self-end" href="/">
-            <li className="flex gap-4 items-center">
+            <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion
             </li>
