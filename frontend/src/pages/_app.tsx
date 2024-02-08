@@ -7,8 +7,10 @@ import {
 } from "@apollo/client";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+import Layout from "../layouts/layout";
 
 import "@/styles/globals.css";
+import { AuthContextProvider } from "@/contexts/AuthContext";
 
 // function to recreate an uri object for apollo which is needed when using link instead of uri
 const httpLink = createHttpLink({
@@ -23,7 +25,11 @@ const client = new ApolloClient({
 function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <AuthContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthContextProvider>
     </ApolloProvider>
   );
 }

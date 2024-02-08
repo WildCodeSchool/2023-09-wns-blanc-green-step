@@ -56,7 +56,14 @@ module.exports = {
       secondary: colors["blue"],
       thirdly: colors["orange"],
     },
-    extend: {},
+    extend: {
+      width: {
+        dashcontent: "calc(100vw - 24rem)",
+      },
+      gridTemplateColumns: {
+        expenses: "repeat(4, minmax(0, 1fr)) 70px",
+      },
+    },
   },
   plugins: [],
 };
