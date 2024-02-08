@@ -61,7 +61,7 @@ module.exports = {
         dashcontent: "calc(100vw - 24rem)",
       },
       gridTemplateColumns: {
-        expenses: "repeat(4, minmax(0, 1fr)) 50px",
+        expenses: "repeat(4, minmax(0, 1fr)) 70px",
       },
     },
   },
