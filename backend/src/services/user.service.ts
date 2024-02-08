@@ -1,4 +1,3 @@
-import { userInfo } from "os";
 import { User } from "../entities/user.entity";
 import * as argon2 from "argon2";
 
@@ -20,6 +19,8 @@ export async function create(username: string, email: string, password: string):
     newUser.username = username;
     newUser.email = email;
     newUser.password = await argon2.hash(password);
+
+
 
     return newUser.save();
 }
@@ -45,7 +46,15 @@ export function getByUsername(username: string): Promise<User> {
  */
 
 export function getByEmail(email: string): Promise<User> {
-    return User.findOneByOrFail({
-        email: email
-    })
+  return User.findOneByOrFail({
+      email: email
+  })
 }
+
+export function getById(id: number): Promise<User> {
+  return User.findOneByOrFail({
+      id: id
+  })
+}
+
+
