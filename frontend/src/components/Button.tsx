@@ -1,3 +1,9 @@
+export type ButtonProps = {
+  color: string;
+  textsize: string;
+  content: string;
+};
+
 export const Button = ({ color, textsize, content }) => {
   return (
     <div>
