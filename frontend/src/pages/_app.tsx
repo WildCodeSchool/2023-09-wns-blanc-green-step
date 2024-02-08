@@ -7,7 +7,6 @@ import {
 } from "@apollo/client";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-
 import "@/styles/globals.css";
 
 // function to recreate an uri object for apollo which is needed when using link instead of uri
