@@ -71,6 +71,7 @@ function MyExpenses() {
           src="/images/magnifer.png"
           alt="Search icon"
         />
+
         <input
           className="bg-gray-80 py-3 px-8 pl-12 placeholder:text-gray-40 rounded-3xl"
           type="search"
