@@ -25,8 +25,6 @@ export default function LoginPage() {
       localStorage.setItem("token", data.login);
       const { id } = jwtDecode(data.login);
       setUser({ id: id, username: "" });
-
-      //   router.push("/my-expenses");
     },
   });
 

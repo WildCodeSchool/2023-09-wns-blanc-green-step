@@ -1,6 +1,7 @@
 import { createContext, useState, useMemo, useEffect } from "react";
 
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import { jwtDecode } from "jwt-decode";
 
 const GET_USER_BY_ID = gql`
   query Query($getUserByIdId: Float!) {
@@ -34,6 +35,13 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     if (user.id !== 0) {
       getUser();
+    } else {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        const { id } = jwtDecode(token);
+        setUser({ id: id, username: "" });
+      }
     }
   }, [user]);
 
