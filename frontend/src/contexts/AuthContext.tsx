@@ -1,6 +1,9 @@
 import { createContext, useState, useMemo } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  user: { id: 0 },
+  setUser: (user: { id: number }) => {},
+});
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState({ id: 0 });

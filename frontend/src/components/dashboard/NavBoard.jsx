@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useContext } from "react";
 
 function NavBoard() {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const router = useRouter();
 
   const [isBurger, setIsBurger] = useState(false);
