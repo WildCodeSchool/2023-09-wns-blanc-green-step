@@ -19,6 +19,10 @@ export class Challenge extends BaseEntity {
 
   @Field()
   @Column()
+  image: string;
+
+  @Field()
+  @Column()
   carbon_saving: number;
 
   // @Field()

@@ -21,6 +21,7 @@ services:
       - 3000:3000
     volumes:
       - ./frontend/src/:/app/src/:rw
+      - ./frontend/public/:/app/public/:rw
       - ./frontend/.env.local:/app/.env.local:rw
       - ./frontend/package.json:/app/package.json:rw
       - ./frontend/postcss.config.js:/app/postcss.config.js:rw
