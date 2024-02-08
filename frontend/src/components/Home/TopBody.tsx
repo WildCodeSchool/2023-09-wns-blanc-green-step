@@ -1,11 +1,10 @@
 export default function TopBody() {
     return(
-        <div className="text-center">
+      <div className="text-center">
         <div className="inline-block relative max-w-md mx-auto">
-          <h1 className="font-poppins font-bold italic text-xl relative z-10 pl-1 pr-1">
-            Bienvenue sur Green Step !
+          <h1 className="font-bold italic text-xl sm:text-3xl text-center mb-6 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
+            Bienvenue sur GreenStep !
           </h1>
-          <div className="absolute inset-x-0 bottom-[-5px] h-5 bg-secondary-10 z-[-1]"></div>
         </div>
 
         <p className="font-poppins text-center text-base mt-5">

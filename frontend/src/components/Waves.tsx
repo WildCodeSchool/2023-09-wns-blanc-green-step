@@ -1,26 +1,49 @@
 import Image from 'next/image';
-import wave1 from '@/assets/wave/wave1.svg';
-import wave2 from '@/assets/wave/wave2.svg';
-import wave3 from '@/assets/wave/wave3.svg';
-import wave4 from '@/assets/wave/wave4.svg';
-import wave5 from '@/assets/wave/wave5.svg';
-import wave6 from '@/assets/wave/wave6.svg';
-import wave7 from '@/assets/wave/wave7.svg';
-import wave8 from '@/assets/wave/wave8.svg';
-import wave9 from '@/assets/wave/wave9.svg';
+import waveMobile1 from '@/assets/wave_mobile/wave1.svg';
+import waveMobile2 from '@/assets/wave_mobile/wave2.svg';
+import waveMobile3 from '@/assets/wave_mobile/wave3.svg';
+import waveMobile4 from '@/assets/wave_mobile/wave4.svg';
+import waveMobile5 from '@/assets/wave_mobile/wave5.svg';
+import waveMobile6 from '@/assets/wave_mobile/wave6.svg';
+import waveMobile7 from '@/assets/wave_mobile/wave7.svg';
+import waveMobile8 from '@/assets/wave_mobile/wave8.svg';
+import waveMobile9 from '@/assets/wave_mobile/wave9.svg';
+import waveDesktop1 from '@/assets/wave_desktop/wave1.svg';
+import waveDesktop2 from '@/assets/wave_desktop/wave2.svg';
+import waveDesktop3 from '@/assets/wave_desktop/wave3.svg';
+import waveDesktop4 from '@/assets/wave_desktop/wave4.svg';
+import waveDesktop5 from '@/assets/wave_desktop/wave5.svg';
+import waveDesktop6 from '@/assets/wave_desktop/wave6.svg';
+import waveDesktop7 from '@/assets/wave_desktop/wave7.svg';
+import waveDesktop8 from '@/assets/wave_desktop/wave8.svg';
+import waveDesktop9 from '@/assets/wave_desktop/wave9.svg';
 
 export default function Waves() {
     return (
-        <div className="relative">
-            <Image src={wave1} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave2} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave3} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave4} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave5} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave6} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave7} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave8} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-            <Image src={wave9} alt="" className="absolute bottom-0 left-0 z-[-1]"/>
-        </div>
+        <>
+            <div className="relative min-[480px]:hidden">
+                <Image src={waveMobile1} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile2} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile3} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile4} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile5} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile6} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile7} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile8} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveMobile9} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+            </div>
+
+            <div className="relative max-[480px]:hidden">
+                <Image src={waveDesktop1} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop2} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop3} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop4} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop5} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop6} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop7} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop8} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+                <Image src={waveDesktop9} alt="Vague de décoration" className="absolute bottom-0 left-0 z-[-1]"/>
+            </div>
+        </>
     )
 }
