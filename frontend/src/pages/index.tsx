@@ -9,7 +9,7 @@ import Waves from "@/components/Waves";
 
 function Home() {
   return (
-    <>
+    <section>
       <Header />
       <TopBody />
       <ButtonLogin />
@@ -19,7 +19,11 @@ function Home() {
             <ChallengeCard />
             <ChallengeCard />
           </div>
-          <Button color="bg-blue-40" textsize="text-sm" content="Accéder à tous les challenges"/>
+          <Button
+            color="bg-blue-40"
+            textsize="text-sm"
+            content="Accéder à tous les challenges"
+          />
         </div>
 
         <div className="flex flex-col justify-center items-center w-[80%] m-auto mb-5 md: m-0">
@@ -31,7 +35,7 @@ function Home() {
 
       <VegetablesCard />
       <Waves />
-    </>
+    </section>
   );
 }
 
