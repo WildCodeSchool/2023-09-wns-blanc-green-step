@@ -8,7 +8,7 @@ function Login() {
   const router = useRouter();
 
   const handleLogin = () => {
-    setUser({ ...user, id: 1 });
+    setUser({ ...user, id: 1, username: "Jean-Georges" });
     router.push("/my-expenses");
   };
 

@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useState, useContext } from "react";
 
 function NavBoard() {
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const router = useRouter();
 
   const [isBurger, setIsBurger] = useState(false);
 
   const handleDisconnect = () => {
-    setUser({ id: 0 });
+    setUser({ id: 0, username: "" });
     router.push("/");
   };
 
@@ -44,7 +44,7 @@ function NavBoard() {
           alt="blank avatar"
         />
         <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
-          Bienvenue Jean-Paul !
+          Bienvenue {user.username} !
         </p>
 
         <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full w-full p-3 sm:pl-8">
