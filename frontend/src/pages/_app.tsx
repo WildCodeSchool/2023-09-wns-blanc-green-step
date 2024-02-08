@@ -42,20 +42,10 @@ const client = new ApolloClient({
 });
 
 function App({ Component, pageProps }: AppProps) {
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if(token) {
-      setAuthenticated(true);
-    }
-  }, []);
-
+  
   return (
     <ApolloProvider client={client}>
-      <AuthContext.Provider value={{authenticated, setAuthenticated}}>
-        <Component {...pageProps} />
-      </AuthContext.Provider>
+      <Component {...pageProps} />
     </ApolloProvider>
   );
 }

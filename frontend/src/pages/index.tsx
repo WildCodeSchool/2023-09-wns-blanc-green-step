@@ -1,5 +1,3 @@
-import isAuth from "@/components/secure/isAuth";
-
 function Home() {
   return (
     <>
@@ -10,4 +8,4 @@ function Home() {
   );
 }
 
-export default isAuth(Home);
+export default Home;
