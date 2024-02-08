@@ -1,9 +1,7 @@
 import { useContext, useState } from "react";
 import { gql, useMutation } from "../../node_modules/@apollo/client/index";
-import { useRouter } from "../../node_modules/next/router";
-
-
-
+import { AuthContext } from "@/contexts/AuthContext";
+import { useRouter } from "next/router";
 
 const LOGIN = gql`
 Mutation Login($username: String!, $email: String!, $password: String!) {
@@ -12,7 +10,7 @@ Mutation Login($username: String!, $email: String!, $password: String!) {
 }`;
 
 export default function LoginPage() {
-    //const {setAuthenticated} = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext);
     const router = useRouter();
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -26,8 +24,8 @@ export default function LoginPage() {
     },
     onCompleted(data: any)  {
         localStorage.setItem("token", data.login);
-        //setAuthenticated(true);
-        router.push("/");
+        // setUser({ ...user, id: 1, username: "Jean-Georges" });
+            router.push("/my-expenses");
     }
 })
 

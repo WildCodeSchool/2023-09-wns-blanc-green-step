@@ -2,11 +2,17 @@ import "@/styles/globals.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+
 import { setContext } from "@apollo/client/link/context";
 import { createHttpLink } from "../../node_modules/@apollo/client/index";
 import { AuthContext } from "@/contexts/authContext";
 import { onError } from "@apollo/client/link/error";
 import { useEffect, useState } from "react";
+
+import Layout from "../layouts/layout";
+
+import "@/styles/globals.css";
+import { AuthContextProvider } from "@/contexts/AuthContext";
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_LINK,
@@ -45,7 +51,11 @@ function App({ Component, pageProps }: AppProps) {
   
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <AuthContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthContextProvider>
     </ApolloProvider>
   );
 }
