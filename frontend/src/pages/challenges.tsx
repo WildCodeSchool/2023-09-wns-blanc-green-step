@@ -33,9 +33,9 @@ const Challenges = () => {
       </h1>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3">
         {challenges.map((challenge, i) => (
-          // <div key={i}>
-          <ChallengeCard image={challenge.image} name={challenge.name} />
-          // </div>
+          <div key={i}>
+            <ChallengeCard image={challenge.image} name={challenge.name} />
+          </div>
         ))}
       </div>
     </div>

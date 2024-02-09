@@ -6,8 +6,33 @@ import Header from "@/components/Home/Header";
 import TopBody from "@/components/Home/TopBody";
 import VegetablesCard from "@/components/Home/VegetablesCard";
 import Waves from "@/components/Waves";
+import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+
+const GET_ALL_CHALLENGES = gql`
+  query GetChallenges {
+    getChallenges {
+      carbon_saving
+      description
+      id
+      image
+      name
+    }
+  }
+`;
 
 function Home() {
+  const [challenges, setChallenges] = useState<[]>([]);
+
+  const { loading, error } = useQuery(GET_ALL_CHALLENGES, {
+    onCompleted: (data: any) => {
+      setChallenges(data.getChallenges);
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+
   return (
     <section>
       <Header />
@@ -16,8 +41,11 @@ function Home() {
       <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md: justify-center md:items-start">
         <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto md: mt-0 md: ">
           <div className="flex justify-center items-center mb-10 w-[80%]">
-            <ChallengeCard name="Challenge 1" image="/images/clothes.jpg"/>
-            <ChallengeCard name="Challenge 2" image="/images/walk_bike.jpg"/>
+            {challenges.slice(0, 2).map((challenge, i) => (
+              <div key={i}>
+                <ChallengeCard image={challenge.image} name={challenge.name} />
+              </div>
+            ))}
           </div>
           <Button
             color="bg-blue-40"
