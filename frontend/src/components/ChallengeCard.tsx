@@ -17,7 +17,7 @@ export const ChallengeCard = ({ name, image }: ChallengeCardProps) => {
             <Button
               color="bg-green-50"
               textsize="text-sm"
-              buttonname="Accéder au challenge"
+              content="Accéder au challenge"
             />
           </div>
         </div>

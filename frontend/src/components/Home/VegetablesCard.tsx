@@ -1,6 +1,6 @@
 export default function VegetablesCard() {
     return(
-        <div className="bg-orange-100 w-[80%] ml-auto mr-auto mb-[30px] py-3 rounded-[20px] shadow-xl flex flex-col justify-around items-center">
+        <div className="bg-orange-100 w-[80%] ml-auto mr-auto mb-[30px] py-3 rounded-[20px] shadow-xl flex flex-col justify-around items-center relative z-10">
             <h4 className="font-poppins text-sm gray-20 mb-3">Les petites infos</h4>
 
             <div className="flex flex-col justify-center items-center w-[100%] md: flex md:flex-row md:justify-around">
