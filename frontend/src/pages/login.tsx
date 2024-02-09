@@ -3,6 +3,8 @@ import { gql, useMutation } from "@apollo/client";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
+import { Button } from "@/components/Button";
+import Header from "@/components/Home/Header";
 
 const LOGIN = gql`
   mutation Mutation($password: String!, $email: String!) {
@@ -36,31 +38,41 @@ export default function LoginPage() {
 
   return (
     <div>
-      <div className="w-1/2">
+      <Header />
+      <div className="flex justify-center items-center flex-col">
+        <h1 className="font-bold italic text-xl sm:text-3xl text-center mb-6 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
+          Connecte toi !
+        </h1>
         <div>
-          <img src="/images/photo-accueil.png" alt="image" />
+          <img
+            src="/images/photo-accueil.png"
+            alt="image"
+            className="w-96 my-4"
+          />
         </div>
-      </div>
-      <div className="w-1/2">
-        <div className="flex flex-col"></div>
-        <input
-          className="border"
-          placeholder="Username or Email"
-          onChange={(e) => {
-            setCredential(e.target.value);
-          }}
-        />
-        <br />
-        <input
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <br />
-        <button className="border" onClick={(e) => handleSubmit(e)}>
-          Login
-        </button>
+        <div className="flex justify-center items-center flex-col">
+          <input
+            className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
+            placeholder="Nom d'utilisateur ou Email"
+            onChange={(e) => {
+              setCredential(e.target.value);
+            }}
+          />
+          <input
+            className="border-none my-2 mb-6 p-2 pl-4 rounded-3xl bg-gray-80"
+            type="password"
+            placeholder="Mot de passe"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <Button
+            content="Se connecter"
+            color="bg-blue-80"
+            textsize="text-md"
+            onClick={(e) => handleSubmit(e)}
+          />
+        </div>
       </div>
     </div>
   );
