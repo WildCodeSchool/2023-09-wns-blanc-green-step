@@ -39,8 +39,8 @@ const colors = {
     100: "#E3F1F3",
   },
   orange: {
-    90: "F9D9C8",
-    100: "FDF2ED",
+    90: "#F9D9C8",
+    100: "#FDF2ED",
   },
 };
 
@@ -56,7 +56,14 @@ module.exports = {
       secondary: colors["blue"],
       thirdly: colors["orange"],
     },
-    extend: {},
+    extend: {
+      width: {
+        dashcontent: "calc(100vw - 24rem)",
+      },
+      gridTemplateColumns: {
+        expenses: "repeat(4, minmax(0, 1fr)) 70px",
+      },
+    },
   },
   plugins: [],
 };
