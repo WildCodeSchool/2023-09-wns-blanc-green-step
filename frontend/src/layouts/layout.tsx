@@ -1,3 +1,4 @@
+import AddExpense from "@/components/AddExpense";
 import NavBoard from "@/components/dashboard/NavBoard";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useContext } from "react";
@@ -16,6 +17,7 @@ export default function Layout({ children }) {
         }`}
       >
         {children}
+        {user.id !== 0 ? <AddExpense /> : ""}
       </main>
     </>
   );
