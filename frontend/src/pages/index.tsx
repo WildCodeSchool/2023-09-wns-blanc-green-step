@@ -9,7 +9,6 @@ import Waves from "@/components/Waves";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -26,8 +25,8 @@ const GET_ALL_CHALLENGES = gql`
 function Home() {
   const router = useRouter();
   const redirectChallenges = () => {
-    router.push('/challenges');
-  }
+    router.push("/challenges");
+  };
   const [challenges, setChallenges] = useState<[]>([]);
 
   const { loading, error } = useQuery(GET_ALL_CHALLENGES, {
@@ -38,11 +37,6 @@ function Home() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-
-  const router = useRouter();
-  const redirectChallenges = () => {
-    router.push("/challenges");
-  };
 
   return (
     <section>
