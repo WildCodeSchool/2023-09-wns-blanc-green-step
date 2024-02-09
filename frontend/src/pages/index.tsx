@@ -60,7 +60,7 @@ function Home() {
           />
         </div>
 
-        <div className="flex flex-col justify-center items-center w-[80%] mt-5">
+        <div className="flex flex-col justify-center items-center w-[80%] mt-5 sm:mb-24">
           <Article />
           <div className="w-full h-[1px] bg-gray-70 mx-auto mt-2 mb-2"></div>
           <Article />
