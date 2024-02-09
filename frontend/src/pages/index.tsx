@@ -9,20 +9,24 @@ import Waves from "@/components/Waves";
 
 function Home() {
   return (
-    <>
+    <section>
       <Header />
       <TopBody />
       <ButtonLogin />
-      <div className="md: w-[80%] md: m-auto md:flex md:flex-row-reverse md: justify-center md:items-start">
+      <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md: justify-center md:items-start">
         <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto md: mt-0 md: ">
           <div className="flex justify-center items-center mb-10 w-[80%]">
-            <ChallengeCard />
-            <ChallengeCard />
+            <ChallengeCard name="Challenge 1" image="/images/clothes.jpg"/>
+            <ChallengeCard name="Challenge 2" image="/images/walk_bike.jpg"/>
           </div>
-          <Button color="bg-blue-40" textsize="text-sm" content="Accéder à tous les challenges"/>
+          <Button
+            color="bg-blue-40"
+            textsize="text-sm"
+            content="Accéder à tous les challenges"
+          />
         </div>
 
-        <div className="flex flex-col justify-center items-center w-[80%] m-auto mb-5 md: m-0">
+        <div className="flex flex-col justify-center items-center w-[80%] mt-5">
           <Article />
           <div className="w-full h-[1px] bg-gray-70 mx-auto mt-2 mb-2"></div>
           <Article />
@@ -31,7 +35,8 @@ function Home() {
 
       <VegetablesCard />
       <Waves />
-    </>
+
+    </section>
   );
 }
 

@@ -9,9 +9,9 @@ export default function Layout({ children }) {
     <>
       {user.id !== 0 ? <NavBoard /> : ""}
       <main
-        className={`flex justify-center min-h-screen pt-10 bg-gray-100 ${
+        className={`min-h-screen pt-10 bg-gray-100 flex-col items-center justify-start ${
           user.id !== 0
-            ? "sm:fixed sm:right-0 sm:top-0 sm:w-dashcontent sm:flex-col sm:items-center sm:justify-start"
+            ? "sm:absolute sm:right-0 sm:top-0 sm:w-dashcontent"
             : ""
         }`}
       >
