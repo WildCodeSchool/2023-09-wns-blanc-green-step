@@ -1,0 +1,8 @@
+// test avec fichier de rapport 
+ npx playwright test
+
+// test spécifique
+npx playwright test tests/addExpense.test.ts --headed
+
+// test docker | un peu long ...
+docker compose -f docker-compose.e2e.yml up --build --exit-code-from e2e

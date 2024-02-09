@@ -11,18 +11,22 @@ services:
       - ./backend/src/:/app/src/:rw
     environment:
       - WATCHPACK_POLLING=true
+    healthcheck:
+      test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:5010'' --data ''{"query":"query { __typename }"}'' || exit 1'
+      interval: 5s
+      timeout: 5s
+      retries: 10
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
     command: npm run dev
-    env_file: .env.dev
     ports:
       - 3000:3000
     volumes:
       - ./frontend/src/:/app/src/:rw
-      - ./frontend/public/:/app/public/:rw
       - ./frontend/.env.local:/app/.env.local:rw
       - ./frontend/package.json:/app/package.json:rw
       - ./frontend/postcss.config.js:/app/postcss.config.js:rw
@@ -31,6 +35,14 @@ services:
       - WDS_SOCKET_HOST=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+    healthcheck:
+      test: "curl --fail --request GET --url 'http://localhost:3000' || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
 
   images:
     build: ./images
@@ -61,7 +73,11 @@ services:
       timeout: 5s
       retries: 10
 
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
+  e2e:
+   build: ./e2e
+   volumes:
+     - ./e2e/playwright-report:/app/playwright-report
+     - ./e2e/test-results:/app/test-results
+   depends_on:
+     frontend:
+       condition: service_healthy

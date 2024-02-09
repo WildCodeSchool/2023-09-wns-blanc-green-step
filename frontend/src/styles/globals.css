@@ -4,6 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --spacingx2: 20px;
+  --spacing: 10px;
+  --spacing-2: 8px;
+  --spacing-5: 5px;
+
+  --font-size-h2: 1.5rem;
+
+  --primary-color-dark: #5BC27C;
+  --primary-color-medium: #97D8AC;
+  --primary-color-light: #E1F4E7;
+
+  --secondary-color-dark:#3E878E;
+  --secondary-color-medium: #8EC8CD;
+  --secondary-color-light: #E3F1F3;
+
+  --thirdly-color-medium:#F9D9C8;
+  --thirdly-color-light: #FDF2ED;
+  
+  --fourth-color-dark: #0A0A0A;
+  --fourth-color-medium: #999999;
+  --fourth-color-light: #F5F5F5;
+}
+
 * {
   list-style: none;
   text-decoration: none;

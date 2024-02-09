@@ -1,0 +1,15 @@
+{
+    "name": "e2e",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test-addExpense": "npx playwright test tests/addExpense.test.ts --headed"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@playwright/test": "^1.41.2",
+      "@types/node": "^20.11.16"
+    }
+  }
