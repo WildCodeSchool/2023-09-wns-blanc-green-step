@@ -8,6 +8,7 @@ import VegetablesCard from "@/components/Home/VegetablesCard";
 import Waves from "@/components/Waves";
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -33,6 +34,11 @@ function Home() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
+  const router = useRouter();
+  const redirectChallenges = () => {
+    router.push("/challenges");
+  };
+
   return (
     <section>
       <Header />
@@ -51,6 +57,7 @@ function Home() {
             color="bg-blue-40"
             textsize="text-sm"
             content="Accéder à tous les challenges"
+            onClick={redirectChallenges}
           />
         </div>
 
