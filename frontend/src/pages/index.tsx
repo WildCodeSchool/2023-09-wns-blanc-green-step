@@ -7,6 +7,7 @@ import TopBody from "@/components/Home/TopBody";
 import VegetablesCard from "@/components/Home/VegetablesCard";
 import Waves from "@/components/Waves";
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const GET_ALL_CHALLENGES = gql`
@@ -22,6 +23,10 @@ const GET_ALL_CHALLENGES = gql`
 `;
 
 function Home() {
+  const router = useRouter();
+  const redirectChallenges = () => {
+    router.push('/challenges');
+  }
   const [challenges, setChallenges] = useState<[]>([]);
 
   const { loading, error } = useQuery(GET_ALL_CHALLENGES, {
@@ -38,8 +43,8 @@ function Home() {
       <Header />
       <TopBody />
       <ButtonLogin />
-      <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md: justify-center md:items-start">
-        <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto md: mt-0 md: ">
+      <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md:items-start">
+        <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto">
           <div className="flex justify-center items-center mb-10 w-[80%]">
             {challenges.slice(0, 2).map((challenge, i) => (
               <div key={i}>
@@ -51,6 +56,7 @@ function Home() {
             color="bg-blue-40"
             textsize="text-sm"
             content="Accéder à tous les challenges"
+            onClick={redirectChallenges}
           />
         </div>
 
