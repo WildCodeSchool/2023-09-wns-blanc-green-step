@@ -11,6 +11,7 @@ function NavBoard() {
 
   const handleDisconnect = () => {
     setUser({ id: 0, username: "" });
+    localStorage.removeItem("token");
     router.push("/");
   };
 

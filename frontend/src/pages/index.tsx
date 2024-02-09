@@ -35,7 +35,6 @@ function Home() {
 
       <VegetablesCard />
       <Waves />
-
     </section>
   );
 }
