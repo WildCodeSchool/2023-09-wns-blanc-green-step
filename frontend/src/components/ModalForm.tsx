@@ -203,7 +203,11 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
               className="input mb-4 p-2">
                 {data?.getActivityTypes.map((activityType: ActivityType) => (
                   <option key={activityType.id} value={activityType.id}>
-                    {activityType.name} <TranslateHexInEmoji hexaCode={activityType.icon} />
+                    {activityType.name} 
+                    
+                    {/*
+                    Les icons ne sont pas lisibles sauf pour logement et ça fait buger les tests
+                    <TranslateHexInEmoji hexaCode={activityType.icon} /> */}
                   </option>
                 ))}
               </select>
