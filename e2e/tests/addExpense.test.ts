@@ -1,12 +1,12 @@
 import {test, expect} from "@playwright/test";
 
-function dateFormat(date) {
-    const year = date.substring(4);
-    const month = date.substring(2, 4);
-    const day = date.substring(0, 2);
+function dateFormat(date: string): string {
+    const year: string = date.substring(4);
+    const month: string = date.substring(2, 4);
+    const day: string = date.substring(0, 2);
     return `${year}-${month}-${day}`;
 }
-const dateFormated = dateFormat('01012024');
+const dateFormated: string = dateFormat('01012024');
 
 test("login, action the buton CO², fill the form and submit the expense", async ({ page }) => {
     await page.goto("http://localhost:3000");
