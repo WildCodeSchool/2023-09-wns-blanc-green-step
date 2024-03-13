@@ -12,15 +12,15 @@ interface ModalProps {
 }
 
 const GET_ALL_ACTIVITIESTYPES = gql`
-query Query {
-  getActivityTypes {
-    id
-    name
-    icon
-    color
-    carbon_emission
+  query Query {
+    getActivityTypes {
+      id
+      name
+      icon
+      color
+      carbon_emission
+    }
   }
-}
 `;
 
 const CREATE_CARBONEXPENSE = gql`
@@ -53,7 +53,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
     const decimalCode = parseInt(hexaCode, 16);
     const emoji = String.fromCharCode(decimalCode);
 
-    return <span> { emoji } </span>
+    return <span> {emoji} </span>;
   }
 
   // Etat qui va enregistrer les valeurs des différents champs du form
@@ -76,7 +76,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
         : value,
     });
   };
-  
+
   // Vérifie si les données entrées sont conformes
   const checkForm = () => {
     const { title, date, emission, carbon_saving } = dataForm;
@@ -102,7 +102,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
   const handleClose = () => {
     onClose();
   };
-  
+
   // Création de la dépense carbon et redirection
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -118,7 +118,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
           date: formDataJson.date,
           emission: parseInt(formDataJson.emission as string),
           carbon_saving: parseInt(formDataJson.carbon_saving as string),
-          activityType: parseInt(formDataJson.activityType as string)
+          activityType: parseInt(formDataJson.activityType as string),
         },
       },
       onCompleted: () => {
@@ -198,13 +198,11 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
               />
             </div>
             <div className="flex justify-center">
-              <select
-              name="activityType"
-              className="input mb-4 p-2">
+              <select name="activityType" className="input mb-4 p-2">
                 {data?.getActivityTypes.map((activityType: ActivityType) => (
                   <option key={activityType.id} value={activityType.id}>
-                    {activityType.name} 
-                    
+                    {activityType.name}
+
                     {/*
                     Les icons ne sont pas lisibles sauf pour logement et ça fait buger les tests
                     <TranslateHexInEmoji hexaCode={activityType.icon} /> */}
