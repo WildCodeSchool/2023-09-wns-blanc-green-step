@@ -1,44 +1,36 @@
-import { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { useState, useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
 import ExpenseElement from "@/components/dashboard/ExpenseElement";
 
+const GET_USER_EXPENSES = gql`
+  query GetUserCarbonExpenses($userId: Float!) {
+    getUserCarbonExpenses(userId: $userId) {
+      activityType {
+        id
+        name
+        icon
+      }
+      date
+      emission
+      id
+      title
+    }
+  }
+`;
+
 function MyExpenses() {
-  const carbonExpenses = [
-    {
-      id: 1,
-      title: "Titre Super",
-      date: "12/02/2024",
-      emission: 50,
-      carbon_saving: 60,
+  const { user } = useContext(AuthContext);
+  const [carbonExpenses, setCarbonExpenses] = useState([]);
+
+  const { loading, error } = useQuery(GET_USER_EXPENSES, {
+    variables: {
+      userId: Number(user.id),
     },
-    {
-      id: 2,
-      title: "Titre",
-      date: "12/02/2024",
-      emission: 50,
-      carbon_saving: 60,
+    onCompleted: (data: any) => {
+      setCarbonExpenses(data.getUserCarbonExpenses);
     },
-    {
-      id: 3,
-      title: "Titre",
-      date: "12/02/2024",
-      emission: 50,
-      carbon_saving: 60,
-    },
-    {
-      id: 4,
-      title: "Titre",
-      date: "12/02/2024",
-      emission: 50,
-      carbon_saving: 60,
-    },
-    {
-      id: 5,
-      title: "Titre",
-      date: "12/02/2024",
-      emission: 50,
-      carbon_saving: 60,
-    },
-  ];
+  });
 
   const [filters, setFilters] = useState<{ title: string }>({
     title: "",
