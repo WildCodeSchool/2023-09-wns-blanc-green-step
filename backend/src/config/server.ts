@@ -10,7 +10,9 @@ import { verifyToken } from "../services/auth.service";
 import { getById } from "../services/user.service";
 import { ApolloServer } from "apollo-server";
 
-async function createServer(testContext: any = undefined): Promise<ApolloServer> {
+async function createServer(
+  testContext: any = undefined
+): Promise<ApolloServer> {
   dotenv.config();
   const port: number = parseInt(process.env.PORT as string);
   await dataSource.initialize();
@@ -53,15 +55,16 @@ async function createServer(testContext: any = undefined): Promise<ApolloServer>
           // if it exist we get the token bearer by spliting the headers authorization
           const bearer = req.headers.authorization.split("Bearer ")[1];
 
-          // and we return an object contaning the token bearer value
-          return { token: bearer };
-        } catch (e) {
-          // if error we log error and return a void object
-          console.log(e);
-          return {};
-        }
-      }
-    },
+
+              // and we return an object contaning the token bearer value
+              return { token: bearer };
+            } catch (e) {
+              // if error we log error and return a void object
+              console.log(e);
+              return {};
+            }
+          }
+        },
   });
 }
 

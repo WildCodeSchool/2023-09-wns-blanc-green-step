@@ -3,22 +3,43 @@ import { CarbonExpense } from "../entities/carbonExpense.entity";
 import { User } from "../entities/user.entity";
 import { ActivityType } from "../entities/activityType.entity";
 
-export function findCarbonExpenseById(id: number): Promise<CarbonExpense | null> {
+export function findCarbonExpenseById(
+  id: number
+): Promise<CarbonExpense | null> {
   return CarbonExpense.findOne({
-    where: {id: id}
-  })
+    where: { id: id },
+  });
 }
 
 export async function findAll(): Promise<CarbonExpense[] | string> {
   const allExpenses = await CarbonExpense.find();
   if (allExpenses.length === 0) {
-    throw new Error("Aucunes dépenses à votre acitf")
+    throw new Error("Aucunes dépenses à votre acitf");
   } else {
     return allExpenses;
   }
-};
+}
 
-export async function getExpensesByTerms(terms: string = ''): Promise<CarbonExpense[] | string> {
+export async function findCarbonExpenseByUserId(
+  userId: number
+): Promise<CarbonExpense[]> {
+  const userExpenses = await CarbonExpense.find({
+    relations: {
+      activityType: true,
+    },
+    where: {
+      user: {
+        id: userId,
+      },
+    },
+  });
+
+  return userExpenses;
+}
+
+export async function getExpensesByTerms(
+  terms: string = ""
+): Promise<CarbonExpense[] | string> {
   try {
     // Vérifier si des termes de recherche sont fournis
     const expenses = terms
@@ -33,7 +54,11 @@ export async function getExpensesByTerms(terms: string = ''): Promise<CarbonExpe
     }
   } catch (error) {
     // Gérer les erreurs qui pourraient survenir pendant la recherche
-    throw new Error(error instanceof Error ? error.message : "Une erreur inattendue s'est produite.");
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : "Une erreur inattendue s'est produite."
+    );
   }
 }
 
@@ -43,17 +68,18 @@ export async function create(carbonExpenseData: {
   emission: number,
   activityType: number,
   user: User
+
 }): Promise<CarbonExpense> {
   const carbonExpense = new CarbonExpense();
-  
+
   carbonExpense.title = carbonExpenseData.title;
   carbonExpense.date = carbonExpenseData.date;
   carbonExpense.emission = carbonExpenseData.emission;
 
   carbonExpense.activityType = {
-    id: carbonExpenseData.activityType
+    id: carbonExpenseData.activityType,
   } as ActivityType;
-  
+
   carbonExpense.user = carbonExpenseData.user;
 
   return await carbonExpense.save();
@@ -64,7 +90,7 @@ export async function updateCarbonExpense(
   carbonExpense: CarbonExpense
 ): Promise<CarbonExpense | undefined | string> {
   const carbonExpenseToUpdate = await findCarbonExpenseById(id);
-  if(!carbonExpenseToUpdate) {
+  if (!carbonExpenseToUpdate) {
     throw new Error("Dépense non trouvée ou inexistante");
   }
 
@@ -82,18 +108,26 @@ export interface DeleteCarboneExpenseResult {
   message?: string;
 }
 
-export async function DeleteCarboneExpense(id: number): Promise<DeleteCarboneExpenseResult> {
+export async function DeleteCarboneExpense(
+  id: number
+): Promise<DeleteCarboneExpenseResult> {
   try {
     const carbonExpenseToDelete = await CarbonExpense.delete(id);
 
     if (!carbonExpenseToDelete) {
-      return { isSuccess: false, message: "La dépense n'existe pas." }
-      console.log
+      return { isSuccess: false, message: "La dépense n'existe pas." };
+      console.log;
     }
 
     const result: DeleteResult = await CarbonExpense.delete({ id: id });
-    return {isSuccess: true, message: "La dépense a été supprimée avec succès."}
+    return {
+      isSuccess: true,
+      message: "La dépense a été supprimée avec succès.",
+    };
   } catch (error) {
-    return {isSuccess: false, message: "Une erreur inattendue s'est produite."}
+    return {
+      isSuccess: false,
+      message: "Une erreur inattendue s'est produite.",
+    };
   }
 }
