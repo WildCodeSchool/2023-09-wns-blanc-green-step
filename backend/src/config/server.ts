@@ -42,20 +42,19 @@ async function createServer(
   return new ApolloServer({
     schema,
     // we add a context which will be used to verify auth by checking our cookie
-    context: testContext
-      ? testContext
-      : ({ req }) => {
-          // we check if the authorization headers exist and if the secret key exist
-          if (
-            req?.headers.authorization === undefined ||
-            process.env.JWT_SECRET_KEY === undefined
-          ) {
-            // if not we return a void object
-            return {};
-          } else {
-            try {
-              // if it exist we get the token bearer by spliting the headers authorization
-              const bearer = req.headers.authorization.split("Bearer ")[1];
+    context: testContext ? testContext : ({ req }) => {
+      // we check if the authorization headers exist and if the secret key exist
+      if (
+        req?.headers.authorization === undefined ||
+        process.env.JWT_SECRET_KEY === undefined
+      ) {
+        // if not we return a void object
+        return {};
+      } else {
+        try {
+          // if it exist we get the token bearer by spliting the headers authorization
+          const bearer = req.headers.authorization.split("Bearer ")[1];
+
 
               // and we return an object contaning the token bearer value
               return { token: bearer };

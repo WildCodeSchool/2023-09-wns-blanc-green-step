@@ -13,7 +13,4 @@ export class UpdateCarbonExpenseType {
 
     @Field()
     emission: number;
-
-    @Field()
-    carbon_saving: number;
 }

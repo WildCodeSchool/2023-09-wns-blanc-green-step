@@ -12,14 +12,12 @@ interface ModalProps {
 }
 
 const GET_ALL_ACTIVITIESTYPES = gql`
-  query Query {
-    getActivityTypes {
-      id
-      name
-      icon
-      color
-      carbon_emission
-    }
+query Query {
+  getActivityTypes {
+    id
+    name
+    icon
+    carbon_emission
   }
 `;
 
@@ -29,7 +27,6 @@ const CREATE_CARBONEXPENSE = gql`
       title
       date
       emission
-      carbon_saving
     }
   }
 `;
@@ -61,7 +58,6 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
     title: "",
     date: "",
     emission: null as unknown as number,
-    carbon_saving: null as unknown as number,
   });
 
   // Fonction qui gère les changements des champs
@@ -79,12 +75,11 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
 
   // Vérifie si les données entrées sont conformes
   const checkForm = () => {
-    const { title, date, emission, carbon_saving } = dataForm;
+    const { title, date, emission } = dataForm;
     if (
       title.trim() !== "" &&
       !isNaN(Date.parse(date)) &&
-      emission !== null &&
-      carbon_saving !== null
+      emission !== null
     ) {
       setIsActivate(true);
     } else {
@@ -117,8 +112,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
           title: formDataJson.title,
           date: formDataJson.date,
           emission: parseInt(formDataJson.emission as string),
-          carbon_saving: parseInt(formDataJson.carbon_saving as string),
-          activityType: parseInt(formDataJson.activityType as string),
+          activityType: parseInt(formDataJson.activityType as string)
         },
       },
       onCompleted: () => {
@@ -176,22 +170,6 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
                 id="emission"
                 name="emission"
                 value={dataForm.emission === null ? "" : dataForm.emission}
-                onChange={handleFormChange}
-                className="input"
-                required
-              />
-            </div>
-            <div className="contents mb-4">
-              <label className="font-poppins" htmlFor="emission">
-                Carbone sauvé :
-              </label>
-              <input
-                type="number"
-                id="carbon_saving"
-                name="carbon_saving"
-                value={
-                  dataForm.carbon_saving === null ? "" : dataForm.carbon_saving
-                }
                 onChange={handleFormChange}
                 className="input"
                 required

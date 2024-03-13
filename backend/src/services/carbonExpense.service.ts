@@ -63,19 +63,18 @@ export async function getExpensesByTerms(
 }
 
 export async function create(carbonExpenseData: {
-  title: string;
-  date: Date;
-  emission: number;
-  carbon_saving: number;
-  activityType: number;
-  user: User;
+  title: string,
+  date: Date,
+  emission: number,
+  activityType: number,
+  user: User
+
 }): Promise<CarbonExpense> {
   const carbonExpense = new CarbonExpense();
 
   carbonExpense.title = carbonExpenseData.title;
   carbonExpense.date = carbonExpenseData.date;
   carbonExpense.emission = carbonExpenseData.emission;
-  carbonExpense.carbon_saving = carbonExpenseData.carbon_saving;
 
   carbonExpense.activityType = {
     id: carbonExpenseData.activityType,
@@ -99,7 +98,6 @@ export async function updateCarbonExpense(
     carbonExpenseToUpdate.title = carbonExpense.title;
     carbonExpenseToUpdate.date = carbonExpense.date;
     carbonExpenseToUpdate.emission = carbonExpense.emission;
-    carbonExpenseToUpdate.carbon_saving = carbonExpense.carbon_saving;
 
     return carbonExpenseToUpdate.save();
   }
