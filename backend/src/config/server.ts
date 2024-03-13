@@ -41,7 +41,6 @@ async function createServer(testContext: any = undefined): Promise<ApolloServer>
     schema,
     // we add a context which will be used to verify auth by checking our cookie
     context: testContext ? testContext : ({ req }) => {
-      console.log(req);
       // we check if the authorization headers exist and if the secret key exist
       if (
         req?.headers.authorization === undefined ||
