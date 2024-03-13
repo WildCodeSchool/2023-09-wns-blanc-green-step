@@ -37,6 +37,7 @@ DB_PORT=5432
 USERNAME=green_step
 PASSWORD=green_step
 DATABASE=green_step_db
+JWT_SECRET_KEY=yoursecretkey
 ```
 
 4-docker-compose up
