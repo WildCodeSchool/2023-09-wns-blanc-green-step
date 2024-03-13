@@ -12,12 +12,13 @@ interface ModalProps {
 }
 
 const GET_ALL_ACTIVITIESTYPES = gql`
-query Query {
-  getActivityTypes {
-    id
-    name
-    icon
-    carbon_emission
+  query Query {
+    getActivityTypes {
+      id
+      name
+      icon
+      carbon_emission
+    }
   }
 `;
 
@@ -76,11 +77,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
   // Vérifie si les données entrées sont conformes
   const checkForm = () => {
     const { title, date, emission } = dataForm;
-    if (
-      title.trim() !== "" &&
-      !isNaN(Date.parse(date)) &&
-      emission !== null
-    ) {
+    if (title.trim() !== "" && !isNaN(Date.parse(date)) && emission !== null) {
       setIsActivate(true);
     } else {
       setIsActivate(false);
@@ -112,7 +109,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
           title: formDataJson.title,
           date: formDataJson.date,
           emission: parseInt(formDataJson.emission as string),
-          activityType: parseInt(formDataJson.activityType as string)
+          activityType: parseInt(formDataJson.activityType as string),
         },
       },
       onCompleted: () => {
