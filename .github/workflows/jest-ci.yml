@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Goto client and run tests
         run: cd backend && npm i && npm test
-  docker:
+  docker-back:
     needs: test-back
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
