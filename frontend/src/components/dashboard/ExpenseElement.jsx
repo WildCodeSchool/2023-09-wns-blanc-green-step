@@ -5,7 +5,7 @@ function ExpenseElement({ expense }) {
         {expense.title}
       </p>
       <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
-        Tansports
+        Transports
       </p>
       <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
         {expense.emission}
