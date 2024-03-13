@@ -40,7 +40,7 @@ DATABASE=green_step_db
 JWT_SECRET_KEY=yoursecretkey
 ```
 
-4-docker-compose up
+4-docker-compose up --build
 
 # Frontend Testing with Report File
 
