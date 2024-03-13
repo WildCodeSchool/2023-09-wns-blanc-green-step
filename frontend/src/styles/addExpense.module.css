@@ -37,8 +37,6 @@
     cursor: pointer;
 }
 
-
-
 .modalBody form {
     display: flex;
     flex-direction: column;

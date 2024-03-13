@@ -8,6 +8,7 @@ services:
     volumes:
       - ./backend/package.json:/app/package.json:rw
       - ./backend/.env:/app/.env:rw
+      - ./backend/jest.config.js:/app/jest.config.js
       - ./backend/src/:/app/src/:rw
     environment:
       - WATCHPACK_POLLING=true

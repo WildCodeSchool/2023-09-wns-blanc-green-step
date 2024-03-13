@@ -10,7 +10,6 @@ export default function AddExpense() {
   const closeModal = () => {
     setIsPopUp(false);
   };
-  console.log(isPopUp);
 
   return (
     <>
