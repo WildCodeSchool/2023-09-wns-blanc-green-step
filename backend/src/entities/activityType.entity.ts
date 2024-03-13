@@ -15,10 +15,6 @@ export class ActivityType extends BaseEntity {
 
   @Field()
   @Column()
-  color: string;
-
-  @Field()
-  @Column()
   icon: string;
 
   @Field()

@@ -22,10 +22,6 @@ export class CarbonExpense extends BaseEntity {
   @Column()
   emission: number;
 
-  @Field()
-  @Column()
-  carbon_saving: number;
-
   @ManyToOne(() => User)
   user: User;
 

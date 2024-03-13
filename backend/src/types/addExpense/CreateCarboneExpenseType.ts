@@ -12,8 +12,5 @@ export class CreateCarbonExpenseType {
     emission: number;
 
     @Field()
-    carbon_saving: number;
-
-    @Field()
     activityType: number;
 }
