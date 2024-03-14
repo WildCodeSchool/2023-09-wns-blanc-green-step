@@ -33,6 +33,8 @@ jobs:
 
   test-backend:
     runs-on: ubuntu-latest
+    container: node:lts-alpine
+
     services:
       db:
         image: postgres
