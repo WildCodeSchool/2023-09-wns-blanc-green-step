@@ -30,7 +30,7 @@ export const ModalChallenge = ({ isOpen, onClose, challenge }: ModalChallengePro
       <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center backdrop-blur-[10px] z-[7]">
         <div className="relative  w-1/2 shadow-lg rounded-md bg-green-100 p-6">
           {/* Contenu du Modal */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center ">
             {/* Nom du Challenge */}
             <h3 className="text-lg font-medium mb-4">{challenge.name}</h3>
   
