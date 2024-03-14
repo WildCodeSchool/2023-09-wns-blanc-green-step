@@ -44,7 +44,7 @@ jobs:
         run: docker-compose down
 
   docker-back:
-    needs: test-back
+    needs: test-backend
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
