@@ -35,7 +35,7 @@ function ExpenseCard({
         Date: {expense.date.split("T")[0]}
       </p>
       <img
-        className=""
+        className="mt-auto"
         src={expense.activityType.icon}
         alt={expense.activityType.name}
       />

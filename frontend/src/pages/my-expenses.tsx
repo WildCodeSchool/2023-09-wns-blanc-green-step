@@ -73,7 +73,7 @@ function MyExpenses() {
         />
       </label>
 
-      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-5 w-full sm:w-[80%]">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-stretch gap-5 w-full sm:w-[80%]">
         {carbonExpenses
           .filter((expense) => filterOptions(expense))
           .map((expense: Expense) => (
