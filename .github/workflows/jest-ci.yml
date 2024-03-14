@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Goto client and run tests
         run: cd frontend && npm i && npm test
-  docker:
+  docker-front:
     needs: test-front
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -31,13 +31,18 @@ jobs:
           context: "{{defaultContext}}:frontend"
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/thegoodcorner-frontend:latest
  
-  test-back:
+  test-backend:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Goto client and run tests
-        run: cd backend && npm i && npm test
+      - name: Launch backend and db docker services
+        run: docker-compose up backend db -d
+      - name: Launch test directly on docker backend container
+        run: docker exec -it $(docker ps -q -f name=backend) npm run test
+      - name: Stop docker containers
+        run: docker-compose down
+
   docker-back:
     needs: test-back
     if: github.ref == 'refs/heads/main'
