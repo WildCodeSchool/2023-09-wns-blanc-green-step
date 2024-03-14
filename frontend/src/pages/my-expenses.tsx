@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import ExpenseElement from "@/components/dashboard/ExpenseElement";
+import { Expense } from "@/types/expense.type";
 
 const GET_USER_EXPENSES = gql`
   query GetUserCarbonExpenses($userId: Float!) {
@@ -73,22 +74,9 @@ function MyExpenses() {
       </label>
 
       <div className="grid grid-cols-expenses bg-orange-100 justify-items-center items-center">
-        <p className="bg-orange-90 w-full h-full py-2 border-r border-gray-60 px-8 font-semibold">
-          Nom de la dépense carbone
-        </p>
-        <p className="bg-orange-90 w-full h-full py-2 border-r border-gray-60 px-8 font-semibold">
-          Type d&apos;activité
-        </p>
-        <p className="bg-orange-90 w-full h-full py-2 border-r border-gray-60 px-8 font-semibold">
-          Tonnes CO2 eq
-        </p>
-        <p className="bg-orange-90 w-full h-full py-2 border-r border-gray-60 px-8 font-semibold">
-          Date
-        </p>
-        <p className="bg-orange-90 w-full  h-full" />
         {carbonExpenses
           .filter((expense) => filterOptions(expense))
-          .map((expense) => (
+          .map((expense: Expense) => (
             <ExpenseElement key={expense.id} expense={expense} />
           ))}
       </div>
