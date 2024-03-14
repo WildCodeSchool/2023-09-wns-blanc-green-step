@@ -12,20 +12,20 @@
 
   --font-size-h2: 1.5rem;
 
-  --primary-color-dark: #5BC27C;
-  --primary-color-medium: #97D8AC;
-  --primary-color-light: #E1F4E7;
+  --primary-color-dark: #5bc27c;
+  --primary-color-medium: #97d8ac;
+  --primary-color-light: #e1f4e7;
 
-  --secondary-color-dark:#3E878E;
-  --secondary-color-medium: #8EC8CD;
-  --secondary-color-light: #E3F1F3;
+  --secondary-color-dark: #3e878e;
+  --secondary-color-medium: #8ec8cd;
+  --secondary-color-light: #e3f1f3;
 
-  --thirdly-color-medium:#F9D9C8;
-  --thirdly-color-light: #FDF2ED;
-  
-  --fourth-color-dark: #0A0A0A;
+  --thirdly-color-medium: #f9d9c8;
+  --thirdly-color-light: #fdf2ed;
+
+  --fourth-color-dark: #0a0a0a;
   --fourth-color-medium: #999999;
-  --fourth-color-light: #F5F5F5;
+  --fourth-color-light: #f5f5f5;
 }
 
 * {
