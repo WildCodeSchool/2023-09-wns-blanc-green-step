@@ -8,6 +8,10 @@ describe("Testing challenge card", () => {
       <ChallengeCard
         name="écochallenge"
         image="https://www.aquaportail.com/pictures2010/ecologie-globale.jpg"
+        id={1}
+        description="blabla"
+        carbon_saving={1}
+        challenges={[]}
       />
     );
 
