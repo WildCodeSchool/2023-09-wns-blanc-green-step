@@ -1,25 +1,50 @@
 import { Expense } from "@/types/expense.type";
-function ExpenseCard({ expense }: { expense: Expense }) {
+function ExpenseCard({
+  expense,
+  isOpen,
+  handleMobileExpenseCardOpen,
+}: {
+  expense: Expense;
+  isOpen: boolean;
+  handleMobileExpenseCardOpen: Function;
+}) {
   return (
-    <>
-      <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
+    <article
+      className={`${
+        isOpen
+          ? "flex max-sm:fixed max-sm:top-2/4 max-sm:translate-y-[-50%] max-sm:z-[5]"
+          : "hidden"
+      } sm:flex sm:static p-8 bg-orange-90 flex-col items-center rounded-2xl gap-2`}
+    >
+      <h3 className="font-bold italic text-2xl text-center mb-12 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-orange-40 z-[1] after:z-[-1]">
         {expense.title}
+      </h3>
+      <p
+        className="font-bold absolute right-8 sm:hidden"
+        onClick={() => handleMobileExpenseCardOpen()}
+      >
+        X
       </p>
-      <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
-        Transports
+      <p className="mb-2 font-medium text-lg">
+        Type d&apos;activité: {expense.activityType.name}
       </p>
-      <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
-        {expense.emission}
+      <p className="mb-2 font-medium text-lg">
+        Tonnes CO2 eq: {expense.emission}
       </p>
-      <p className="py-2 border-r border-gray-60 px-8 w-full h-full">
-        {expense.date}
+      <p className="mb-2 font-medium text-lg">
+        Date: {expense.date.split("T")[0]}
       </p>
       <img
-        className="w-9 py-2"
+        className=""
         src={expense.activityType.icon}
+        alt={expense.activityType.name}
+      />
+      <img
+        className="self-end"
+        src="/images/edit-button.png"
         alt={`Edit Expense ${expense.title} Button`}
       />
-    </>
+    </article>
   );
 }
 
