@@ -20,7 +20,7 @@ function ExpenseCard({
         {expense.title}
       </h3>
       <p
-        className="font-bold absolute right-8 sm:hidden"
+        className="text-2xl font-bold absolute top-6 right-6 sm:hidden"
         onClick={() => handleMobileExpenseCardOpen()}
       >
         X
