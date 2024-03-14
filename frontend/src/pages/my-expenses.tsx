@@ -50,17 +50,17 @@ function MyExpenses() {
     expense.title.toLowerCase().includes(filters.title.trim().toLowerCase());
 
   return (
-    <section className="font-poppins pt-10 text-center bg-grey-100 text-gray-20 flex flex-col items-center">
+    <section className="font-poppins pt-10 text-center bg-grey-100 text-gray-20 flex flex-col items-center justify-center mb-16">
       <h1 className="font-bold italic text-xl sm:text-4xl text-center mb-12 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
         Mes Dépenses Carbones
       </h1>
 
       <label
         className="mb-12 text-gray-10 sm:self-end relative flex
-      items-center justify-center"
+      items-center justify-center sm:pr-8"
       >
         <img
-          className="absolute right-4"
+          className="absolute right-4 sm:right-12"
           src="/images/magnifer.png"
           alt="Search icon"
         />
@@ -73,7 +73,7 @@ function MyExpenses() {
         />
       </label>
 
-      <div className="flex flex-col sm:flex-row sm:wrap items-center gap-5 w-full sm:w-[initial]">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-5 w-full sm:w-[80%]">
         {carbonExpenses
           .filter((expense) => filterOptions(expense))
           .map((expense: Expense) => (

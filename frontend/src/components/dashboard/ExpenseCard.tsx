@@ -14,7 +14,7 @@ function ExpenseCard({
         isOpen
           ? "flex max-sm:fixed max-sm:top-2/4 max-sm:translate-y-[-50%] max-sm:z-[5]"
           : "hidden"
-      } sm:flex sm:static p-8 bg-orange-90 flex-col items-center rounded-2xl gap-2`}
+      } sm:flex sm:static p-8 bg-orange-90 flex-col items-center rounded-2xl gap-2 w-[292px]`}
     >
       <h3 className="font-bold italic text-2xl text-center mb-12 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-orange-40 z-[1] after:z-[-1]">
         {expense.title}
