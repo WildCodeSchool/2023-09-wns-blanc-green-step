@@ -48,7 +48,7 @@ function Home() {
           <div className="flex justify-center items-center mb-10 w-[80%]">
             {challenges.slice(0, 2).map((challenge, i) => (
               <div key={i}>
-                <ChallengeCard image={challenge.image} name={challenge.name} />
+                <ChallengeCard image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} />
               </div>
             ))}
           </div>
