@@ -6,18 +6,7 @@
 
 ### Frontend :
 
-1- create this file :
-next-env.d.ts
-
-```
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
-
-// NOTE: This file should not be edited
-// see https://nextjs.org/docs/basic-features/typescript for more information.
-```
-
-2- Create this file with your backend url as key:
+1- Create this file with your backend url as key:
 .env.local
 
 ```
@@ -28,7 +17,7 @@ NEXT_PUBLIC_API_LINK=http://localhost:5000/graphql
 
 ### Backend :
 
-3-Create this file:
+2-Create this file:
 .env
 
 ```
@@ -40,7 +29,7 @@ DATABASE=green_step_db
 JWT_SECRET_KEY=yoursecretkey
 ```
 
-4-docker-compose up --build
+3-docker-compose up --build
 
 # Frontend Testing with Report File
 
