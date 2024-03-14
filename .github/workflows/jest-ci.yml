@@ -37,9 +37,9 @@ jobs:
       db:
         image: postgres
         env:
-          POSTGRES_DB: green_step_db
-          POSTGRES_USER: green_step
-          POSTGRES_PASSWORD: green_step
+          POSTGRES_DB: $DATABASE
+          POSTGRES_USER: $USERNAME
+          POSTGRES_PASSWORD: $PASSWORD
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -52,8 +52,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Go to backend and run tests
-        run: cd backend && npm i && npm test
+      - name: Go to backend
+        run: cd backend && npm i && npm run test
 
   docker-back:
     needs: test-backend
