@@ -35,7 +35,14 @@ const Challenges = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3">
         {challenges.map((challenge, i) => (
           <div key={i}>
-            <ChallengeCard id={challenge.id} image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} challenges={challenges}/>
+            <ChallengeCard
+              id={challenge.id}
+              image={challenge.image}
+              name={challenge.name}
+              description={challenge.description}
+              carbon_saving={challenge.carbon_saving}
+              challenges={challenges}
+            />
           </div>
         ))}
       </div>

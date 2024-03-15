@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { ChallengeCard } from "@/components/ChallengeCard";
 import Article from "@/components/Home/Articles";
 import ButtonLogin from "@/components/Home/ButtonLogin";
-import Header from "@/components/Home/Header";
+import Header from "@/components/Header";
 import TopBody from "@/components/Home/TopBody";
 import VegetablesCard from "@/components/Home/VegetablesCard";
 import Waves from "@/components/Waves";
@@ -40,7 +40,6 @@ function Home() {
 
   return (
     <section>
-      <Header />
       <TopBody />
       <ButtonLogin />
       <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md:items-start">
@@ -48,7 +47,14 @@ function Home() {
           <div className="flex justify-center items-center mb-10 w-[80%]">
             {challenges.slice(0, 2).map((challenge, i) => (
               <div key={i}>
-                <ChallengeCard id={challenge.id} image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} challenges={challenges.slice(0, 2)}/>
+                <ChallengeCard
+                  id={challenge.id}
+                  image={challenge.image}
+                  name={challenge.name}
+                  description={challenge.description}
+                  carbon_saving={challenge.carbon_saving}
+                  challenges={challenges.slice(0, 2)}
+                />
               </div>
             ))}
           </div>
