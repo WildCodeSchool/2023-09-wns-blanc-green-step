@@ -29,4 +29,4 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:frontend"
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/thegoodcorner-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step:latest
