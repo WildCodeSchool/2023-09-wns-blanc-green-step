@@ -58,6 +58,17 @@ function NavBoard() {
               Mes Dépenses Carbones
             </li>
           </Link>
+        
+          <Link href="/mon-bilan-carbone">
+            <li className="flex gap-4 items-center">
+              {/* <img
+                src="/images/bilan-carbon.png"
+                alt="Bilan carbon Icon"
+              /> */}
+              Mon Bilan Carbone
+            </li>
+          </Link>
+        
 
           <Link className="self-end" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>

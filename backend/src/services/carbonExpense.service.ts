@@ -19,7 +19,6 @@ export async function findAll(): Promise<CarbonExpense[] | string> {
     return allExpenses;
   }
 }
-
 export async function findCarbonExpenseByUserId(
   userId: number
 ): Promise<CarbonExpense[]> {
