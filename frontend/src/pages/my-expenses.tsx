@@ -50,7 +50,7 @@ function MyExpenses() {
     expense.title.toLowerCase().includes(filters.title.trim().toLowerCase());
 
   return (
-    <section className="font-poppins pt-10 text-center bg-grey-100 text-gray-20 flex flex-col items-center justify-center pb-16">
+    <section className="font-poppins pt-10 text-center bg-grey-100 text-gray-20 flex flex-col items-center justify-center pb-16 sm:pl-[17px]">
       <h1 className="font-bold italic text-xl sm:text-4xl text-center mb-12 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
         Mes Dépenses Carbones
       </h1>

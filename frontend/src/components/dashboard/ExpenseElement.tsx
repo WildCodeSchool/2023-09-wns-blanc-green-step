@@ -21,7 +21,7 @@ function ExpenseElement({ expense }: { expense: Expense }) {
       <div
         className={`${
           isOpen
-            ? "fixed top-24 z-[4] h-full w-full bg-opacity-50 backdrop-blur-[20px]"
+            ? "fixed top-[6.5rem] z-[4] h-full w-full bg-opacity-50 backdrop-blur-[20px]"
             : "hidden"
         } sm:hidden`}
       />

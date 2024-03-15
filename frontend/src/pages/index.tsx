@@ -2,13 +2,13 @@ import { Button } from "@/components/Button";
 import { ChallengeCard } from "@/components/ChallengeCard";
 import Article from "@/components/Home/Articles";
 import ButtonLogin from "@/components/Home/ButtonLogin";
-import Header from "@/components/Home/Header";
 import TopBody from "@/components/Home/TopBody";
 import VegetablesCard from "@/components/Home/VegetablesCard";
 import Waves from "@/components/Waves";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Challenge } from "@/types/challengeType.type";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -40,15 +40,21 @@ function Home() {
 
   return (
     <section>
-      <Header />
       <TopBody />
       <ButtonLogin />
       <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md:items-start">
         <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto">
           <div className="flex justify-center items-center mb-10 w-[80%]">
-            {challenges.slice(0, 2).map((challenge, i) => (
+            {challenges.slice(0, 2).map((challenge: Challenge, i) => (
               <div key={i}>
-                <ChallengeCard id={challenge.id} image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} challenges={challenges.slice(0, 2)}/>
+                <ChallengeCard
+                  id={challenge.id}
+                  image={challenge.image}
+                  name={challenge.name}
+                  description={challenge.description}
+                  carbon_saving={challenge.carbon_saving}
+                  challenges={challenges.slice(0, 2)}
+                />
               </div>
             ))}
           </div>
@@ -68,7 +74,7 @@ function Home() {
       </div>
 
       <VegetablesCard />
-      <Waves />
+      <Waves isHome={true} />
     </section>
   );
 }
