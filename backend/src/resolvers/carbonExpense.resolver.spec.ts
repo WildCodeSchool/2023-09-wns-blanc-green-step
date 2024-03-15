@@ -15,7 +15,7 @@ describe("CarbonExpense resolver", () => {
       login(password: $password, email: $email)
     }
     `;
-
+ 
     const responseLogin = await server.executeOperation({
       query: login,
       variables: {
