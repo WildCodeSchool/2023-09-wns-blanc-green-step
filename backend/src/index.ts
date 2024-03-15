@@ -1,31 +1,10 @@
 import "reflect-metadata";
-import { dataSource } from "./config/db";
-import { ApolloServer } from "apollo-server";
-import * as dotenv from "dotenv";
-import { buildSchema } from "type-graphql";
-import { UserResolver } from "./resolvers/user.resolver";
-import { ActivityTypeResolver } from "./resolvers/activityType.resolver";
-import { CarbonExpenseResolver } from "./resolvers/carbonExpense.resolver";
-import { ChallengeResolver } from "./resolvers/challenge.resolver";
-import { UserChallengeResolver } from "./resolvers/userChallenge.resolver";
+import createServer from "./config/server";
+
+const port: number = parseInt(process.env.PORT as string);
 
 const start = async () => {
-  dotenv.config();
-  const port: number = parseInt(process.env.PORT as string);
-  await dataSource.initialize();
-
-  const schema = await buildSchema({
-    resolvers: [
-      ActivityTypeResolver,
-      CarbonExpenseResolver,
-      ChallengeResolver,
-      UserResolver,
-      UserChallengeResolver,
-    ],
-    validate: { forbidUnknownValues: false },
-  });
-
-  const server = new ApolloServer({ schema });
+  const server = await createServer();
 
   try {
     const { url } = await server.listen({ port });

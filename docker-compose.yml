@@ -8,6 +8,7 @@ services:
     volumes:
       - ./backend/package.json:/app/package.json:rw
       - ./backend/.env:/app/.env:rw
+      - ./backend/jest.config.js:/app/jest.config.js
       - ./backend/src/:/app/src/:rw
     environment:
       - WATCHPACK_POLLING=true
@@ -17,10 +18,12 @@ services:
   frontend:
     build: ./frontend
     command: npm run dev
+    env_file: .env.dev
     ports:
       - 3000:3000
     volumes:
       - ./frontend/src/:/app/src/:rw
+      - ./frontend/public/:/app/public/:rw
       - ./frontend/.env.local:/app/.env.local:rw
       - ./frontend/package.json:/app/package.json:rw
       - ./frontend/postcss.config.js:/app/postcss.config.js:rw
