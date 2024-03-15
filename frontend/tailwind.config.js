@@ -58,8 +58,11 @@ module.exports = {
       thirdly: colors["orange"],
     },
     extend: {
+      padding: {
+        mep: "calc(25rem + 1px",
+      },
       width: {
-        dashcontent: "calc(100vw - 25rem - 1px)",
+        dashcontent: "calc(100vw - 24rem)",
       },
       gridTemplateColumns: {
         expenses: "repeat(4, minmax(0, 1fr)) 70px",

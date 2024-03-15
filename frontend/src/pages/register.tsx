@@ -83,7 +83,7 @@ export default function RegisterPage() {
           />
         </div>
       </div>
-      {/* <Waves /> */}
+      <Waves />
     </div>
   );
 }

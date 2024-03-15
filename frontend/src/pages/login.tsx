@@ -4,7 +4,6 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { Button } from "@/components/Button";
-import Header from "@/components/Header";
 import Waves from "@/components/Waves";
 
 const LOGIN = gql`
@@ -38,7 +37,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <section>
       <div className="flex justify-center items-center flex-col">
         <h1 className="font-bold italic text-xl sm:text-3xl text-center mb-6 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
           Connecte toi !
@@ -74,7 +73,7 @@ export default function LoginPage() {
           />
         </div>
       </div>
-      {/* <Waves /> */}
-    </div>
+      <Waves />
+    </section>
   );
 }

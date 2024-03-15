@@ -18,7 +18,7 @@ import waveDesktop7 from "@/assets/wave_desktop/wave7.svg";
 import waveDesktop8 from "@/assets/wave_desktop/wave8.svg";
 import waveDesktop9 from "@/assets/wave_desktop/wave9.svg";
 
-export default function Waves() {
+export default function Waves({ isHome = false }) {
   return (
     <div>
       <div className="relative min-[480px]:hidden">
@@ -69,7 +69,11 @@ export default function Waves() {
         />
       </div>
 
-      <div className="relative max-[480px]:hidden">
+      <div
+        className={`relative max-[480px]:hidden ${
+          isHome ? "" : "min-h-[28.5vh]"
+        }`}
+      >
         <Image
           src={waveDesktop1}
           alt="Vague de décoration"

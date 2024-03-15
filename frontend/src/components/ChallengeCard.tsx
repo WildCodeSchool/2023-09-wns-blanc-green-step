@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "./Button";
-import { ModalChallenge } from './ModalChallenge';
+import { ModalChallenge } from "./ModalChallenge";
 import { Challenge } from "@/types/challengeType.type";
 
 export type ChallengeCardProps = {
@@ -12,12 +12,19 @@ export type ChallengeCardProps = {
   challenges: Challenge[];
 };
 
-export const ChallengeCard = ({ id, name, image, description, carbon_saving, challenges }: ChallengeCardProps) => {
+export const ChallengeCard = ({
+  id,
+  name,
+  image,
+  description,
+  carbon_saving,
+  challenges,
+}: ChallengeCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const allChallenges: Challenge[] = challenges;
   const handleOpenModal = () => {
     setIsModalOpen(true);
-  }
+  };
 
   return (
     <>
