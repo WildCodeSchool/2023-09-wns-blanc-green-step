@@ -30,7 +30,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:frontend"
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/thegoodcorner-frontend:latest
- 
+
   test-backend:
     runs-on: ubuntu-latest
     steps:

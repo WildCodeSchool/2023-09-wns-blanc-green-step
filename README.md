@@ -13,7 +13,7 @@ docker compose -f docker-compose.e2e.yml up --build --exit-code-from e2e
 // test front pour ouvrir le dernier rapport dans le navigateur
 npx playwright show-report
 
-//pour se connecter au back docker
+//pour se connecter au back docker pour lancer les tests
 1 - docker ps
 2 - choisir le containerID
 3 - docker exec -it <containerID> sh
