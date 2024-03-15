@@ -9,7 +9,28 @@ describe("CarbonExpense resolver", () => {
     server = await createServer(() => tokenContext);
   });
 
-  it("Login & add expense", async () => {
+  it("Create, Login & add expense", async () => {
+    const register = gql`
+    mutation Mutation($password: String!, $email: String!, $username: String!) {
+      register(password: $password, email: $email, username: $username) {
+        username
+        email
+        password
+      }
+    }
+    `;
+
+    const responseRegister = await server.executeOperation({
+      query: register,
+      variables: {
+        "password": "123",
+        "email": "123@gmail.com",
+        "username": "123"
+      }
+    });
+
+    expect(responseRegister).toBeDefined();
+
     const login = gql`
     mutation Login($password: String!, $email: String!) {
       login(password: $password, email: $email)
