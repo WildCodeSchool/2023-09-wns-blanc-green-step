@@ -33,15 +33,36 @@ jobs:
 
   test-backend:
     runs-on: ubuntu-latest
+    container: node:lts-alpine
+
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+          POSTGRES_USER: ${{ secrets.USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Launch backend and db docker services
-        run: docker-compose up backend db -d
-      - name: Launch test directly on docker backend container
-        run: docker exec -it $(docker ps -q -f name=backend) npm run test
-      - name: Stop docker containers
-        run: docker-compose down
+      - name: Go to backend
+        env:
+          PORT: ${{ secrets.PORT }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          DATABASE: ${{ secrets.DATABASE }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+        run: cd backend && npm i && npm run test
 
   docker-back:
     needs: test-backend
