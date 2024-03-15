@@ -1,4 +1,5 @@
 import { ChallengeCard } from "@/components/ChallengeCard";
+import { Challenge } from "@/types/challengeType.type";
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 
@@ -15,7 +16,7 @@ const GET_ALL_CHALLENGES = gql`
 `;
 
 const Challenges = () => {
-  const [challenges, setChallenges] = useState<[]>([]);
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
 
   const { loading, error } = useQuery(GET_ALL_CHALLENGES, {
     onCompleted: (data: any) => {
@@ -34,7 +35,7 @@ const Challenges = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3">
         {challenges.map((challenge, i) => (
           <div key={i}>
-            <ChallengeCard image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} />
+            <ChallengeCard id={challenge.id} image={challenge.image} name={challenge.name} description={challenge.description} carbon_saving={challenge.carbon_saving} challenges={challenges}/>
           </div>
         ))}
       </div>
