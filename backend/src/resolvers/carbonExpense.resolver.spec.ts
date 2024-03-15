@@ -69,7 +69,7 @@ describe("CarbonExpense resolver", () => {
           title: "Test By Jest",
           date: "2024-03-02",
           emission: 0,
-          activityType: 4
+          activityType: 0
         }
       }
     });
