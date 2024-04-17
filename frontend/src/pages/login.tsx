@@ -14,7 +14,7 @@ const LOGIN = gql`
 `;
 
 export default function LoginPage() {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const router = useRouter();
   const [credential, setCredential] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,7 +27,7 @@ export default function LoginPage() {
     onCompleted(data: any) {
       localStorage.setItem("token", data.login);
       const { id } = jwtDecode(data.login) as JwtPayload;
-      setUser({ id: id, username: "" });
+      setUser({ id: id, username: "", email: "" });
       router.push("/my-expenses");
     },
   });

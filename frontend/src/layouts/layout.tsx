@@ -4,7 +4,7 @@ import NavBoard from "@/components/dashboard/NavBoard";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useContext } from "react";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: React.PropsWithChildren<{}>) {
   const { user } = useContext(AuthContext);
 
   return (

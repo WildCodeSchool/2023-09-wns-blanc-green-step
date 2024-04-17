@@ -10,7 +10,6 @@ const GET_USER_BY_ID = gql`
       id
       username
       email
-      password
       image
     }
   }
@@ -21,7 +20,7 @@ const AuthContext = createContext({
   setUser: (user: { id: number; username: string; email: "" }) => {},
 });
 
-function AuthContextProvider({ children }) {
+function AuthContextProvider({ children }: React.PropsWithChildren<{}>) {
   const [user, setUser] = useState({ id: 0, username: "", email: "" });
 
   const [getUser] = useLazyQuery(GET_USER_BY_ID, {
