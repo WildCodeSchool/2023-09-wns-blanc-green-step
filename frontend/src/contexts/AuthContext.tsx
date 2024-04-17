@@ -2,6 +2,7 @@ import { createContext, useState, useMemo, useEffect } from "react";
 
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
 import { jwtDecode } from "jwt-decode";
+import { JwtPayload } from "@/types/jwtPayloadType.type";
 
 const GET_USER_BY_ID = gql`
   query Query($getUserByIdId: Float!) {
@@ -39,7 +40,7 @@ function AuthContextProvider({ children }) {
       const token = localStorage.getItem("token");
 
       if (token) {
-        const { id } = jwtDecode(token);
+        const { id } = jwtDecode(token) as JwtPayload;
         setUser({ id: id, username: "" });
       }
     }

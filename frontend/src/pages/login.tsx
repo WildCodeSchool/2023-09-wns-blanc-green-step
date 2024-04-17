@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { Button } from "@/components/Button";
 import Waves from "@/components/Waves";
+import { JwtPayload } from "@/types/jwtPayloadType.type";
 
 const LOGIN = gql`
   mutation Mutation($password: String!, $email: String!) {
@@ -25,7 +26,7 @@ export default function LoginPage() {
     },
     onCompleted(data: any) {
       localStorage.setItem("token", data.login);
-      const { id } = jwtDecode(data.login);
+      const { id } = jwtDecode(data.login) as JwtPayload;
       setUser({ id: id, username: "" });
       router.push("/my-expenses");
     },
