@@ -1,7 +1,8 @@
+import { User } from "@/types/user.type";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Header({ user }) {
+export default function Header({ user }: { user: User }) {
   const router = useRouter();
   return (
     <header
