@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { Button } from "@/components/Button";
 import Waves from "@/components/Waves";
+import { JwtPayload } from "@/types/jwtPayloadType.type";
 
 const LOGIN = gql`
   mutation Mutation($password: String!, $email: String!) {
@@ -13,7 +14,7 @@ const LOGIN = gql`
 `;
 
 export default function LoginPage() {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const router = useRouter();
   const [credential, setCredential] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -25,8 +26,8 @@ export default function LoginPage() {
     },
     onCompleted(data: any) {
       localStorage.setItem("token", data.login);
-      const { id } = jwtDecode(data.login);
-      setUser({ id: id, username: "" });
+      const { id } = jwtDecode(data.login) as JwtPayload;
+      setUser({ id: id, username: "", email: "" });
       router.push("/my-expenses");
     },
   });

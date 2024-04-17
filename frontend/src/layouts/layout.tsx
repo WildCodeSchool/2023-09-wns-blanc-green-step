@@ -2,9 +2,9 @@ import AddExpense from "@/components/AddExpense";
 import Header from "@/components/Header";
 import NavBoard from "@/components/dashboard/NavBoard";
 import { AuthContext } from "@/contexts/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: React.PropsWithChildren<{}>) {
   const { user } = useContext(AuthContext);
 
   return (

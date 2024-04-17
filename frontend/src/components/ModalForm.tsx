@@ -4,7 +4,7 @@ import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+// import { Bounce, ToastContainer, toast } from "react-toastify";
 
 interface ModalProps {
   isOpen: boolean;
