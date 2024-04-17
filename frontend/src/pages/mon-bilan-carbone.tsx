@@ -20,22 +20,22 @@ const GET_USER_EXPENSES = gql`
 
 export default function MonBilanCarbone() {
   const { user } = useContext(AuthContext);
-  const [carbonExpenses, setCarbonExpenses] = useState([]);
+  const [carbonEmissions, setCarbonEmissions] = useState([]);
   const [totalEmissions, setTotalEmissions] = useState(0);
 
   useEffect(() => {
-    if (carbonExpenses.length > 0) {
-      const totalEmission = carbonExpenses.reduce((total, expense) => total + expense.emission, 0);
+    if (carbonEmissions.length > 0) {
+      const totalEmission = carbonEmissions.reduce((total, emission) => total + activityType.carbonEmission, 0);
       setTotalEmissions(totalEmission);
     }
-  }, [carbonExpenses]);
+  }, [carbonEmissions]);
 
   const { loading, error } = useQuery(GET_USER_EXPENSES, {
     variables: {
       userId: Number(user.id),
     },
     onCompleted: (data: any) => {
-      setCarbonExpenses(data.getUserCarbonExpenses);
+      setCarbonEmissions(data.getUserCarbonExpenses);
     },
   });
 
@@ -52,10 +52,10 @@ export default function MonBilanCarbone() {
         <div className="w-1/2">
           <h2 className="">Je consomme {totalEmissions} CO2eq avec mes activités</h2>
           <ul>
-            {carbonExpenses.map((expense) => (
-              <li key={expense.activityType.id}>
-                <img src={expense.activityType.icon} alt={expense.activityType.name} />
-                {expense.activityType.name}: {expense.emission} CO2eq
+            {carbonEmissions.map((emission) => (
+              <li key={carbonEmissions.activityType.id}>
+                <img src={carbonEmissions.activityType.icon} alt={carbonEmissions.activityType.name} />
+                {carbonEmissions.activityType.name}: {expense.emission} CO2eq
               </li>
             ))}
           </ul>
