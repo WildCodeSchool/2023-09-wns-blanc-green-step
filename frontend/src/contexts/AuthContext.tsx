@@ -17,12 +17,12 @@ const GET_USER_BY_ID = gql`
 `;
 
 const AuthContext = createContext({
-  user: { id: 0, username: "" },
-  setUser: (user: { id: number; username: string }) => {},
+  user: { id: 0, username: "", email: "" },
+  setUser: (user: { id: number; username: string; email: "" }) => {},
 });
 
 function AuthContextProvider({ children }) {
-  const [user, setUser] = useState({ id: 0, username: "" });
+  const [user, setUser] = useState({ id: 0, username: "", email: "" });
 
   const [getUser] = useLazyQuery(GET_USER_BY_ID, {
     variables: {
@@ -41,7 +41,7 @@ function AuthContextProvider({ children }) {
 
       if (token) {
         const { id } = jwtDecode(token) as JwtPayload;
-        setUser({ id: id, username: "" });
+        setUser({ id: id, username: "", email: "" });
       }
     }
   }, [user]);

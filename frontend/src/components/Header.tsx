@@ -1,8 +1,8 @@
-import { User } from "@/types/user.type";
+import { UserContext } from "@/types/user.type";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Header({ user }: { user: User }) {
+export default function Header({ user }: { user: UserContext }) {
   const router = useRouter();
   return (
     <header
