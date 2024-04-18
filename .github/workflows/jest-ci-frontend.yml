@@ -30,4 +30,4 @@ jobs:
           push: true
           context: "{{defaultContext}}:frontend"
           file: build.Dockerfile
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-frontend:latest
