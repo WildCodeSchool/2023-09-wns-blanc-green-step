@@ -4,7 +4,7 @@ import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+// import { Bounce, ToastContainer, toast } from "react-toastify";
 
 interface ModalProps {
   isOpen: boolean;
@@ -39,8 +39,18 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
 
+  // State for Picture in Select Option
+  const [selectImg, setSelectImg] = useState<{ icon: string; name: string }>({
+    icon: "",
+    name: "",
+  });
+
   // Requête gql
-  const { data } = useQuery(GET_ALL_ACTIVITIESTYPES);
+  const { data } = useQuery(GET_ALL_ACTIVITIESTYPES, {
+    onCompleted: (data: any) => {
+      setSelectImg(data.getActivityTypes[0]);
+    },
+  });
   const [createCarboneExpense] = useMutation(CREATE_CARBONEXPENSE);
 
   interface translateHexInEmojiProps {
@@ -173,17 +183,26 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
               />
             </div>
             <div className="flex justify-center">
-              <select name="activityType" className="input mb-4 p-2">
+              <select
+                name="activityType"
+                className="input mb-4 p-2 pl-12"
+                onChange={(e) =>
+                  setSelectImg(
+                    data.getActivityTypes[parseInt(e.target.value, 10) - 1]
+                  )
+                }
+              >
                 {data?.getActivityTypes.map((activityType: ActivityType) => (
                   <option key={activityType.id} value={activityType.id}>
                     {activityType.name}
-
-                    {/*
-                    Les icons ne sont pas lisibles sauf pour logement et ça fait buger les tests
-                    <TranslateHexInEmoji hexaCode={activityType.icon} /> */}
                   </option>
                 ))}
               </select>
+              <img
+                src={selectImg.icon}
+                className="absolute h-[35px] w-[35px] left-[28%] max-sm:left-[26%] translate-y-[2px]"
+                alt={selectImg.name}
+              />
             </div>
             {isActivate ? (
               <button

@@ -4,7 +4,8 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { Button } from "@/components/Button";
-import Header from "@/components/Home/Header";
+import Waves from "@/components/Waves";
+import { JwtPayload } from "@/types/jwtPayloadType.type";
 
 const LOGIN = gql`
   mutation Mutation($password: String!, $email: String!) {
@@ -13,7 +14,7 @@ const LOGIN = gql`
 `;
 
 export default function LoginPage() {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const router = useRouter();
   const [credential, setCredential] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -25,8 +26,8 @@ export default function LoginPage() {
     },
     onCompleted(data: any) {
       localStorage.setItem("token", data.login);
-      const { id } = jwtDecode(data.login);
-      setUser({ id: id, username: "" });
+      const { id } = jwtDecode(data.login) as JwtPayload;
+      setUser({ id: id, username: "", email: "" });
       router.push("/my-expenses");
     },
   });
@@ -37,8 +38,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <Header />
+    <section>
       <div className="flex justify-center items-center flex-col">
         <h1 className="font-bold italic text-xl sm:text-3xl text-center mb-6 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
           Connecte toi !
@@ -74,6 +74,7 @@ export default function LoginPage() {
           />
         </div>
       </div>
-    </div>
+      <Waves />
+    </section>
   );
 }
