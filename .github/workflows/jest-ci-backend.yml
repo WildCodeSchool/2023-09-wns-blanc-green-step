@@ -29,6 +29,7 @@ jobs:
       - name: Go to backend
         env:
           PORT: ${{ secrets.PORT }}
+          HOST: ${{ secrets.HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
@@ -55,4 +56,5 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:backend"
+          file: build.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-backend:latest
