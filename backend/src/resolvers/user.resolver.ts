@@ -31,8 +31,8 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  updateUser(@Arg("id") id: number, @Arg("email") email: string, @Arg("username") username: string) {
-    return UserService.update(id, email, username);
+  updateUser(@Arg("id") id: number, @Arg("email") email: string, @Arg("username") username: string, @Arg("image") image: string) {
+    return UserService.update(id, email, username, image);
   }
 
   @Mutation(() => User)

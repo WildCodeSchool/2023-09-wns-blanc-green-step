@@ -58,7 +58,7 @@ export function getById(id: number): Promise<User> {
   });
 }
 
-export async function update(id: number, email: string, username: string): Promise<User | undefined> {
+export async function update(id: number, email: string, username: string, image: string): Promise<User | undefined> {
   const userToUpdate = await User.findOneBy({ id });
   
   if (!userToUpdate) {
@@ -68,6 +68,7 @@ export async function update(id: number, email: string, username: string): Promi
   if (userToUpdate) {
     userToUpdate.email = email;
     userToUpdate.username = username;
+    userToUpdate.image = image
 
     return userToUpdate.save();
   }

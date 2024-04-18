@@ -16,12 +16,12 @@ const GET_USER_BY_ID = gql`
 `;
 
 const AuthContext = createContext({
-  user: { id: 0, username: "", email: "" },
-  setUser: (user: { id: number; username: string; email: "" }) => {},
+  user: { id: 0, username: "", email: "" , image: ""},
+  setUser: (user: { id: number; username: string; email: string, image: string}) => {},
 });
 
 function AuthContextProvider({ children }: React.PropsWithChildren<{}>) {
-  const [user, setUser] = useState({ id: 0, username: "", email: "" });
+  const [user, setUser] = useState({ id: 0, username: "", email: "", image: ""});
 
   const [getUser] = useLazyQuery(GET_USER_BY_ID, {
     variables: {
@@ -40,7 +40,7 @@ function AuthContextProvider({ children }: React.PropsWithChildren<{}>) {
 
       if (token) {
         const { id } = jwtDecode(token) as JwtPayload;
-        setUser({ id: id, username: "", email: "" });
+        setUser({ id: id, username: "", email: "", image: "" });
       }
     }
   }, [user]);

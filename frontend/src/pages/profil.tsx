@@ -1,18 +1,19 @@
 import { Button } from "@/components/Button";
+import { PictureUpload } from "@/components/PictureUpload";
 import { AuthContext } from "@/contexts/AuthContext";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const UPDATE_USER = gql`
-    mutation UpdateUser($username: String!, $email: String!, $updateUserId: Float!) {
-        updateUser(username: $username, email: $email, id: $updateUserId) {
-        username
-        email
-        id
-        image
-        }
+mutation UpdateUser($username: String!, $email: String!, $updateUserId: Float!, $image: String!) {
+    updateUser(username: $username, email: $email, id: $updateUserId, image: $image) {
+      id
+      email
+      image
+      username
     }
+  }
 `
 
 const UPDATE_USER_PASSWORD = gql`
@@ -24,10 +25,11 @@ const UPDATE_USER_PASSWORD = gql`
 `
 
 export default function Profil() {
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const [newIdentifiant, setNewIdentifiant] = useState<string>(user.username);
     const [newEmail, setNewEmail] = useState<string>(user.email);
     const [newPassword, setNewPassword] = useState<string>("");
+    const [imgUrl, setImgUrl] = useState<string>(user.image);
 
     const [updateUserRequest] = useMutation(UPDATE_USER);
     const [updateUserPasswordRequest] = useMutation(UPDATE_USER_PASSWORD);
@@ -38,7 +40,12 @@ export default function Profil() {
                 updateUserId: Number(user.id),
                 email: String(newEmail),
                 username: String(newIdentifiant),
-            }
+                image: String(imgUrl),
+            },
+            onCompleted: () => {
+                console.log(user.id + ' ' + newIdentifiant + ' ' + newEmail + ' ' + imgUrl)
+                setUser({ id: user.id, username: newIdentifiant, email: newEmail, image: imgUrl })
+            },
         })
     }
 
@@ -59,15 +66,14 @@ export default function Profil() {
 
             <Tabs className="w-[60%] relative mx-auto">
                 <TabList className="flex items-center justify-around">
-                    <Tab className="w-[50%] text-center">Informations personnelles</Tab>
-                    <Tab className="w-[50%] text-center">Mot de passe</Tab>
+                    <Tab className="w-[50%] text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Informations personnelles</Tab>
+                    <Tab className="w-[50%] text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Mot de passe</Tab>
                 </TabList>
 
                 <TabPanel>
                     <div className="flex flex-col items-center justify-center mt-10">
                         <div className="flex flex-col items-center justify-center mb-14">
-                            <img src="/images/blank-avatar.png" alt="" className="rounded-full" />
-                            <p>Éditer mon avatar</p>
+                            <PictureUpload imgUrl={imgUrl} setImgUrl={setImgUrl} />
                         </div>
 
                         <div className="w-[40%] flex flex-col mb-8">
@@ -75,7 +81,7 @@ export default function Profil() {
                             <input
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
                                 value={newIdentifiant}
-                                onChange={(e) => setNewIdentifiant(e.target.value)}
+                                onChange={(e) => e.target.value !== "" ? setNewIdentifiant(e.target.value) : user.username}
                             />
                         </div>
 
@@ -84,7 +90,7 @@ export default function Profil() {
                             <input
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
                                 value={newEmail}
-                                onChange={(e) => setNewEmail(e.target.value)}
+                                onChange={(e) => e.target.value !== "" ? setNewEmail(e.target.value) : user.email}
                             />
                         </div>
 

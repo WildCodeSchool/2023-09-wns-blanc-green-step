@@ -10,7 +10,7 @@ function NavBoard() {
   const [isBurger, setIsBurger] = useState(false);
 
   const handleDisconnect = () => {
-    setUser({ id: 0, username: "", email: "" });
+    setUser({ id: 0, username: "", email: "", image: ""});
     localStorage.removeItem("token");
     router.push("/");
   };
