@@ -20,4 +20,4 @@ COPY --from=builder /app/build /app
 
 RUN npm i --production
 
-CMD npx typeorm migration:run -d ./src/config/db.js ; npm start
+CMD npm start
