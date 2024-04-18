@@ -55,4 +55,5 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:backend"
+          file: build.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-backend:latest
