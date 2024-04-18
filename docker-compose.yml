@@ -13,7 +13,8 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
