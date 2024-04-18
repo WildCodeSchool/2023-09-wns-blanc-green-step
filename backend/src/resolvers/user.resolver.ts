@@ -29,4 +29,14 @@ export class UserResolver {
   login(@Arg("email") email: string, @Arg("password") password: string) {
     return AuthService.login(email, password);
   }
+
+  @Mutation(() => User)
+  updateUser(@Arg("id") id: number, @Arg("email") email: string, @Arg("username") username: string) {
+    return UserService.update(id, email, username);
+  }
+
+  @Mutation(() => User)
+  updateUserPassword(@Arg("id") id: number, @Arg("password") password: string) {
+    return UserService.updatePassword(id, password);
+  }
 }
