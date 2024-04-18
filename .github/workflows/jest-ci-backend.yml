@@ -55,4 +55,4 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:backend"
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-backend:latest
