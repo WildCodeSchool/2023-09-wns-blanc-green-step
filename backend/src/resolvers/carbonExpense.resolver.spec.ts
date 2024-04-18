@@ -9,7 +9,7 @@ describe("CarbonExpense resolver", () => {
     server = await createServer(() => tokenContext);
   });
 
-  it("Create, Login & add expense", async () => {
+  it("Create user, login user, create activity type & add expense", async () => {
     const register = gql`
     mutation Mutation($password: String!, $email: String!, $username: String!) {
       register(password: $password, email: $email, username: $username) {
@@ -36,7 +36,7 @@ describe("CarbonExpense resolver", () => {
       login(password: $password, email: $email)
     }
     `;
- 
+
     const responseLogin = await server.executeOperation({
       query: login,
       variables: {
@@ -47,6 +47,32 @@ describe("CarbonExpense resolver", () => {
 
     expect(responseLogin).toBeDefined();
     tokenContext.token = responseLogin.data?.login;
+
+    const activityTypeMutationCreate = gql`
+        mutation Mutation($activityType: CreateActivityType!) {
+          createActivityType(activityType: $activityType) {
+            id
+            name
+          }
+        }
+        `;
+
+    const responseActivity = await server.executeOperation({
+      query: activityTypeMutationCreate,
+      variables: {
+        activityType: {
+          name: "Transport",
+          icon: "&#x1F6E9",
+          carbon_emission: 0
+        }
+      }
+    });
+
+    expect(responseActivity.errors).toBeUndefined();
+    expect(responseActivity.data?.createActivityType).toBeDefined();
+    expect(responseActivity.data?.createActivityType.id).toBeGreaterThan(0);
+
+    console.log(responseActivity.data?.createActivityType);
 
     const carbonExpenseMustationCreate = gql`
             mutation Mutation($expense: CreateCarbonExpenseType!) {
@@ -62,7 +88,8 @@ describe("CarbonExpense resolver", () => {
             }
         `;
 
-    const response = await server.executeOperation({
+
+    const responseCarbon = await server.executeOperation({
       query: carbonExpenseMustationCreate,
       variables: {
         expense: {
@@ -74,8 +101,8 @@ describe("CarbonExpense resolver", () => {
       }
     });
 
-    expect(response.errors).toBeUndefined();
-    expect(response.data?.createCarbonExpense).toBeDefined();
-    expect(response.data?.createCarbonExpense.id).toBeGreaterThan(0);
+    expect(responseCarbon.errors).toBeUndefined();
+    expect(responseCarbon.data?.createCarbonExpense).toBeDefined();
+    expect(responseCarbon.data?.createCarbonExpense.id).toBeGreaterThan(0);
   });
 })
