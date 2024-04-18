@@ -13,6 +13,9 @@ COPY public public
 # Génère le dossier node_modules
 RUN npm i
 
+ARG NEXT_PUBLIC_API_LINK
+ENV NEXT_PUBLIC_API_LINK=${NEXT_PUBLIC_API_LINK}
+
 # Génère le dossier .next
 RUN npm run build 
 
