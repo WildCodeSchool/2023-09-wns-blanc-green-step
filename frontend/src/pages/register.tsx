@@ -2,7 +2,8 @@ import { useState } from "react";
 import { gql, useMutation } from "../../node_modules/@apollo/client/index";
 import { useRouter } from "../../node_modules/next/router";
 import { Button } from "@/components/Button";
-import Header from "@/components/Home/Header";
+import Header from "@/components/Header";
+import Waves from "@/components/Waves";
 
 const REGISTER = gql`
   mutation Register($password: String!, $username: String!, $email: String!) {
@@ -40,7 +41,6 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <Header />
       <div className="flex justify-center items-center flex-col">
         <h1 className="font-bold italic text-xl sm:text-3xl text-center mb-6 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
           Inscris toi !
@@ -83,6 +83,7 @@ export default function RegisterPage() {
           />
         </div>
       </div>
+      <Waves />
     </div>
   );
 }

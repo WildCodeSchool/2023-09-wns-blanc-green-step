@@ -7,9 +7,9 @@ export type ButtonProps = {
 
 export const Button = ({ color, textsize, content, onClick }: ButtonProps) => {
   return (
-    <div>
+    <div className="z-[1]">
       <button
-        className={`${color} ${textsize} px-4 py-1 rounded-2xl `}
+        className={`${color} ${textsize} px-4 py-1 rounded-2xl`}
         onClick={(e) => onClick(e)}
       >
         {content}

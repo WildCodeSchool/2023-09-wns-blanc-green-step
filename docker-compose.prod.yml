@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 5010:5010
+    volumes:
+      - ./backend/package.json:/app/package.json:rw
+      - ./backend/.env:/app/.env:rw
+      - ./backend/jest.config.js:/app/jest.config.js
+      - ./backend/src/:/app/src/:rw
+    environment:
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    command: npm run dev
+    env_file: .env.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app:rw,cached
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+
+  images:
+    build: ./images
+    ports:
+      - 8000:8000
+    volumes:
+      - ./images/src/:/app/src/:rw
+      - ./images/package.json:/app/package.json:rw
+      - ./images/uploads/:/app/uploads/
+    environment:
+      - WATCHPACK_POLLING=true
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: green_step_db
+      POSTGRES_USER: green_step
+      POSTGRES_PASSWORD: green_step
+      PGDATA: customDataFolder
+    volumes:
+      - ./dbData/:/var/lib/postgresql/data/customDataFolder
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d green_step_db -U green_step"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
