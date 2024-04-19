@@ -1,6 +1,9 @@
 name: jest-and-docker-ci-backend
 
-on: push
+on:
+  push:
+    paths:
+      - "backend/**"
 
 jobs:
   test-backend:
