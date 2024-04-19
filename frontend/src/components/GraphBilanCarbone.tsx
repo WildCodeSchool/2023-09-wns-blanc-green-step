@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
-import * as echarts from 'echarts'
+import * as echarts from 'echarts';
   import 'echarts/lib/chart/line'
   import 'echarts/lib/chart/bar'
   import 'echarts/lib/component/tooltip'
   import 'echarts/lib/component/title'
   import 'echarts/lib/component/legend'
 
-const GraphBilanCarbone: React.FC = () => {
+const GraphBilanCarbone: React.FC = ({activityTypes}) => {
+
   useEffect(() => {
     // Initialise le graphique une fois que le composant est monté
-    const chartDom = document.getElementById('main');
+    const chartDom = document.getElementById('echart');
     if (chartDom) {
       const myChart = echarts.init(chartDom);
       const option = {
@@ -28,14 +29,10 @@ const GraphBilanCarbone: React.FC = () => {
             center: ['50%', '70%'],
             startAngle: 180,
             endAngle: 360,
-            data: [
-              { value: 1048, name: 'Transport' },
-              { value: 735, name: 'Alimentation' },
-              { value: 580, name: 'Loisirs' },
-              { value: 484, name: 'Logement' },
-              { value: 300, name: 'Services sociétaux' },
-              { value: 120, name: 'Divers' }
-            ]
+            data: activityTypes.map((activity) => ({
+              value: activity.value * activity.carbon_emission,//multiplicateur provisoire
+              name: activity.name
+            }))
           }
         ]
       };
@@ -47,10 +44,10 @@ const GraphBilanCarbone: React.FC = () => {
         myChart.dispose();
       };
     }
-  }, []); // Cette dépendance vide assure que useEffect ne s'exécute qu'une seule fois après le montage initial
+  }, [activityTypes]); // Cette dépendance vide assure que useEffect ne s'exécute qu'une seule fois après le montage initial
 
   return (
-    <div id="main" className="w-full h-96"></div>
+    <div id="echart" className="w-full h-96"></div>
   ); // Assurez-vous de fournir un conteneur avec une id pour le graphique
 };
 
