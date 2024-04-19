@@ -1,4 +1,4 @@
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/addExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
