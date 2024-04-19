@@ -39,6 +39,7 @@ const colors = {
     100: "#E3F1F3",
   },
   orange: {
+    40: "#EE9A6D",
     90: "#F9D9C8",
     100: "#FDF2ED",
   },
@@ -57,6 +58,9 @@ module.exports = {
       thirdly: colors["orange"],
     },
     extend: {
+      padding: {
+        mep: "calc(25rem + 1px",
+      },
       width: {
         dashcontent: "calc(100vw - 24rem)",
       },

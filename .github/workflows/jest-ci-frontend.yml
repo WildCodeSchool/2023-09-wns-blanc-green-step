@@ -1,4 +1,4 @@
-name: jest-and-docker-ci
+name: jest-and-docker-ci-frontend
 
 on: push
 
@@ -29,4 +29,6 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:frontend"
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/thegoodcorner-frontend:latest
+          file: build.Dockerfile
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-frontend:latest
+          build-args: NEXT_PUBLIC_API_LINK=${{ secrets.NEXT_PUBLIC_API_LINK }}

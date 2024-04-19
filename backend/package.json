@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
-    "start": "ts-node-dev src/index.ts"
+    "test": "jest",
+    "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc",
+    "start": "node src/index.js"
   },
   "author": "",
   "license": "ISC",
