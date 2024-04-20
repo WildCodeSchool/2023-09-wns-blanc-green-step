@@ -42,8 +42,8 @@ export default function Profil() {
                 username: String(newIdentifiant),
                 image: String(imgUrl),
             },
-            onCompleted: () => {
-                console.log(user.id + ' ' + newIdentifiant + ' ' + newEmail + ' ' + imgUrl)
+            onCompleted: (data) => {
+                console.log(data.updateUser)
                 setUser({ id: user.id, username: newIdentifiant, email: newEmail, image: imgUrl })
             },
         })
