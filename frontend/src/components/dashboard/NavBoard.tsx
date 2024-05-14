@@ -48,7 +48,7 @@ function NavBoard() {
           Bienvenue {user.username} !
         </p>
 
-        <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full w-full p-3 sm:pl-8">
+        <ul className="font-medium self-center text-sm sm:text-base flex flex-col gap-5 h-full w-full p-3 sm:pl-8">
           <Link href="/my-expenses">
             <li className="flex gap-4 items-center">
               <img
@@ -66,7 +66,7 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="self-end" href="/">
+          <Link className="mt-auto" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion
