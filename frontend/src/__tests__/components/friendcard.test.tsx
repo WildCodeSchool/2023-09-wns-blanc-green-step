@@ -34,4 +34,38 @@ describe("Testing friend card", () => {
     expect(paragraph).toBeInTheDocument();
     expect(paragraph).toHaveTextContent("Jean-Bert...");
   });
+
+  it("render the card avatar as intended", () => {
+    render(
+      <FriendCard
+        friend={{
+          id: 2,
+          username: "Jean-Jacques",
+          avatar: "/images/blank-avatar.png",
+        }}
+      />
+    );
+
+    const [avatar] = screen.getAllByRole("img");
+    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute("src", "/images/blank-avatar.png");
+    expect(avatar).toHaveAttribute("alt", "blank avatar");
+  });
+
+  it("render the card ... img as intended", () => {
+    render(
+      <FriendCard
+        friend={{
+          id: 2,
+          username: "Jean-Jacques",
+          avatar: "/images/blank-avatar.png",
+        }}
+      />
+    );
+
+    const [_, dotImg] = screen.getAllByRole("img");
+    expect(dotImg).toBeInTheDocument();
+    expect(dotImg).toHaveAttribute("src", "/images/expense-dots.png");
+    expect(dotImg).toHaveAttribute("alt", "dot picture button");
+  });
 });

@@ -17,7 +17,11 @@ export const FriendCard = ({ friend }: { friend: UserFriend }) => {
           : friend.username.slice(0, 9) + "..."}
       </p>
 
-      <img className="ml-auto rotate-90 w-4" src="/images/expense-dots.png" />
+      <img
+        className="ml-auto rotate-90 w-4"
+        src="/images/expense-dots.png"
+        alt="dot picture button"
+      />
     </div>
   );
 };
