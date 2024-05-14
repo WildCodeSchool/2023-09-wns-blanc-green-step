@@ -52,7 +52,7 @@ export default function FriendsPage() {
           Mes Contacts
         </h1>
       </section>
-      <section className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-stretch gap-5 sm:gap-y-12 sm:gap-x-16 w-full sm:w-[90%] sm:m-auto sm:justify-center">
+      <section className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-stretch gap-5 sm:gap-y-12 sm:gap-x-16 w-full sm:w-[90%] sm:m-auto sm:justify-center mb-12">
         {friendsArray.map((friend) => (
           <FriendCard friend={friend} key={friend.id} />
         ))}
