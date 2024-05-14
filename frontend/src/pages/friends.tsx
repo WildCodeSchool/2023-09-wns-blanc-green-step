@@ -1,4 +1,4 @@
-import FriendCard from "@/components/friendlist/FriendCard";
+import { FriendCard } from "@/components/friendlist/FriendCard";
 import { UserFriend } from "@/types/user.type";
 import { useState } from "react";
 

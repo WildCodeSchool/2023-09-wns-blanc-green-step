@@ -1,6 +1,6 @@
 import { UserFriend } from "@/types/user.type";
 
-export default function FriendCard({ friend }: { friend: UserFriend }) {
+export const FriendCard = ({ friend }: { friend: UserFriend }) => {
   return (
     <div
       key={friend.id}
@@ -20,4 +20,4 @@ export default function FriendCard({ friend }: { friend: UserFriend }) {
       <img className="ml-auto rotate-90 w-4" src="/images/expense-dots.png" />
     </div>
   );
-}
+};
