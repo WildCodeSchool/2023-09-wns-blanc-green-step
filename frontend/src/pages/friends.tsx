@@ -37,10 +37,16 @@ export default function FriendsPage() {
       // check from datas if user_one has same id or not, and push to getFriendsArray the one with a different id
       data.getFriendsByUserId.forEach((friend: any) => {
         if (friend.user_one.id === user.id) {
-          return getFriendsArray.push(friend.user_two);
+          return getFriendsArray.push({
+            ...friend.user_two,
+            is_accepted: friend.is_accepted,
+          });
         }
 
-        return getFriendsArray.push(friend.user_one);
+        return getFriendsArray.push({
+          ...friend.user_one,
+          is_accepted: friend.is_accepted,
+        });
       });
 
       // setFriendsArray with the value of user friends
@@ -108,9 +114,13 @@ export default function FriendsPage() {
       <section className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-stretch gap-5 sm:gap-y-12 sm:gap-x-16 w-full sm:w-[90%] sm:m-auto sm:justify-center mb-12">
         {friendsArray
           .filter((friend) => filterOptions(friend))
-          .map((friend) => (
-            <FriendCard friend={friend} key={friend.id} />
-          ))}
+          .map((friend) =>
+            friend.is_accepted ? (
+              <FriendCard friend={friend} key={friend.id} />
+            ) : (
+              ""
+            )
+          )}
       </section>
     </>
   );
