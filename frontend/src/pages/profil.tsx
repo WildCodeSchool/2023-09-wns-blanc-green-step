@@ -26,10 +26,10 @@ const UPDATE_USER_PASSWORD = gql`
 
 export default function Profil() {
     const { user, setUser } = useContext(AuthContext);
-    const [newIdentifiant, setNewIdentifiant] = useState<string>(user.username);
-    const [newEmail, setNewEmail] = useState<string>(user.email);
+    const [newIdentifiant, setNewIdentifiant] = useState<string>("");
+    const [newEmail, setNewEmail] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
-    const [imgUrl, setImgUrl] = useState<string>(user.image);
+    const [imgUrl, setImgUrl] = useState<string>("");
 
     const [updateUserRequest] = useMutation(UPDATE_USER);
     const [updateUserPasswordRequest] = useMutation(UPDATE_USER_PASSWORD);
@@ -43,7 +43,6 @@ export default function Profil() {
                 image: String(imgUrl),
             },
             onCompleted: (data) => {
-                console.log(data.updateUser)
                 setUser({ id: user.id, username: newIdentifiant, email: newEmail, image: imgUrl })
             },
         })
@@ -57,6 +56,12 @@ export default function Profil() {
             }
         })
     }
+
+    useEffect(() => {
+        setNewEmail(user.email);
+        setNewIdentifiant(user.username);
+        setImgUrl(user.image);
+    }, [user])
 
     return (
         <>

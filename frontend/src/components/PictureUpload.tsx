@@ -1,6 +1,7 @@
 import { AuthContext } from "@/contexts/AuthContext";
 import axios from "axios";
 import { useContext, useRef, useState } from "react";
+import { Button } from "./Button";
 
 export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const { user } = useContext(AuthContext);
@@ -29,30 +30,40 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
         return console.log("error", err);
       }
     }
-    return alert("Select a file");
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        setImageSrc(e.target.result);
-        setImgUrl(e.target.result);
-      };
-      reader.readAsDataURL(file);
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    // const file = event.target.files && event.target.files[0];
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onload = (e: any) => {
+    //     setImageSrc(e.target.result);
+    //     setImgUrl(e.target.result);
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
+    if (event.target.files) {
+      setImgUrl(URL.createObjectURL(event.target.files[0]))
+      setFile(event.target.files[0]);
     }
   };
 
   return (
     <>
-      <img src={imageSrc ? imageSrc : "/images/blank-avatar.png"} alt="" className="rounded-full hover:opacity-20 cursor-pointer w-40 h-40" onClick={handleImageClick} />
-      <p>Éditer mon avatar</p>
-      <form onSubmit={(e) => handleSubmit(e)} className="hidden">
+      <img src={imgUrl ? imgUrl : "/images/blank-avatar.png"} alt="" className="rounded-full hover:opacity-20 cursor-pointer w-40 h-40" onClick={handleImageClick} />
+      <p className="mb-5">Éditer mon avatar</p>
+      <form>
         <input
           type="file"
           ref={fileInputRef}
-          onChange={handleFileChange}
+          onChange={(e) => handleFileChange(e)}
+          className="hidden"
+        />
+        <Button
+          content="Changer la photo"
+          color="bg-blue-80"
+          textsize="text-md"
+          onClick={(e) => handleSubmit(e)}
         />
       </form>
     </>
