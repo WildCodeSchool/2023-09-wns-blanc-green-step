@@ -49,7 +49,7 @@ describe("Testing friend card", () => {
     const [avatar] = screen.getAllByRole("img");
     expect(avatar).toBeInTheDocument();
     expect(avatar).toHaveAttribute("src", "/images/blank-avatar.png");
-    expect(avatar).toHaveAttribute("alt", "blank avatar");
+    expect(avatar).toHaveAttribute("alt", "Jean-Jacques avatar");
   });
 
   it("render the card ... img as intended", () => {

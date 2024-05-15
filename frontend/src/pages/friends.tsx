@@ -1,50 +1,52 @@
 import { FriendCard } from "@/components/friendlist/FriendCard";
 import { UserFriend } from "@/types/user.type";
-import { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { useState, useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
+
+const GET_ALL_USER_FRIENDS = gql`
+  query Query($getFriendsByUserIdId: Float!) {
+    getFriendsByUserId(id: $getFriendsByUserIdId) {
+      id
+      is_accepted
+      user_one {
+        id
+        username
+        image
+      }
+      user_two {
+        id
+        username
+        image
+      }
+    }
+  }
+`;
 
 export default function FriendsPage() {
-  const friendsArray: UserFriend[] = [
-    {
-      id: 1,
-      username: "Jean-Eude",
-      avatar: "/images/blank-avatar.png",
+  const { user } = useContext(AuthContext);
+  const [friendsArray, setFriendsArray] = useState<UserFriend[]>([]);
+
+  const { loading, error } = useQuery(GET_ALL_USER_FRIENDS, {
+    variables: {
+      getFriendsByUserIdId: user.id,
     },
-    {
-      id: 2,
-      username: "Jean-Jacques",
-      avatar: "/images/blank-avatar.png",
+    onCompleted: (data) => {
+      const getFriendsArray: any = [];
+
+      // check from datas if user_one has same id or not, and push to getFriendsArray the one with a different id
+      data.getFriendsByUserId.forEach((friend: any) => {
+        if (friend.user_one.id === user.id) {
+          return getFriendsArray.push(friend.user_two);
+        }
+
+        return getFriendsArray.push(friend.user_one);
+      });
+
+      // setFriendsArray with the value of user friends
+      setFriendsArray(getFriendsArray);
     },
-    {
-      id: 3,
-      username: "Jean-Jean",
-      avatar: "/images/blank-avatar.png",
-    },
-    {
-      id: 4,
-      username: "Jean-René",
-      avatar: "/images/blank-avatar.png",
-    },
-    {
-      id: 5,
-      username: "Jean-Bertrand",
-      avatar: "/images/blank-avatar.png",
-    },
-    {
-      id: 6,
-      username: "Jean-Vincent",
-      avatar: "/images/blank-avatar.png",
-    },
-    {
-      id: 7,
-      username: "Jean-Benoît",
-      avatar: "/images/blank-avatar.png",
-    },
-    {
-      id: 8,
-      username: "Jean-Gérard",
-      avatar: "/images/blank-avatar.png",
-    },
-  ];
+  });
 
   const [filters, setFilters] = useState<{ username: string }>({
     username: "",
@@ -72,6 +74,9 @@ export default function FriendsPage() {
     friend.username
       .toLowerCase()
       .includes(filters.username.trim().toLowerCase());
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
 
   return (
     <>
