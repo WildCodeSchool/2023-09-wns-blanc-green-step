@@ -27,13 +27,14 @@ export function mockNextUseRouter(pathname: string) {
 
 describe("Testing Navigation Dashboard", () => {
   mockNextUseRouter("/");
-  it("render the navboard with three links", () => {
+  it("render the navboard with four links", () => {
     render(<NavBoard />);
 
-    const [homeLink, myExpenses, disconnect] = screen.getAllByRole("link");
+    const [homeLink, myExpenses, MyEcochallenges, disconnect] = screen.getAllByRole("link");
 
     expect(homeLink).toHaveAttribute("href", "/");
     expect(myExpenses).toHaveAttribute("href", "/my-expenses");
+    expect(MyEcochallenges).toHaveAttribute("href", "/my-ecochallenges");
     expect(disconnect).toHaveAttribute("href", "/");
   });
 
