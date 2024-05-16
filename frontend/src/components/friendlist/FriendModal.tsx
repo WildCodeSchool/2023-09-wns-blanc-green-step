@@ -27,12 +27,26 @@ export default function FriendModal({
       <dialog
         open
         //       backdrop-blur-[20px]
-        className="absolute z-[5] left-2/4 top-2/4 bg-blue-90 translate-x-[-50%] translate-y-[-50%] rounded-lg grid gap-12 px-8 py-4"
+        className="absolute z-[5] left-2/4 top-2/4 bg-blue-90 translate-x-[-50%] translate-y-[-50%] rounded-lg grid px-8 py-4 gap-y-4"
       >
-        <h2 className="col-start-1" onClick={() => setIsFirstTabOpen(true)}>
+        <h2
+          className={`col-start-1 text-center border-b border-grey-30 p-2 pr-7 transition-all duration-300 ${
+            isFirstTabOpen
+              ? "after:absolute after:top-[54px] after:left-[6.6%] after:w-[43.4%]  after:h-1 after:bg-blue-10 after:z-[-1]"
+              : ""
+          }`}
+          onClick={() => setIsFirstTabOpen(true)}
+        >
           Mes Demandes Reçues
         </h2>
-        <h2 className="col-start-2" onClick={() => setIsFirstTabOpen(false)}>
+        <h2
+          className={`col-start-2 text-center border-b border-grey-30 p-2 pl-7 transition-all duration-300 ${
+            isFirstTabOpen
+              ? ""
+              : "after:absolute after:top-[54px] after:right-[6.6%] after:w-[43.4%] after:h-1 after:bg-blue-10 after:z-[-1]"
+          }`}
+          onClick={() => setIsFirstTabOpen(false)}
+        >
           Mes Demandes Envoyées
         </h2>
         <p className="absolute right-2 top-2">X</p>
