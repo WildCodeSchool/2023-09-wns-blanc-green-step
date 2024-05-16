@@ -108,6 +108,10 @@ export default function FriendsPage() {
             )
           )}
       </section>
+
+      <section className="fixed bottom-12 left-16 sm:left-[28rem]">
+        <h2>Voir mes demandes</h2>
+      </section>
     </>
   );
 }

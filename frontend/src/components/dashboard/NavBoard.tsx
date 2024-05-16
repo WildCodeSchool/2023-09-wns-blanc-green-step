@@ -10,7 +10,7 @@ function NavBoard() {
   const [isBurger, setIsBurger] = useState(false);
 
   const handleDisconnect = () => {
-    setUser({ id: 0, username: "", email: "" });
+    setUser({ id: 0, username: "", email: "", avatar: "" });
     localStorage.removeItem("token");
     router.push("/");
   };
@@ -41,8 +41,8 @@ function NavBoard() {
 
         <img
           className="w-32 sm:w-52 self-center mb-2"
-          src="/images/blank-avatar.png"
-          alt="blank avatar"
+          src={user.avatar || "/images/blank-avatar.png"}
+          alt={`${user.username} avatar`}
         />
         <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
           Bienvenue {user.username} !
