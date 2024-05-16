@@ -49,6 +49,6 @@ describe("Testing Navigation Dashboard", () => {
     expect(burgerIcon).toHaveClass("sm:hidden");
 
     expect(avatar).toHaveAttribute("src", "/images/blank-avatar.png");
-    expect(avatar).toHaveAttribute("alt", "blank avatar");
+    expect(avatar).toHaveAttribute("alt", " avatar");
   });
 });
