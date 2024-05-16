@@ -116,9 +116,16 @@ function MyEcochallenges() {
           expensesByActivity[challenge.activityType.name] > 1 ? (
             <div
               key={challenge.id}
-              className="bg-gray-80 py-5 px-7 m-5 rounded-xl"
+              className="bg-gray-80 py-5 px-7 m-5 rounded-xl cursor-pointer flex flex-row items-center"
             >
-              <p onClick={() => handleOpenModal(challenge)}>{challenge.name}</p>
+              <input
+                id="checkbox-challenge"
+                type="checkbox"
+                className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
+              />
+              <p onClick={() => handleOpenModal(challenge)} className="ml-6">
+                {challenge.name}
+              </p>
             </div>
           ) : (
             ""
