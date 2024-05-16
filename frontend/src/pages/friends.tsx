@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import FriendSearchBar from "@/components/friendlist/FriendSearchBar";
 import { Button } from "@/components/Button";
+import FriendModal from "@/components/friendlist/FriendModal";
 
 const GET_ALL_USER_FRIENDS = gql`
   query Query($getFriendsByUserIdId: Float!) {
@@ -28,6 +29,7 @@ const GET_ALL_USER_FRIENDS = gql`
 export default function FriendsPage() {
   const { user } = useContext(AuthContext);
   const [friendsArray, setFriendsArray] = useState<UserFriend[]>([]);
+  const [isMyDemandsOpen, setIsMyDemandsOpen] = useState<boolean>(false);
 
   const { loading, error } = useQuery(GET_ALL_USER_FRIENDS, {
     variables: {
@@ -43,6 +45,7 @@ export default function FriendsPage() {
             ...friend.user_two,
             is_accepted: friend.is_accepted,
             is_requested_by_user: true,
+            request_id: friend.id,
           });
         }
 
@@ -50,6 +53,7 @@ export default function FriendsPage() {
           ...friend.user_one,
           is_accepted: friend.is_accepted,
           is_requested_by_user: false,
+          request_id: friend.id,
         });
       });
 
@@ -110,12 +114,14 @@ export default function FriendsPage() {
           )}
       </section>
 
+      {isMyDemandsOpen ? <FriendModal friendsArray={friendsArray} /> : ""}
+
       <section className="fixed bottom-11 left-16 sm:left-[28rem]">
         <Button
           content="Voir mes demandes"
           color="bg-green-60"
           textsize="text-md"
-          onClick={(e: any) => console.log(e)}
+          onClick={() => setIsMyDemandsOpen(true)}
         />
       </section>
     </>
