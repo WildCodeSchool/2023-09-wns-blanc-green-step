@@ -29,7 +29,7 @@ export default function FriendModal({
       <dialog
         open
         //       backdrop-blur-[20px]
-        className="absolute z-[5] left-2/4 top-2/4 bg-blue-90 translate-x-[-50%] translate-y-[-50%] rounded-lg grid px-8 py-4 gap-y-4"
+        className="absolute z-[5] left-2/4 top-2/4 bg-blue-90 translate-x-[-50%] translate-y-[-50%] rounded-lg grid px-8 py-4 gap-y-6"
       >
         <h2
           className={`col-start-1 text-center border-b border-grey-30 p-2 pr-7 cursor-pointer after:transition-all ${
