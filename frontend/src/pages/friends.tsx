@@ -4,6 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import FriendSearchBar from "@/components/friendlist/FriendSearchBar";
+import { Button } from "@/components/Button";
 
 const GET_ALL_USER_FRIENDS = gql`
   query Query($getFriendsByUserIdId: Float!) {
@@ -109,8 +110,13 @@ export default function FriendsPage() {
           )}
       </section>
 
-      <section className="fixed bottom-12 left-16 sm:left-[28rem]">
-        <h2>Voir mes demandes</h2>
+      <section className="fixed bottom-11 left-16 sm:left-[28rem]">
+        <Button
+          content="Voir mes demandes"
+          color="bg-green-60"
+          textsize="text-md"
+          onClick={(e: any) => console.log(e)}
+        />
       </section>
     </>
   );
