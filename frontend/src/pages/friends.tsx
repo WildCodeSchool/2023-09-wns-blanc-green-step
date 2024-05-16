@@ -114,7 +114,14 @@ export default function FriendsPage() {
           )}
       </section>
 
-      {isMyDemandsOpen ? <FriendModal friendsArray={friendsArray} /> : ""}
+      {isMyDemandsOpen ? (
+        <FriendModal
+          friendsArray={friendsArray}
+          closeModal={() => setIsMyDemandsOpen(false)}
+        />
+      ) : (
+        ""
+      )}
 
       <section className="fixed bottom-11 left-16 sm:left-[28rem]">
         <Button
