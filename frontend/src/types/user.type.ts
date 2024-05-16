@@ -12,4 +12,5 @@ export type Friend = Omit<User, "email" | "password">;
 
 export type UserFriend = {
   is_accepted?: boolean;
+  is_requested_by_user: boolean;
 } & Friend;

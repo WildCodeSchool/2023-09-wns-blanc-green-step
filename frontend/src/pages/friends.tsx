@@ -41,12 +41,14 @@ export default function FriendsPage() {
           return getFriendsArray.push({
             ...friend.user_two,
             is_accepted: friend.is_accepted,
+            is_requested_by_user: true,
           });
         }
 
         return getFriendsArray.push({
           ...friend.user_one,
           is_accepted: friend.is_accepted,
+          is_requested_by_user: false,
         });
       });
 
