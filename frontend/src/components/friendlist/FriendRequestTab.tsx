@@ -1,4 +1,5 @@
 import { UserFriend } from "@/types/user.type";
+import FriendRequestCard from "./FriendRequestCard";
 
 export default function FriendRequestTab({
   array,
@@ -11,8 +12,20 @@ export default function FriendRequestTab({
   return (
     <>
       {isFirstTabOpen
-        ? array.map((friend) => <p key={friend.id}>{friend.username}</p>)
-        : array.map((friend) => <p key={friend.id}>{friend.username}</p>)}
+        ? array.map((friend) => (
+            <FriendRequestCard
+              friend={friend}
+              key={friend.id}
+              isFirstTabOpen={isFirstTabOpen}
+            />
+          ))
+        : array.map((friend) => (
+            <FriendRequestCard
+              friend={friend}
+              key={friend.id}
+              isFirstTabOpen={isFirstTabOpen}
+            />
+          ))}
     </>
   );
 }
