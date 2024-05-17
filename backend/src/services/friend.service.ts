@@ -1,3 +1,4 @@
+import { DeleteResult } from "typeorm";
 import { Friend } from "../entities/friend.entity";
 import * as UserService from "./user.service";
 
@@ -79,4 +80,13 @@ export const updateFriend = async (id: number): Promise<Friend | undefined> => {
 
     return userFromdDB.save();
   }
+};
+
+/**
+ *
+ * @param id friend request id
+ * @returns delete a friend request
+ */
+export const deleteFriend = async (id: number): Promise<DeleteResult> => {
+  return Friend.delete({ id });
 };
