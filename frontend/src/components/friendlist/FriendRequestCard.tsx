@@ -36,12 +36,12 @@ export default function FriendRequestCard({
         />
 
         <Image
-          src={isFirstTabOpen ? deleteIcon : refuseIcon}
-          alt={`${isFirstTabOpen ? "Delete Request for" : "Refuse"} ${
+          src={!isFirstTabOpen ? deleteIcon : refuseIcon}
+          alt={`${!isFirstTabOpen ? "Delete Request for" : "Refuse"} ${
             friend.username
           } Icon`}
           className={`h-6 w-auto cursor-pointer ${
-            isFirstTabOpen ? "mr-[5px]" : ""
+            !isFirstTabOpen ? "mr-[5px]" : ""
           }`}
         />
       </p>
