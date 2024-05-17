@@ -1,0 +1,63 @@
+name: jest-and-docker-ci-backend
+
+on:
+  push:
+    paths:
+      - "backend/**"
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    container: node:lts-alpine
+
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_DB: ${{ secrets.DATABASE }}
+          POSTGRES_USER: ${{ secrets.USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.PASSWORD }}
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Go to backend
+        env:
+          PORT: ${{ secrets.PORT }}
+          HOST: ${{ secrets.HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          DATABASE: ${{ secrets.DATABASE }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+        run: cd backend && npm i && npm run test
+
+  docker-back:
+    needs: test-backend
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: "{{defaultContext}}:backend"
+          file: build.Dockerfile
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-backend:latest
