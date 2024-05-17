@@ -49,6 +49,16 @@ function NavBoard() {
         </p>
 
         <ul className="font-medium self-center text-sm sm:text-base flex flex-col gap-5 h-full w-full p-3 sm:pl-8">
+          <Link href="/mon-bilan-carbone">
+            <li className="flex gap-4 items-center">
+              {/* <img
+                src="/images/bilan-carbon.png"
+                alt="Bilan carbon Icon"
+              /> */}
+              Mon Bilan Carbone
+            </li>
+          </Link>
+
           <Link href="/my-expenses">
             <li className="flex gap-4 items-center">
               <img
@@ -59,6 +69,13 @@ function NavBoard() {
             </li>
           </Link>
 
+          <Link href="/my-ecochallenges">
+            <li className="flex gap-4 items-center w-8">
+              <img src="/images/target.png" alt="My ecochallenges icon" />
+              Mes Eco-challenges
+            </li>
+          </Link>
+
           <Link href="/friends">
             <li className="flex gap-4 items-center">
               <img src="/images/friendlist.png" alt="Friend List Icon" />
@@ -66,7 +83,14 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="mt-auto" href="/">
+          <Link className="self-end" href="/profil">
+            <li className="flex gap-4 items-center">
+              <img src="/images/signout.png" alt="Signout Icon" />
+              Mon profil
+            </li>
+          </Link>
+
+          <Link className="self-end" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion

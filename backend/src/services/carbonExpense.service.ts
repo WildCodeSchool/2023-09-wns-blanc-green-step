@@ -37,6 +37,28 @@ export async function findCarbonExpenseByUserId(
   return userExpenses;
 }
 
+export async function findCarbonExpenseByUserByActivityType(
+  userId: number,
+  activityTypeId: number
+): Promise<CarbonExpense[]> {
+  const userExpenses = await CarbonExpense.find({
+    relations: {
+      activityType: true,
+    },
+    where: {
+      user: {
+        id: userId,
+      },
+      activityType: {
+        id: activityTypeId,
+      }
+    },
+  });
+
+  return userExpenses;
+}
+
+
 export async function getExpensesByTerms(
   terms: string = ""
 ): Promise<CarbonExpense[] | string> {
