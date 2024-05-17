@@ -83,14 +83,14 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="self-end" href="/profil">
+          <Link className="mt-auto" href="/profil">
             <li className="flex gap-4 items-center">
               <img src="/images/signout.png" alt="Signout Icon" />
               Mon profil
             </li>
           </Link>
 
-          <Link className="self-end" href="/">
+          <Link className="" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion
