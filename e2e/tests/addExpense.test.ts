@@ -15,13 +15,13 @@ test("login, action the buton CO², fill the form and submit the expense", async
 
     expect(page.goto("http://localhost:3000/login"));
 
-    await page.getByPlaceholder('Nom d\'utilisateur ou Email').fill("123@gmail.com");
+    await page.getByPlaceholder('Nom d\'utilisateur ou Email').fill("1");
 
-    await page.getByPlaceholder('Mot de passe').fill("123");
+    await page.getByPlaceholder('Mot de passe').fill("1");
 
     await page.getByRole('button', { name: 'Se connecter' }).click()
 
-    // expect(page.goto("http://localhost:3000/my-expenses"))
+    // expect(page.goto("http://localhost:3000/my-expenses"))npx p
 
     await page.getByRole("button", { name: "+ CO²" }).click();
 

@@ -10,7 +10,7 @@ function NavBoard() {
   const [isBurger, setIsBurger] = useState(false);
 
   const handleDisconnect = () => {
-    setUser({ id: 0, username: "", email: "" });
+    setUser({ id: 0, username: "", email: "", image: "" });
     localStorage.removeItem("token");
     router.push("/");
   };
@@ -40,15 +40,26 @@ function NavBoard() {
         </Link>
 
         <img
-          className="w-32 sm:w-52 self-center mb-2"
-          src="/images/blank-avatar.png"
-          alt="blank avatar"
+          className="w-32 sm:w-52 self-center mb-2 rounded-full"
+          src={user.image || "/images/blank-avatar.png"}
+          alt={`${user.username} avatar`}
         />
         <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
           Bienvenue {user.username} !
         </p>
 
-        <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full w-full p-3 sm:pl-8">
+        <ul className="font-medium self-center text-sm sm:text-base flex flex-col gap-5 h-full w-full p-3 sm:pl-8">
+          <Link href="/mon-bilan-carbone">
+            <li className="flex gap-4 items-center">
+              <img
+                src="/images/carbon-footprint.png"
+                alt="Bilan carbon Icon"
+                width={"35px"}
+              />
+              Mon Bilan Carbone
+            </li>
+          </Link>
+
           <Link href="/my-expenses">
             <li className="flex gap-4 items-center">
               <img
@@ -59,7 +70,28 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="self-end" href="/">
+          <Link href="/my-ecochallenges">
+            <li className="flex gap-4 items-center w-8">
+              <img src="/images/target.png" alt="My ecochallenges icon" />
+              Mes Eco-challenges
+            </li>
+          </Link>
+
+          <Link href="/friends">
+            <li className="flex gap-4 items-center">
+              <img src="/images/friendlist.png" alt="Friend List Icon" />
+              Mes Contacts
+            </li>
+          </Link>
+
+          <Link className="mt-auto" href="/profil">
+            <li className="flex gap-4 items-center">
+              <img src="/images/profile-icon.png" alt="Signout Icon" />
+              Mon profil
+            </li>
+          </Link>
+
+          <Link className="" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion

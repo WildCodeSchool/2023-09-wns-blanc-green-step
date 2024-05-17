@@ -16,6 +16,7 @@ import Layout from "../layouts/layout";
 
 import "@/styles/globals.css";
 import { AuthContextProvider } from "@/contexts/AuthContext";
+import HeadMeta from "@/components/meta/HeadMeta";
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_LINK,
@@ -53,6 +54,7 @@ function App({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <AuthContextProvider>
         <Layout>
+          <HeadMeta />
           <Component {...pageProps} />
         </Layout>
       </AuthContextProvider>
