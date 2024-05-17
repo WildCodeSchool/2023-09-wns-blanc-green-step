@@ -29,7 +29,7 @@ describe("Testing Friend Request Card", () => {
     expect(paragraph).toHaveTextContent("Jean-Jacques");
   });
 
-  it("render the card with friend request infos as intended", () => {
+  it("render the card with proper icons if is a received request", () => {
     render(
       <FriendRequestCard
         friend={{
@@ -51,5 +51,32 @@ describe("Testing Friend Request Card", () => {
 
     expect(refuseIcon).toBeInTheDocument();
     expect(refuseIcon).toHaveAttribute("alt", "Refuse Jean-Jacques Icon");
+  });
+
+  it("render the card with proper icons if is a received request", () => {
+    render(
+      <FriendRequestCard
+        friend={{
+          id: 2,
+          username: "Jean-Jacques",
+          avatar: "/images/blank-avatar.png",
+          request_id: 1,
+          is_accepted: false,
+          is_requested_by_user: true,
+        }}
+        isFirstTabOpen={false}
+        lastRequest={1}
+      />
+    );
+
+    const [_, acceptIcon, deleteIcon] = screen.getAllByRole("img");
+    expect(acceptIcon).toBeInTheDocument();
+    expect(acceptIcon).toHaveAttribute("alt", "Accept Jean-Jacques Icon");
+
+    expect(deleteIcon).toBeInTheDocument();
+    expect(deleteIcon).toHaveAttribute(
+      "alt",
+      "Delete Request for Jean-Jacques Icon"
+    );
   });
 });
