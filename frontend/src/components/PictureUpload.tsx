@@ -6,13 +6,13 @@ import { Button } from "./Button";
 export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const { user } = useContext(AuthContext);
 
-  const [imageSrc, setImageSrc] = useState(user.avatar);
+  const [imageSrc, setImageSrc] = useState(user.image);
   const [file, setFile] = useState<File>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Maintenant TypeScript sait que fileInputRef.current est un HTMLInputElement
+      fileInputRef.current.click();
     }
   };
 
@@ -35,15 +35,6 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // const file = event.target.files && event.target.files[0];
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onload = (e: any) => {
-    //     setImageSrc(e.target.result);
-    //     setImgUrl(e.target.result);
-    //   };
-    //   reader.readAsDataURL(file);
-    // }
     if (event.target.files) {
       setImgUrl(URL.createObjectURL(event.target.files[0]));
       setFile(event.target.files[0]);

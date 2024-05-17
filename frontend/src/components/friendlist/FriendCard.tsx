@@ -8,7 +8,7 @@ export const FriendCard = ({ friend }: { friend: UserFriend }) => {
     >
       <img
         className="w-16 self-center mb-2"
-        src={friend.avatar || "/images/blank-avatar.png"}
+        src={friend.image || "/images/blank-avatar.png"}
         alt={`${friend.username} avatar`}
       />
       <p>
