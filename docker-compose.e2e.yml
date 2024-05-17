@@ -62,9 +62,9 @@ services:
       POSTGRES_DB: green_step_db
       POSTGRES_USER: green_step
       POSTGRES_PASSWORD: green_step
-      PGDATA: customDataFolder
+      PGDATA: /var/lib/postgresql/data/customDataFolder
     volumes:
-      - ./dbData/:/var/lib/postgresql/data/customDataFolder
+      - ./dbData/:/var/lib/postgresql/data
     ports:
       - 5432:5432
     healthcheck:
@@ -74,10 +74,10 @@ services:
       retries: 10
 
   e2e:
-   build: ./e2e
-   volumes:
-     - ./e2e/playwright-report:/app/playwright-report
-     - ./e2e/test-results:/app/test-results
-   depends_on:
-     frontend:
-       condition: service_healthy
+    build: ./e2e
+    volumes:
+      - ./e2e/playwright-report:/app/playwright-report
+      - ./e2e/test-results:/app/test-results
+    depends_on:
+      frontend:
+        condition: service_healthy
