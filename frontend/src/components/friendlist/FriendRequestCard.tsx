@@ -1,8 +1,18 @@
 import { UserFriend } from "@/types/user.type";
+import { gql, useMutation } from "@apollo/client";
 import Image from "next/image";
 import acceptIcon from "@/assets/friendlist-icons/accept-friend.svg";
 import deleteIcon from "@/assets/friendlist-icons/delete-friend.svg";
 import refuseIcon from "@/assets/friendlist-icons/refuse-friend.svg";
+
+const ACCEPT_FRIEND = gql`
+  mutation Mutation($acceptFriendId: Float!) {
+    acceptFriend(id: $acceptFriendId) {
+      id
+      is_accepted
+    }
+  }
+`;
 
 export default function FriendRequestCard({
   friend,
@@ -13,6 +23,14 @@ export default function FriendRequestCard({
   isFirstTabOpen: boolean;
   lastRequest: number;
 }) {
+  const [acceptFriend] = useMutation(ACCEPT_FRIEND);
+
+  const handleAcceptFriend = () => {
+    acceptFriend({
+      variables: { acceptFriendId: friend.request_id },
+    });
+  };
+
   return (
     <>
       <p
@@ -34,6 +52,7 @@ export default function FriendRequestCard({
             src={acceptIcon}
             alt={`Accept ${friend.username} Icon`}
             className="h-6 ml-auto w-auto cursor-pointer mr-2"
+            onClick={() => handleAcceptFriend()}
           />
         ) : (
           ""
