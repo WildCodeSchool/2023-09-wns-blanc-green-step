@@ -49,6 +49,16 @@ function NavBoard() {
         </p>
 
         <ul className="font-medium self-center text-sm sm:text-base grid gap-5 h-full w-full p-3 sm:pl-8">
+          <Link href="/mon-bilan-carbone">
+            <li className="flex gap-4 items-center">
+              {/* <img
+                src="/images/bilan-carbon.png"
+                alt="Bilan carbon Icon"
+              /> */}
+              Mon Bilan Carbone
+            </li>
+          </Link>
+          
           <Link href="/my-expenses">
             <li className="flex gap-4 items-center">
               <img

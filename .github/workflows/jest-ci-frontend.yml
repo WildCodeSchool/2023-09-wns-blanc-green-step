@@ -1,6 +1,9 @@
-name: jest-and-docker-ci
+name: jest-and-docker-ci-frontend
 
-on: push
+on:
+  push:
+    paths:
+      - "frontend/**"
 
 jobs:
   test-front:
@@ -31,3 +34,4 @@ jobs:
           context: "{{defaultContext}}:frontend"
           file: build.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-frontend:latest
+          build-args: NEXT_PUBLIC_API_LINK=${{ secrets.NEXT_PUBLIC_API_LINK }}

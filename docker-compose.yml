@@ -13,7 +13,8 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
@@ -51,9 +52,9 @@ services:
       POSTGRES_DB: green_step_db
       POSTGRES_USER: green_step
       POSTGRES_PASSWORD: green_step
-      PGDATA: customDataFolder
+      PGDATA: /var/lib/postgresql/data/customDataFolder
     volumes:
-      - ./dbData/:/var/lib/postgresql/data/customDataFolder
+      - ./dbData/:/var/lib/postgresql/data
     ports:
       - 5432:5432
     healthcheck:

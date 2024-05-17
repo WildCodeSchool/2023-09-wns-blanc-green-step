@@ -1,6 +1,9 @@
-name: jest-and-docker-ci
+name: jest-and-docker-ci-backend
 
-on: push
+on:
+  push:
+    paths:
+      - "backend/**"
 
 jobs:
   test-backend:
@@ -29,6 +32,7 @@ jobs:
       - name: Go to backend
         env:
           PORT: ${{ secrets.PORT }}
+          HOST: ${{ secrets.HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
@@ -55,4 +59,5 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:backend"
+          file: build.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-backend:latest
