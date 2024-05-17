@@ -23,6 +23,12 @@ export class FriendResolver {
     return FriendService.findByUser(id);
   }
 
+  /**
+   *
+   * @param user_id id from user sending the request
+   * @param friend_id id from user who will received the request
+   * @returns a created friend request
+   */
   @Mutation(() => Friend)
   async addFriend(
     @Arg("user_id") user_id: number,
