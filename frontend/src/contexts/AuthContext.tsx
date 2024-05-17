@@ -20,8 +20,8 @@ const AuthContext = createContext({
   setUser: (user: {
     id: number;
     username: string;
-    email: "";
-    avatar: "";
+    email: string;
+    avatar: string;
   }) => {},
 });
 
