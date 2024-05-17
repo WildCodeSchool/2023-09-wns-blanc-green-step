@@ -58,11 +58,17 @@ export default function FriendModal({
           X
         </p>
 
-        {isFirstTabOpen ? (
+        {isFirstTabOpen && friendsRequestsReceived.length > 0 ? (
           <FriendRequestTab
             array={friendsRequestsReceived as UserFriend[]}
             isFirstTabOpen={isFirstTabOpen}
           />
+        ) : (
+          ""
+        )}
+
+        {isFirstTabOpen && friendsRequestsSent.length > 0 ? (
+          ""
         ) : (
           <FriendRequestTab
             array={friendsRequestsSent as UserFriend[]}

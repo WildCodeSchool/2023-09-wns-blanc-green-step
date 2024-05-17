@@ -14,6 +14,12 @@ const ACCEPT_FRIEND = gql`
   }
 `;
 
+const DELETE_FRIEND = gql`
+  mutation Mutation($deleteFriendRequestId: Float!) {
+    deleteFriendRequest(id: $deleteFriendRequestId)
+  }
+`;
+
 export default function FriendRequestCard({
   friend,
   isFirstTabOpen,
@@ -24,10 +30,19 @@ export default function FriendRequestCard({
   lastRequest: number;
 }) {
   const [acceptFriend] = useMutation(ACCEPT_FRIEND);
+  const [deleteFriendRequest] = useMutation(DELETE_FRIEND);
 
   const handleAcceptFriend = () => {
     acceptFriend({
       variables: { acceptFriendId: friend.request_id },
+    });
+  };
+
+  const handleDeleteFriendRequest = () => {
+    deleteFriendRequest({
+      variables: {
+        deleteFriendRequestId: friend.request_id,
+      },
     });
   };
 
@@ -66,6 +81,7 @@ export default function FriendRequestCard({
           className={`h-6 w-auto cursor-pointer ${
             !isFirstTabOpen ? "mr-[5px] ml-auto" : ""
           }`}
+          onClick={() => handleDeleteFriendRequest()}
         />
       </p>
 
