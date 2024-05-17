@@ -71,8 +71,8 @@ export default function Profil() {
 
             <Tabs className="w-[60%] relative mx-auto">
                 <TabList className="flex items-center justify-around">
-                    <Tab className="w-[50%] text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Informations personnelles</Tab>
-                    <Tab className="w-[50%] text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Mot de passe</Tab>
+                    <Tab className="w-[50%] h-14 text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Informations personnelles</Tab>
+                    <Tab className="w-[50%] h-14 text-center border-b border-grey-30 p-2" selectedClassName="border-blue-40">Mot de passe</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -81,18 +81,20 @@ export default function Profil() {
                             <PictureUpload imgUrl={imgUrl} setImgUrl={setImgUrl} />
                         </div>
 
-                        <div className="w-[40%] flex flex-col mb-8">
+                        <div className="w-[80%] flex flex-col mb-8 md:w-[40%]">
                             <label htmlFor="">Identifiant</label>
                             <input
+                                data-test-id="username"
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
                                 value={newIdentifiant}
                                 onChange={(e) => e.target.value !== "" ? setNewIdentifiant(e.target.value) : user.username}
                             />
                         </div>
 
-                        <div className="w-[40%] flex flex-col mb-8">
+                        <div className="w-[80%] flex flex-col mb-8 md:w-[40%]">
                             <label htmlFor="">Email</label>
                             <input
+                                data-test-id="email"
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
                                 value={newEmail}
                                 onChange={(e) => e.target.value !== "" ? setNewEmail(e.target.value) : user.email}
@@ -109,7 +111,7 @@ export default function Profil() {
                 </TabPanel>
                 <TabPanel>
                     <div className="flex flex-col items-center justify-center mt-10">
-                        <div className="w-[40%] flex flex-col mb-8">
+                        <div className="w-[80%] flex flex-col mb-8 md:w-[40%]">
                             <label>Nouveau mot de passe</label>
                             <input type="password"
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
@@ -117,7 +119,7 @@ export default function Profil() {
                             />
                         </div>
 
-                        <div className="w-[40%] flex flex-col mb-8">
+                        <div className="w-[80%] flex flex-col mb-8 md:w-[40%]">
                             <label htmlFor="">Confirmer le nouveau mot de passe</label>
                             <input type="password"
                                 className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
