@@ -60,7 +60,7 @@ export default function Profil() {
           id: user.id,
           username: newIdentifiant,
           email: newEmail,
-          avatar: imgUrl,
+          image: imgUrl,
         });
       },
     });
@@ -78,7 +78,7 @@ export default function Profil() {
   useEffect(() => {
     setNewEmail(user.email);
     setNewIdentifiant(user.username);
-    setImgUrl(user.avatar);
+    setImgUrl(user.image);
   }, [user]);
 
   return (

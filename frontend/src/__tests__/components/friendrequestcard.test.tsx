@@ -12,7 +12,7 @@ describe("Testing Friend Request Card", () => {
           friend={{
             id: 2,
             username: "Jean-Jacques",
-            avatar: "/images/blank-avatar.png",
+            image: "/images/blank-avatar.png",
             request_id: 1,
             is_accepted: false,
             is_requested_by_user: false,
@@ -40,7 +40,7 @@ describe("Testing Friend Request Card", () => {
           friend={{
             id: 2,
             username: "Jean-Jacques",
-            avatar: "/images/blank-avatar.png",
+            image: "/images/blank-avatar.png",
             request_id: 1,
             is_accepted: false,
             is_requested_by_user: false,
@@ -66,7 +66,7 @@ describe("Testing Friend Request Card", () => {
           friend={{
             id: 2,
             username: "Jean-Jacques",
-            avatar: "/images/blank-avatar.png",
+            image: "/images/blank-avatar.png",
             request_id: 1,
             is_accepted: false,
             is_requested_by_user: true,
