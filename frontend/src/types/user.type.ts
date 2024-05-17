@@ -3,6 +3,7 @@ export type User = {
   username: string;
   email: string;
   password: string;
+  image: string;
 };
 
 export type UserContext = Omit<User, "password">;

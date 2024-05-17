@@ -57,3 +57,33 @@ export function getById(id: number): Promise<User> {
     id: id,
   });
 }
+
+export async function update(id: number, email: string, username: string, image: string): Promise<User | undefined> {
+  const userToUpdate = await User.findOneBy({ id });
+  
+  if (!userToUpdate) {
+    throw new Error("Ad not found");
+  }
+  
+  if (userToUpdate) {
+    userToUpdate.email = email;
+    userToUpdate.username = username;
+    userToUpdate.image = image
+
+    return userToUpdate.save();
+  }
+}
+
+export async function updatePassword(id: number, password: string): Promise<User | undefined> {
+  const userToUpdate = await User.findOneBy({ id });
+
+  if (!userToUpdate) {
+    throw new Error("Ad not found");
+  }
+  
+  if (userToUpdate) {
+    userToUpdate.password = await argon2.hash(password)
+
+    return userToUpdate.save();
+  }
+}
