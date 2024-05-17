@@ -30,8 +30,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.50.1",
     "react-toastify": "^10.0.4",
+    "styled-components": "^6.1.11",
     "ts-node": "^10.9.2",
-
     "typescript": "5.2.2"
   },
   "devDependencies": {
