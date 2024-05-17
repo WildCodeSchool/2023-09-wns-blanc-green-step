@@ -47,6 +47,11 @@ export class FriendResolver {
     return FriendService.updateFriend(id);
   }
 
+  /**
+   *
+   * @param id friend request id
+   * @returns "OK"
+   */
   @Mutation(() => String)
   async deleteFriendRequest(@Arg("id") id: number): Promise<string> {
     const deletedFriend = await FriendService.deleteFriend(id);
