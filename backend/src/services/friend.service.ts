@@ -1,4 +1,5 @@
 import { Friend } from "../entities/friend.entity";
+import * as UserService from "./user.service";
 
 /**
  *
@@ -33,4 +34,25 @@ export const findByUser = (userId: number): Promise<Friend[]> => {
       },
     ],
   });
+};
+
+/**
+ *
+ * @param user_id id from user sending the request
+ * @param friend_id id from user who will receive the request
+ * @returns
+ */
+export const createFriend = async (
+  user_id: number,
+  friend_id: number
+): Promise<Friend> => {
+  // We get both user and friend from DB
+  const userFromDB = await UserService.getById(user_id);
+  const friendFromDB = await UserService.getById(friend_id);
+
+  const friend = new Friend();
+  friend.user_one = userFromDB;
+  friend.user_two = friendFromDB;
+
+  return await friend.save();
 };
