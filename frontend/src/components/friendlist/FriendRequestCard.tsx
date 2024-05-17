@@ -29,11 +29,15 @@ export default function FriendRequestCard({
 
         {friend.username}
 
-        <Image
-          src={acceptIcon}
-          alt={`Accept ${friend.username} Icon`}
-          className="h-6 ml-auto w-auto cursor-pointer mr-2"
-        />
+        {isFirstTabOpen ? (
+          <Image
+            src={acceptIcon}
+            alt={`Accept ${friend.username} Icon`}
+            className="h-6 ml-auto w-auto cursor-pointer mr-2"
+          />
+        ) : (
+          ""
+        )}
 
         <Image
           src={!isFirstTabOpen ? deleteIcon : refuseIcon}
@@ -41,7 +45,7 @@ export default function FriendRequestCard({
             friend.username
           } Icon`}
           className={`h-6 w-auto cursor-pointer ${
-            !isFirstTabOpen ? "mr-[5px]" : ""
+            !isFirstTabOpen ? "mr-[5px] ml-auto" : ""
           }`}
         />
       </p>

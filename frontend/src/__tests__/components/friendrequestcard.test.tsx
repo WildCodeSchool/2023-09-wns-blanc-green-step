@@ -53,7 +53,7 @@ describe("Testing Friend Request Card", () => {
     expect(refuseIcon).toHaveAttribute("alt", "Refuse Jean-Jacques Icon");
   });
 
-  it("render the card with proper icons if is a received request", () => {
+  it("render the card with proper icons if is a sent request", () => {
     render(
       <FriendRequestCard
         friend={{
@@ -69,9 +69,7 @@ describe("Testing Friend Request Card", () => {
       />
     );
 
-    const [_, acceptIcon, deleteIcon] = screen.getAllByRole("img");
-    expect(acceptIcon).toBeInTheDocument();
-    expect(acceptIcon).toHaveAttribute("alt", "Accept Jean-Jacques Icon");
+    const [_, deleteIcon] = screen.getAllByRole("img");
 
     expect(deleteIcon).toBeInTheDocument();
     expect(deleteIcon).toHaveAttribute(
