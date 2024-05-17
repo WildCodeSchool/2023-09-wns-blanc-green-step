@@ -10,7 +10,7 @@ function NavBoard() {
   const [isBurger, setIsBurger] = useState(false);
 
   const handleDisconnect = () => {
-    setUser({ id: 0, username: "", email: "", image: ""});
+    setUser({ id: 0, username: "", email: "", image: "" });
     localStorage.removeItem("token");
     router.push("/");
   };
@@ -58,7 +58,7 @@ function NavBoard() {
               Mon Bilan Carbone
             </li>
           </Link>
-          
+
           <Link href="/my-expenses">
             <li className="flex gap-4 items-center">
               <img
@@ -69,17 +69,17 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="self-end" href="/profil">
-            <li className="flex gap-4 items-center">
-              <img src="/images/signout.png" alt="Signout Icon" />
-              Mon profil
-            </li>
-          </Link>
-        
           <Link href="/my-ecochallenges">
             <li className="flex gap-4 items-center w-8">
               <img src="/images/target.png" alt="My ecochallenges icon" />
               Mes Eco-challenges
+            </li>
+          </Link>
+
+          <Link className="self-end" href="/profil">
+            <li className="flex gap-4 items-center">
+              <img src="/images/signout.png" alt="Signout Icon" />
+              Mon profil
             </li>
           </Link>
 
