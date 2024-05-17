@@ -1,4 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { ActivityType } from "../entities/activityType.entity";
 
@@ -25,7 +31,7 @@ export class Challenge extends BaseEntity {
   @Column()
   carbon_saving: number;
 
-  // @Field()
-  // @Column()
-  // activityType: ActivityType;
+  @Field(() => ActivityType)
+  @ManyToOne(() => ActivityType, (activityType) => activityType.carbonExpense)
+  activityType: ActivityType;
 }

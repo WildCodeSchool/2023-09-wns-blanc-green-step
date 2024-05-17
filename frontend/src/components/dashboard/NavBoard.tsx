@@ -69,6 +69,13 @@ function NavBoard() {
             </li>
           </Link>
 
+          <Link href="/my-ecochallenges">
+            <li className="flex gap-4 items-center w-8">
+              <img src="/images/target.png" alt="My ecochallenges icon" />
+              Mes Eco-challenges
+            </li>
+          </Link>
+
           <Link className="self-end" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
