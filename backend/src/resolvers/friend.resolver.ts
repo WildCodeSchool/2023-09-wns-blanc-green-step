@@ -36,4 +36,14 @@ export class FriendResolver {
   ): Promise<Friend> {
     return FriendService.createFriend(user_id, friend_id);
   }
+
+  /**
+   *
+   * @param id friend request id
+   * @returns a saved accepted friend request
+   */
+  @Mutation(() => Friend)
+  async acceptFriend(@Arg("id") id: number): Promise<Friend | undefined> {
+    return FriendService.updateFriend(id);
+  }
 }

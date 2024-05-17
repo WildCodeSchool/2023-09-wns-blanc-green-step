@@ -38,6 +38,15 @@ export const findByUser = (userId: number): Promise<Friend[]> => {
 
 /**
  *
+ * @param id request friend id
+ * @returns a friend request
+ */
+export const findById = (id: number): Promise<Friend | null> => {
+  return Friend.findOneBy({ id });
+};
+
+/**
+ *
  * @param user_id id from user sending the request
  * @param friend_id id from user who will receive the request
  * @returns friend request after saving it
@@ -55,4 +64,19 @@ export const createFriend = async (
   friend.user_two = friendFromDB;
 
   return await friend.save();
+};
+
+/**
+ *
+ * @param id friend request id
+ * @returns a saved accepted friend request
+ */
+export const updateFriend = async (id: number): Promise<Friend | undefined> => {
+  const userFromdDB = await findById(id);
+
+  if (userFromdDB) {
+    userFromdDB.is_accepted = true;
+
+    return userFromdDB.save();
+  }
 };
