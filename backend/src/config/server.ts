@@ -10,6 +10,7 @@ import { verifyToken } from "../services/auth.service";
 import { getById } from "../services/user.service";
 import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageDisabled } from "apollo-server-core";
+import { FriendResolver } from "../resolvers/friend.resolver";
 
 async function createServer(
   testContext: any = undefined
@@ -25,6 +26,7 @@ async function createServer(
       ChallengeResolver,
       UserResolver,
       UserChallengeResolver,
+      FriendResolver,
     ],
     validate: { forbidUnknownValues: false },
     authChecker: async ({ context }) => {

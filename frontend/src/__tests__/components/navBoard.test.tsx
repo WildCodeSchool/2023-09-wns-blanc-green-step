@@ -30,13 +30,14 @@ describe("Testing Navigation Dashboard", () => {
   it("render the navboard with four links", () => {
     render(<NavBoard />);
 
-    const [homeLink, carbonFootprint, myExpenses, MyEcochallenges, profil, disconnect] = screen.getAllByRole("link");
+    const [homeLink, carbonFootprint, myExpenses, MyEcochallenges, friends, profil, disconnect] = screen.getAllByRole("link");
 
     expect(homeLink).toHaveAttribute("href", "/");
     expect(carbonFootprint).toHaveAttribute("href", "/mon-bilan-carbone");
     expect(myExpenses).toHaveAttribute("href", "/my-expenses");
-    expect(profil).toHaveAttribute("href", "/profil");
     expect(MyEcochallenges).toHaveAttribute("href", "/my-ecochallenges");
+    expect(friends).toHaveAttribute("href", "/friends");
+    expect(profil).toHaveAttribute("href", "/profil");
     expect(disconnect).toHaveAttribute("href", "/");
   });
 
@@ -50,6 +51,6 @@ describe("Testing Navigation Dashboard", () => {
     expect(burgerIcon).toHaveClass("sm:hidden");
 
     expect(avatar).toHaveAttribute("src", "/images/blank-avatar.png");
-    expect(avatar).toHaveAttribute("alt", "blank avatar");
+    expect(avatar).toHaveAttribute("alt", " avatar");
   });
 });
