@@ -6,13 +6,13 @@ import { Button } from "./Button";
 export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const { user } = useContext(AuthContext);
 
-  const [imageSrc, setImageSrc] = useState(user.image);
+  const [imageSrc, setImageSrc] = useState(user.avatar);
   const [file, setFile] = useState<File>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click();  // Maintenant TypeScript sait que fileInputRef.current est un HTMLInputElement
+      fileInputRef.current.click(); // Maintenant TypeScript sait que fileInputRef.current est un HTMLInputElement
     }
   };
 
@@ -32,7 +32,9 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
     }
   };
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     // const file = event.target.files && event.target.files[0];
     // if (file) {
     //   const reader = new FileReader();
@@ -43,14 +45,19 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
     //   reader.readAsDataURL(file);
     // }
     if (event.target.files) {
-      setImgUrl(URL.createObjectURL(event.target.files[0]))
+      setImgUrl(URL.createObjectURL(event.target.files[0]));
       setFile(event.target.files[0]);
     }
   };
 
   return (
     <>
-      <img src={imgUrl ? imgUrl : "/images/blank-avatar.png"} alt="" className="rounded-full hover:opacity-20 cursor-pointer w-40 h-40" onClick={handleImageClick} />
+      <img
+        src={imgUrl ? imgUrl : "/images/blank-avatar.png"}
+        alt=""
+        className="rounded-full hover:opacity-20 cursor-pointer w-40 h-40"
+        onClick={handleImageClick}
+      />
       <p className="mb-5">Éditer mon avatar</p>
       <form>
         <input
