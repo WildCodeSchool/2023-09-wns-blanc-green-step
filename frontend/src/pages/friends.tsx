@@ -6,6 +6,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import FriendSearchBar from "@/components/friendlist/FriendSearchBar";
 import { Button } from "@/components/Button";
 import FriendModal from "@/components/friendlist/FriendModal";
+import AddFriend from "@/components/friendlist/AddFriend";
 
 const GET_ALL_USER_FRIENDS = gql`
   query Query($getFriendsByUserIdId: Float!) {
@@ -98,6 +99,8 @@ export default function FriendsPage() {
         <h1 className="font-bold italic text-xl sm:text-4xl text-center mb-12 relative sm:w-fit after:absolute after:w-full after:inset-x-0 after:bottom-[-8px] after:scale-x-105 sm:after:bottom-[-5px] after:h-5 after:bg-secondary-10 z-[1] after:z-[-1]">
           Mes Contacts
         </h1>
+
+        <AddFriend />
 
         <FriendSearchBar filters={filters} setFilters={setFilters} />
       </section>
