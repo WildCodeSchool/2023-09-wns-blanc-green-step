@@ -40,7 +40,7 @@ export const findByUser = (userId: number): Promise<Friend[]> => {
  *
  * @param user_id id from user sending the request
  * @param friend_id id from user who will receive the request
- * @returns
+ * @returns friend request after saving it
  */
 export const createFriend = async (
   user_id: number,

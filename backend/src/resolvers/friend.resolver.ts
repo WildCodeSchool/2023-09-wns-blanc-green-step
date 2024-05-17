@@ -1,4 +1,4 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Friend } from "../entities/friend.entity";
 import * as FriendService from "../services/friend.service";
 
@@ -21,5 +21,13 @@ export class FriendResolver {
   @Query(() => [Friend])
   async getFriendsByUserId(@Arg("id") id: number): Promise<Friend[]> {
     return FriendService.findByUser(id);
+  }
+
+  @Mutation(() => Friend)
+  async addFriend(
+    @Arg("user_id") user_id: number,
+    @Arg("friend_id") friend_id: number
+  ): Promise<Friend> {
+    return FriendService.createFriend(user_id, friend_id);
   }
 }
