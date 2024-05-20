@@ -20,19 +20,19 @@ function NavBoard() {
       <img
         className={`${
           isBurger ? "bg-gray-80" : ""
-        } fixed right-0 top-0 sm:hidden p-4 m-2 rounded-xl z-10`}
+        } fixed right-0 top-0 lg:hidden p-4 m-2 rounded-xl z-10`}
         src="/images/burger-icon.png"
         alt="Burger Menu Icon"
         onClick={() => setIsBurger(!isBurger)}
       />
       <nav
         className={`${
-          !isBurger ? "hidden sm:flex" : "flex"
-        } fixed z-10 right-0 top-0 p-5 sm:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 sm:mt-0 sm:w-96 text-gray-30 rounded-xl sm:rounded-none h-5/6 sm:h-screen`}
+          !isBurger ? "hidden lg:flex" : "flex"
+        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit h-5/6 lg:h-screen`}
       >
         <Link
           href="/"
-          className="hidden sm:flex gap-8 items-center sm:border-b sm:pb-6 sm:mx-2 sm:border-gray-30"
+          className="hidden lg:flex gap-8 items-center lg:border-b lg:pb-6 lg:mx-2 lg:border-gray-30"
         >
           <img className="w-16" src="/images/logo.png" alt="Green Step Logo" />
 
@@ -40,15 +40,15 @@ function NavBoard() {
         </Link>
 
         <img
-          className="h-1/6 self-center mb-2 rounded-full"
+          className="w-32 lg:w-52 self-center mb-2 rounded-full"
           src={user.image || "/images/blank-avatar.png"}
           alt={`${user.username} avatar`}
         />
-        <p className="font-medium self-center text-sm sm:text-base mb-4 sm:mb-8 ">
+        <p className="font-medium self-center text-lg lg:text-base mb-4 lg:mb-8 ">
           Bienvenue {user.username} !
         </p>
 
-        <ul className="font-medium self-center text-sm sm:text-base flex flex-col gap-5 h-full w-full p-3 sm:pl-8">
+        <ul className="font-medium self-center text-lg lg:text-base flex flex-col gap-5 h-full w-full p-3 lg:pl-8">
           <Link href="/mon-bilan-carbone">
             <li className="flex gap-4 items-center">
               <img

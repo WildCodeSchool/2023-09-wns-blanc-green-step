@@ -14,7 +14,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
       <main
         className={`min-h-screen pt-4 ${
           user.id !== 0
-            ? "sm:absolute sm:right-0 sm:top-0 sm:w-dashcontent"
+            ? "lg:absolute lg:right-0 lg:top-0 lg:w-dashcontent"
             : ""
         }`}
       >
