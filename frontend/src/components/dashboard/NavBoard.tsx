@@ -28,7 +28,7 @@ function NavBoard() {
       <nav
         className={`${
           !isBurger ? "hidden lg:flex" : "flex"
-        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit lg:h-screen`}
+        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit lg:h-screen overflow-y-auto xl:overflow-y-hidden`}
       >
         <Link
           href="/"
