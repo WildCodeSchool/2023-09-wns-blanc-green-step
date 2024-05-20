@@ -28,7 +28,7 @@ function NavBoard() {
       <nav
         className={`${
           !isBurger ? "hidden lg:flex" : "flex"
-        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit h-5/6 lg:h-screen`}
+        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit lg:h-screen`}
       >
         <Link
           href="/"
@@ -84,7 +84,7 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link className="mt-auto" href="/profil">
+          <Link className="mt-[2.5vh] lg:mt-auto" href="/profil">
             <li className="flex gap-4 items-center">
               <img src="/images/profile-icon.png" alt="Signout Icon" />
               Mon profil
