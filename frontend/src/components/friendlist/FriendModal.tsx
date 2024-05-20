@@ -73,7 +73,12 @@ export default function FriendModal({
             array={filteredFriendRequestArray as UserFriend[]}
             isFirstTabOpen={isFirstTabOpen}
           />
-        ) : null}
+        ) : (
+          <p className="col-span-2 flex items-center gap-6">
+            Aucune requêtes d&apos;amis {isFirstTabOpen ? "reçues" : "envoyées"}
+            !
+          </p>
+        )}
       </dialog>
     </>
   );
