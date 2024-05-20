@@ -40,7 +40,7 @@ function NavBoard() {
         </Link>
 
         <img
-          className="w-32 sm:w-52 self-center mb-2 rounded-full"
+          className="w-32 sm:w-2/6 self-center mb-2 rounded-full"
           src={user.image || "/images/blank-avatar.png"}
           alt={`${user.username} avatar`}
         />
