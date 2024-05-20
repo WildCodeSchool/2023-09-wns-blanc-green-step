@@ -25,7 +25,8 @@ export default function FriendSearchBar({
       <input
         className="bg-gray-80 py-3 px-8 pl-12 placeholder:text-gray-40 rounded-3xl"
         type="search"
-        placeholder="Recherche"
+        name="search"
+        placeholder="Rechercher un ami"
         onChange={(e) => setFilters({ ...filters, username: e.target.value })}
       />
     </label>
