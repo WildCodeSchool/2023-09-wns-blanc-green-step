@@ -87,11 +87,13 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       >
         X
       </p>
-      <label>
-        Friend:
+      <label className="flex flex-col gap-2">
+        Friend Username:
         <input
           type="name"
           name="friend"
+          placeholder="Search for username!"
+          className="p-1 rounded-md"
           value={friendUsername}
           onChange={(e: any) => handleChange(e)}
         />
