@@ -15,3 +15,5 @@ export type UserFriend = {
   is_accepted?: boolean;
   is_requested_by_user: boolean;
 } & Friend;
+
+export type UserToAdd = Omit<Friend, "image">;

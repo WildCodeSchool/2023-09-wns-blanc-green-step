@@ -1,7 +1,18 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Button } from "../Button";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { UserToAdd } from "@/types/user.type";
+import { AddFriendInput } from "./AddFriendInput";
+
+const GET_USERS = gql`
+  query GetUsers {
+    getUsers {
+      id
+      username
+    }
+  }
+`;
 
 const ADD_FRIEND = gql`
   mutation Mutation($friendId: Float!, $userId: Float!) {
@@ -24,22 +35,54 @@ const ADD_FRIEND = gql`
 
 export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const { user } = useContext(AuthContext);
+  const [users, setUsers] = useState<UserToAdd[]>([]);
+  const [friendUsername, setFriendUsername] = useState<string>("");
   const [friendId, setFriendId] = useState<number>(0);
 
   const [addNewFriend] = useMutation(ADD_FRIEND);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addNewFriend({
-      variables: {
-        friendId: Number(friendId),
-        userId: user.id,
-      },
-      onCompleted: () => {
-        closeModal();
-      },
-    });
+
+    if (
+      friendId !== 0 &&
+      friendUsername !== "" &&
+      friendUsername ===
+        users.filter(
+          (filteredUser) => filteredUser.username === friendUsername
+        )[0]?.username
+    ) {
+      addNewFriend({
+        variables: {
+          friendId: Number(friendId),
+          userId: user.id,
+        },
+        onCompleted: () => {
+          closeModal();
+        },
+      });
+    }
   };
+
+  const handleChange = (e: any) => {
+    setFriendUsername(e.target.value);
+    setFriendId(
+      users.filter(
+        (filteredUser) => filteredUser.username === e.target.value
+      )[0]?.id
+    );
+  };
+
+  const { loading, error } = useQuery(GET_USERS, {
+    onCompleted: (data: any) => {
+      setUsers(
+        data.getUsers.filter((userFromList: any) => userFromList.id !== user.id)
+      );
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
 
   return (
     <dialog
@@ -52,19 +95,26 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       >
         X
       </p>
-      <label>
-        Friend:
-        <input
-          type="number"
-          name="friend-id"
-          value={friendId}
-          onChange={(e: any) => setFriendId(e.target.value)}
+      <label className="flex flex-col gap-2">
+        Friend Username:
+        <AddFriendInput
+          friendUsername={friendUsername}
+          handleChange={handleChange}
+          users={users}
         />
       </label>
 
       <Button
         content="Ajouter l'ami"
-        color="bg-green-60"
+        color={
+          friendUsername !== "" &&
+          friendUsername ===
+            users.filter(
+              (filteredUser) => filteredUser.username === friendUsername
+            )[0]?.username
+            ? "bg-green-60"
+            : "bg-gray-70"
+        }
         textsize="text-md"
         onClick={(e: any) => handleSubmit(e)}
       />
