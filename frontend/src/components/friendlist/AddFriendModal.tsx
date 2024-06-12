@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Button } from "../Button";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { UserToAdd } from "@/types/user.type";
 
 const GET_USERS = gql`
   query GetUsers {
@@ -33,7 +34,7 @@ const ADD_FRIEND = gql`
 
 export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const { user } = useContext(AuthContext);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserToAdd[]>([]);
   const [friendUsername, setFriendUsername] = useState<string>("");
   const [friendId, setFriendId] = useState<number>(0);
 
