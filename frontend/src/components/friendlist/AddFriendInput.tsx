@@ -44,18 +44,19 @@ export function AddFriendInput({
         onChange={(e: any) => handleInputChange(e)}
       />
       {users.length > 0 && (
-        <ul className="suggestions-list">
-          {/* Suggestions will be rendered here */}
+        <ul className="bg-blue-90 list-none p-0 m-0">
           {suggestions.map((user) => (
             <li
               key={user.id}
               role="option"
               aria-selected="false"
+              className="p-2 cursor-pointer hover:bg-blue-70"
               onClick={() => handleSuggestionClick(user)}
             >
               {user.username}
             </li>
           ))}
+
           {suggestions.length === 0 &&
           friendUsername !== "" &&
           friendUsername !==
