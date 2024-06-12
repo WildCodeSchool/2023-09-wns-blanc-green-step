@@ -37,6 +37,15 @@ export class CarbonExpenseResolver {
     return CarbonExpenseService.findCarbonExpenseByUserId(userId);
   }
 
+  @Query(() => [CarbonExpense])
+  async getUserCarbonExpensesByActivityType(
+    @Arg("userId") userId: number,
+    @Arg("activityTypeId") activityTypeId: number
+  ): Promise<CarbonExpense[]> {
+    return CarbonExpenseService.findCarbonExpenseByUserByActivityType(userId, activityTypeId);
+  }
+
+
   @Authorized()
   @Mutation(() => CarbonExpense)
   createCarbonExpense(

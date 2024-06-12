@@ -17,6 +17,7 @@
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "axios": "^1.5.1",
+    "echarts": "^5.5.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "graphql": "^16.8.1",
@@ -28,7 +29,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.50.1",
+    "react-tabs": "^6.0.2",
     "react-toastify": "^10.0.4",
+    "styled-components": "^6.1.11",
     "ts-node": "^10.9.2",
     "typescript": "5.2.2"
   },
