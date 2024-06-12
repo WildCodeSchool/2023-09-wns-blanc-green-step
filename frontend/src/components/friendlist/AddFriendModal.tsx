@@ -3,6 +3,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { Button } from "../Button";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { UserToAdd } from "@/types/user.type";
+import { AddFriendInput } from "./AddFriendInput";
 
 const GET_USERS = gql`
   query GetUsers {
@@ -89,19 +90,16 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       </p>
       <label className="flex flex-col gap-2">
         Friend Username:
-        <input
-          type="name"
-          name="friend"
-          placeholder="Search for username!"
-          className="p-1 rounded-md"
-          value={friendUsername}
-          onChange={(e: any) => handleChange(e)}
+        <AddFriendInput
+          friendUsername={friendUsername}
+          handleChange={handleChange}
+          users={users}
         />
       </label>
 
       <Button
         content="Ajouter l'ami"
-        color="bg-green-60"
+        color={friendUsername !== "" ? "bg-green-60" : "bg-gray-70"}
         textsize="text-md"
         onClick={(e: any) => handleSubmit(e)}
       />
