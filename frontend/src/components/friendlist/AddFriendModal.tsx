@@ -90,6 +90,7 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       <label>
         Friend:
         <input
+          type="name"
           name="friend"
           value={friendUsername}
           onChange={(e: any) => handleChange(e)}
