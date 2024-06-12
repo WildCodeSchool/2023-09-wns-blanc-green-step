@@ -7,7 +7,7 @@ const GET_USERS = gql`
   query GetUsers {
     getUsers {
       id
-      email
+      username
     }
   }
 `;
@@ -33,22 +33,35 @@ const ADD_FRIEND = gql`
 
 export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const { user } = useContext(AuthContext);
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [friendUsername, setFriendUsername] = useState<string>("");
   const [friendId, setFriendId] = useState<number>(0);
 
   const [addNewFriend] = useMutation(ADD_FRIEND);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addNewFriend({
-      variables: {
-        friendId: Number(friendId),
-        userId: user.id,
-      },
-      onCompleted: () => {
-        closeModal();
-      },
-    });
+
+    if (friendId !== 0 && friendUsername !== "") {
+      addNewFriend({
+        variables: {
+          friendId: Number(friendId),
+          userId: user.id,
+        },
+        onCompleted: () => {
+          closeModal();
+        },
+      });
+    }
+  };
+
+  const handleChange = (e: any) => {
+    setFriendUsername(e.target.value);
+    setFriendId(
+      users.filter(
+        (filteredUser) => filteredUser.username === e.target.value
+      )[0]?.id
+    );
   };
 
   const { loading, error } = useQuery(GET_USERS, {
@@ -76,10 +89,9 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       <label>
         Friend:
         <input
-          type="number"
-          name="friend-id"
-          value={friendId}
-          onChange={(e: any) => setFriendId(e.target.value)}
+          name="friend"
+          value={friendUsername}
+          onChange={(e: any) => handleChange(e)}
         />
       </label>
 
