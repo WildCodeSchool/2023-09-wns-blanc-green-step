@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.6",
-    "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.1",
+    "@testing-library/react": "^14.3.1",
     "@types/jest": "^29.5.12",
     "@types/node": "20.6.2",
     "@types/react": "18.2.22",
@@ -31,10 +30,10 @@
     "react-hook-form": "^7.50.1",
     "react-toastify": "^10.0.4",
     "ts-node": "^10.9.2",
-
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.6",
     "@types/jsonwebtoken": "^9.0.5",
     "autoprefixer": "^10.4.17",
     "jest": "^29.7.0",

@@ -1,4 +1,6 @@
 import { Expense } from "@/types/expense.type";
+import ModalUpdateCarbonExpense from "./ModalUpdateCarbonExpense";
+import { useState } from "react";
 function ExpenseCard({
   expense,
   isOpen,
@@ -8,6 +10,14 @@ function ExpenseCard({
   isOpen: boolean;
   handleMobileExpenseCardOpen: Function;
 }) {
+  const [isPopUp, setIsPopUp] = useState(false);
+
+  const openModal = () => {
+    setIsPopUp(true);
+  };
+  const closeModal = () => {
+    setIsPopUp(false);
+  };
   return (
     <article
       className={`${
@@ -39,11 +49,19 @@ function ExpenseCard({
         src={expense.activityType.icon}
         alt={expense.activityType.name}
       />
-      <img
-        className="self-end"
-        src="/images/edit-button.png"
-        alt={`Edit Expense ${expense.title} Button`}
-      />
+      <button id="updateExpense" className="self-end" type="button" onClick={openModal} >
+        <img
+          src="/images/edit-button.png"
+          alt={`Edit Expense ${expense.title} Button`}
+        />
+      </button>
+      <div>
+        {isPopUp ? (
+          <ModalUpdateCarbonExpense expense={expense} isOpen={isPopUp} onClose={closeModal}></ModalUpdateCarbonExpense>
+        ) : (
+          ""
+        )}
+      </div>
     </article>
   );
 }
