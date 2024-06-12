@@ -1,5 +1,5 @@
 import { UserFriend } from "@/types/user.type";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import FriendRequestTab from "./FriendRequestTab";
 
 export default function FriendModal({
@@ -11,16 +11,26 @@ export default function FriendModal({
 }) {
   const [isFirstTabOpen, setIsFirstTabOpen] = useState<boolean>(true);
 
-  const friendsRequestsReceived = friendsArray
-    .map((friend) =>
-      !friend.is_requested_by_user && !friend.is_accepted ? friend : null
-    )
-    .filter((elem) => elem !== null);
+  const filteredFriendRequestArray = friendsArray
+    .map((friend) => {
+      if (
+        isFirstTabOpen &&
+        !friend.is_requested_by_user &&
+        !friend.is_accepted
+      ) {
+        return friend;
+      }
 
-  const friendsRequestsSent = friendsArray
-    .map((friend) =>
-      friend.is_requested_by_user && !friend.is_accepted ? friend : null
-    )
+      if (
+        !isFirstTabOpen &&
+        friend.is_requested_by_user &&
+        !friend.is_accepted
+      ) {
+        return friend;
+      }
+
+      return null;
+    })
     .filter((elem) => elem !== null);
 
   return (
@@ -58,32 +68,17 @@ export default function FriendModal({
           X
         </p>
 
-        {isFirstTabOpen && friendsRequestsReceived.length > 0 ? (
+        {filteredFriendRequestArray.length > 0 ? (
           <FriendRequestTab
-            array={friendsRequestsReceived as UserFriend[]}
+            array={filteredFriendRequestArray as UserFriend[]}
             isFirstTabOpen={isFirstTabOpen}
           />
         ) : (
-          ""
+          <p className="col-span-2 flex items-center gap-6">
+            Aucune requêtes d&apos;amis {isFirstTabOpen ? "reçues" : "envoyées"}
+            !
+          </p>
         )}
-
-        {isFirstTabOpen && friendsRequestsSent.length > 0 ? (
-          ""
-        ) : (
-          <FriendRequestTab
-            array={friendsRequestsSent as UserFriend[]}
-            isFirstTabOpen={isFirstTabOpen}
-          />
-        )}
-
-        {/* on utilise un composant réutilisable pour les deux listes,
-      on passe le tableau qu'il faut en fonction du composant
-      
-      Les deux valider sont un post
-      Les deux refuser/delete sont un delete
-
-      on affiche pas la même icone, si on refuse
-    */}
       </dialog>
     </>
   );
