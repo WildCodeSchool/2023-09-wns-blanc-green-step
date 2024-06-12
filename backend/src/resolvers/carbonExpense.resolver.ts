@@ -4,7 +4,9 @@ import * as CarbonExpenseService from "../services/carbonExpense.service";
 import { CreateCarbonExpenseType } from "../types/addExpense/CreateCarboneExpenseType";
 import { UpdateCarbonExpenseType } from "../types/addExpense/UpdateCarbonExpenseType";
 import { DeleteCarboneExpenseResult } from "../services/carbonExpense.service";
+import { UpdateActivityType } from "../types/activityType/UpdateActivityType";
 import { User } from "../entities/user.entity";
+import { ActivityType } from "../entities/activityType.entity";
 
 @Resolver(CarbonExpense)
 export class CarbonExpenseResolver {
@@ -53,13 +55,12 @@ export class CarbonExpenseResolver {
     return CarbonExpenseService.create({ ...carbonExpense, user });
   }
 
+  // @Authorized()
   @Mutation(() => CarbonExpense)
   updateCarbonExpense(
-    @Arg("expense") carbonExpense: UpdateCarbonExpenseType
-  ): Promise<CarbonExpense | string | undefined> {
-    return CarbonExpenseService.updateCarbonExpense(carbonExpense.id, {
-      ...carbonExpense,
-    } as unknown as CarbonExpense);
+    @Arg("expense") carbonExpense: UpdateCarbonExpenseType,
+  ): Promise<CarbonExpense | undefined | string> {
+    return CarbonExpenseService.updateCarbonExpense(carbonExpense);
   }
 
   @Mutation(() => String)
