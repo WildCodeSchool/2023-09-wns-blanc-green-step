@@ -90,6 +90,10 @@ export default function FriendsPage() {
       .toLowerCase()
       .includes(filters.username.trim().toLowerCase());
 
+  const filterArrayOnDelete = (id: number) => {
+    setFriendsArray(friendsArray.filter((elem) => elem.request_id !== id));
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
@@ -121,6 +125,7 @@ export default function FriendsPage() {
         <FriendModal
           friendsArray={friendsArray}
           closeModal={() => setIsMyDemandsOpen(false)}
+          filterArrayOnDelete={filterArrayOnDelete}
         />
       ) : (
         ""

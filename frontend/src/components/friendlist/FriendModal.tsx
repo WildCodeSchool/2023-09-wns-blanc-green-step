@@ -5,9 +5,11 @@ import FriendRequestTab from "./FriendRequestTab";
 export default function FriendModal({
   friendsArray,
   closeModal,
+  filterArrayOnDelete,
 }: {
   friendsArray: UserFriend[];
   closeModal: () => void;
+  filterArrayOnDelete: (id: number) => void;
 }) {
   const [isFirstTabOpen, setIsFirstTabOpen] = useState<boolean>(true);
 
@@ -72,6 +74,7 @@ export default function FriendModal({
           <FriendRequestTab
             array={filteredFriendRequestArray as UserFriend[]}
             isFirstTabOpen={isFirstTabOpen}
+            filterArrayOnDelete={filterArrayOnDelete}
           />
         ) : (
           <p className="col-span-2 flex items-center gap-6">
