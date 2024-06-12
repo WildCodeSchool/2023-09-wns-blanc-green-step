@@ -1,7 +1,16 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Button } from "../Button";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
+
+const GET_USERS = gql`
+  query GetUsers {
+    getUsers {
+      id
+      email
+    }
+  }
+`;
 
 const ADD_FRIEND = gql`
   mutation Mutation($friendId: Float!, $userId: Float!) {
@@ -24,6 +33,7 @@ const ADD_FRIEND = gql`
 
 export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const { user } = useContext(AuthContext);
+  const [users, setUsers] = useState(null);
   const [friendId, setFriendId] = useState<number>(0);
 
   const [addNewFriend] = useMutation(ADD_FRIEND);
@@ -40,6 +50,17 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
       },
     });
   };
+
+  const { loading, error } = useQuery(GET_USERS, {
+    onCompleted: (data: any) => {
+      setUsers(
+        data.getUsers.filter((userFromList: any) => userFromList.id !== user.id)
+      );
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
 
   return (
     <dialog
