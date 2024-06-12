@@ -44,7 +44,14 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    if (friendId !== 0 && friendUsername !== "") {
+    if (
+      friendId !== 0 &&
+      friendUsername !== "" &&
+      friendUsername ===
+        users.filter(
+          (filteredUser) => filteredUser.username === friendUsername
+        )[0]?.username
+    ) {
       addNewFriend({
         variables: {
           friendId: Number(friendId),
@@ -99,7 +106,15 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
 
       <Button
         content="Ajouter l'ami"
-        color={friendUsername !== "" ? "bg-green-60" : "bg-gray-70"}
+        color={
+          friendUsername !== "" &&
+          friendUsername ===
+            users.filter(
+              (filteredUser) => filteredUser.username === friendUsername
+            )[0]?.username
+            ? "bg-green-60"
+            : "bg-gray-70"
+        }
         textsize="text-md"
         onClick={(e: any) => handleSubmit(e)}
       />
