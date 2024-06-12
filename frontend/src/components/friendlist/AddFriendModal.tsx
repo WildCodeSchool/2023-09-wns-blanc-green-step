@@ -56,6 +56,7 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
         Friend:
         <input
           type="number"
+          name="friend-id"
           value={friendId}
           onChange={(e: any) => setFriendId(e.target.value)}
         />

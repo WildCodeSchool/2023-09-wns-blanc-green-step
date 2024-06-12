@@ -44,7 +44,7 @@ function Home() {
       <ButtonLogin />
       <div className="flex flex-col justify-center items-center mb-10 md: w-[80%] md: m-auto md:flex md:flex-row-reverse md:items-start">
         <div className="flex flex-col justify-between items-center mt-5 mb-8 w-[100%] m-auto">
-          <div className="flex justify-center items-center mb-10 w-[80%]">
+          <div className="flex flex-wrap 2xl:flex-nowrap justify-center items-center mb-10 w-[80%]">
             {challenges.slice(0, 2).map((challenge: Challenge, i) => (
               <div key={i}>
                 <ChallengeCard
