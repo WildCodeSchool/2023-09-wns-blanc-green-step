@@ -11,16 +11,10 @@ services:
   frontend:
     image: laynaria/green-step-frontend
 
-  # images:
-  #   build: ./images
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./images/src/:/app/src/:rw
-  #     - ./images/package.json:/app/package.json:rw
-  #     - ./images/uploads/:/app/uploads/
-  #   environment:
-  #     - WATCHPACK_POLLING=true
+  images: 
+    image: laynaria/green-step-image
+    environment:
+      - WATCHPACK_POLLING=true
 
   db:
     image: postgres
