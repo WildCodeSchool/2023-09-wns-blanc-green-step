@@ -17,8 +17,11 @@ export function AddFriendInput({
     const value = event.target.value;
     handleChange(event);
     if (value.length > 0) {
-      const filteredSuggestions = users.filter((suggestion: any) =>
-        suggestion.username.toLowerCase().includes(value.toLowerCase())
+      const filteredSuggestions = users.filter(
+        (suggestion: any) =>
+          suggestion.username.toLowerCase() !==
+            event.target.value.toLowerCase() &&
+          suggestion.username.toLowerCase().includes(value.toLowerCase())
       );
       setSuggestions(filteredSuggestions);
     } else {
