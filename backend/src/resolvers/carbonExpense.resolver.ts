@@ -63,6 +63,7 @@ export class CarbonExpenseResolver {
     return CarbonExpenseService.updateCarbonExpense(carbonExpense);
   }
 
+  @Authorized()
   @Mutation(() => String)
   async DeleteCarboneExpense(
     @Arg("id") id: number
