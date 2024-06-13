@@ -2,8 +2,8 @@ name: jest-and-docker-ci-image
 
 on:
   push:
-    #paths:
-    #  - "images/**"
+    paths:
+      - "images/**"
 
 jobs:
   docker-image:
