@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/package-lock.json /app/package-lock.json
-COPY --from=builder /app/build /app
+COPY --from=builder /app/src/index.js /index.js
 COPY --from=builder /uploads /uploads
 
 RUN npm i --production
