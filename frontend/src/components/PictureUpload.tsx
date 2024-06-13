@@ -11,7 +11,6 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageClick = () => {
-    console.log('Bien appelé')
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
