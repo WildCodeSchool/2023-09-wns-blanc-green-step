@@ -4,7 +4,31 @@ import FriendRequestCard from "@/components/friendlist/FriendRequestCard";
 
 import { MockedProvider } from "@apollo/client/testing";
 
+const useRouter = jest.spyOn(require("next/router"), "useRouter");
+export function mockNextUseRouter(pathname: string) {
+  useRouter.mockImplementation(() => ({
+    route: "",
+    basePath: "",
+    pathname,
+    query: {},
+    asPath: "",
+    push: async () => true,
+    replace: async () => true,
+    reload: () => null,
+    back: () => null,
+    prefetch: async () => undefined,
+    beforePopState: () => null,
+    isFallback: false,
+    events: {
+      on: () => null,
+      off: () => null,
+      emit: () => null,
+    },
+  }));
+}
+
 describe("Testing Friend Request Card", () => {
+  mockNextUseRouter("/");
   it("render the card with friend request infos as intended", () => {
     render(
       <MockedProvider>
@@ -19,6 +43,7 @@ describe("Testing Friend Request Card", () => {
           }}
           isFirstTabOpen={true}
           lastRequest={1}
+          filterArrayOnDelete={() => null}
         />
       </MockedProvider>
     );
@@ -47,6 +72,7 @@ describe("Testing Friend Request Card", () => {
           }}
           isFirstTabOpen={true}
           lastRequest={1}
+          filterArrayOnDelete={() => null}
         />
       </MockedProvider>
     );
@@ -73,6 +99,7 @@ describe("Testing Friend Request Card", () => {
           }}
           isFirstTabOpen={false}
           lastRequest={1}
+          filterArrayOnDelete={() => null}
         />
       </MockedProvider>
     );
