@@ -19,7 +19,7 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (file) {
-      const url = "http://localhost:8000/upload";
+      const url = `${process.env.NEXT_PUBLIC_IMAGE_API}/upload`;
       const formData = new FormData();
       formData.append("file", file, file.name);
 
