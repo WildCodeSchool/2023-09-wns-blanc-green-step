@@ -6,6 +6,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY src src
+COPY tsconfig.json tsconfig.json
 COPY uploads uploads
 
 RUN npm i
