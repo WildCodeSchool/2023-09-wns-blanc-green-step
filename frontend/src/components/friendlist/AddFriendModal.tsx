@@ -4,6 +4,7 @@ import { Button } from "../Button";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { UserToAdd } from "@/types/user.type";
 import { AddFriendInput } from "./AddFriendInput";
+import { useRouter } from "next/router";
 
 const GET_USERS = gql`
   query GetUsers {
@@ -40,6 +41,7 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
   const [friendId, setFriendId] = useState<number>(0);
 
   const [addNewFriend] = useMutation(ADD_FRIEND);
+  const router = useRouter();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -58,6 +60,7 @@ export function AddFriendModal({ closeModal }: { closeModal: () => void }) {
           userId: user.id,
         },
         onCompleted: () => {
+          router.reload();
           closeModal();
         },
       });

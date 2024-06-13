@@ -24,10 +24,12 @@ export default function FriendRequestCard({
   friend,
   isFirstTabOpen,
   lastRequest,
+  filterArrayOnDelete,
 }: {
   friend: UserFriend;
   isFirstTabOpen: boolean;
   lastRequest: number;
+  filterArrayOnDelete: (id: number) => void;
 }) {
   const [acceptFriend] = useMutation(ACCEPT_FRIEND);
   const [deleteFriendRequest] = useMutation(DELETE_FRIEND);
@@ -42,6 +44,9 @@ export default function FriendRequestCard({
     deleteFriendRequest({
       variables: {
         deleteFriendRequestId: friend.request_id,
+      },
+      onCompleted: () => {
+        filterArrayOnDelete(friend.request_id);
       },
     });
   };
