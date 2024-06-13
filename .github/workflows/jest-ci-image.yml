@@ -3,7 +3,7 @@ name: jest-and-docker-ci-image
 on:
   push:
     paths:
-      - "image/**"
+      - "images/**"
 
 jobs:
   docker-image:
@@ -23,6 +23,6 @@ jobs:
           uses: docker/build-push-action@v5
           with:
             push: true
-            context: "{{defaultContext}}:image"
+            context: "{{defaultContext}}:images"
             file: build.Dockerfile
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-image:latest
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-images:latest

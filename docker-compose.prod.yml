@@ -12,7 +12,7 @@ services:
     image: laynaria/green-step-frontend
 
   images: 
-    image: laynaria/green-step-image
+    image: laynaria/green-step-images
     environment:
       - WATCHPACK_POLLING=true
 
