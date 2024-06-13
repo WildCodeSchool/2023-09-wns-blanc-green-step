@@ -45,7 +45,7 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
     <>
       <img
         src={imgUrl ? imgUrl : "/images/blank-avatar.png"}
-        alt=""
+        alt="Avatar de l'utilisateur"
         className="rounded-full hover:opacity-20 cursor-pointer w-40 h-40"
         onClick={handleImageClick}
       />

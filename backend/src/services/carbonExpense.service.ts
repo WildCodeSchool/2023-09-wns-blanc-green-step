@@ -2,6 +2,7 @@ import { ILike, DeleteResult } from "typeorm"; //Ilike n'est pas snesible à la 
 import { CarbonExpense } from "../entities/carbonExpense.entity";
 import { User } from "../entities/user.entity";
 import { ActivityType } from "../entities/activityType.entity";
+import { UpdateCarbonExpenseType } from "../types/addExpense/UpdateCarbonExpenseType";
 
 export function findCarbonExpenseById(
   id: number
@@ -108,10 +109,9 @@ export async function create(carbonExpenseData: {
 }
 
 export async function updateCarbonExpense(
-  id: number,
-  carbonExpense: CarbonExpense
+  carbonExpense: UpdateCarbonExpenseType,
 ): Promise<CarbonExpense | undefined | string> {
-  const carbonExpenseToUpdate = await findCarbonExpenseById(id);
+  const carbonExpenseToUpdate = await findCarbonExpenseById(carbonExpense.id);
   if (!carbonExpenseToUpdate) {
     throw new Error("Dépense non trouvée ou inexistante");
   }
@@ -120,6 +120,9 @@ export async function updateCarbonExpense(
     carbonExpenseToUpdate.title = carbonExpense.title;
     carbonExpenseToUpdate.date = carbonExpense.date;
     carbonExpenseToUpdate.emission = carbonExpense.emission;
+    carbonExpenseToUpdate.activityType = {
+      id : carbonExpense.activityType,
+    } as ActivityType;
 
     return carbonExpenseToUpdate.save();
   }

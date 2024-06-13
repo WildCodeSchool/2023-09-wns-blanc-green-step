@@ -4,9 +4,11 @@ import FriendRequestCard from "./FriendRequestCard";
 export default function FriendRequestTab({
   array,
   isFirstTabOpen,
+  filterArrayOnDelete,
 }: {
   array: UserFriend[];
   isFirstTabOpen: boolean;
+  filterArrayOnDelete: (id: number) => void;
 }) {
   const lastRequest = array[array.length - 1].id;
 
@@ -18,6 +20,7 @@ export default function FriendRequestTab({
           key={friend.request_id}
           isFirstTabOpen={isFirstTabOpen}
           lastRequest={lastRequest}
+          filterArrayOnDelete={filterArrayOnDelete}
         />
       ))}
     </>

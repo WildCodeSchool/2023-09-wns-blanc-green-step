@@ -13,4 +13,7 @@ export class UpdateCarbonExpenseType {
 
     @Field()
     emission: number;
+
+    @Field()
+    activityType: number;
 }
