@@ -1,5 +1,6 @@
 import { UserFriend } from "@/types/user.type";
 import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import acceptIcon from "@/assets/friendlist-icons/accept-friend.svg";
 import deleteIcon from "@/assets/friendlist-icons/delete-friend.svg";
@@ -33,10 +34,12 @@ export default function FriendRequestCard({
 }) {
   const [acceptFriend] = useMutation(ACCEPT_FRIEND);
   const [deleteFriendRequest] = useMutation(DELETE_FRIEND);
+  const router = useRouter();
 
   const handleAcceptFriend = () => {
     acceptFriend({
       variables: { acceptFriendId: friend.request_id },
+      onCompleted: () => router.reload(),
     });
   };
 
