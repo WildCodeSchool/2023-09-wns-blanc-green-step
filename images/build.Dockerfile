@@ -5,7 +5,7 @@ RUN apk --no-cache add curl
 WORKDIR /app
 
 COPY package*.json ./
-COPY upload upload
+COPY uploads uploads
 COPY src src
 
 RUN npm i
