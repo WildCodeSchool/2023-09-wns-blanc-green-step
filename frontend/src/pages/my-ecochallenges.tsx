@@ -10,11 +10,11 @@ import { ModalForOneEcoChallenge } from "@/components/ModalForOneEcoChallenge";
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
     getChallenges {
-      carbon_saving
-      description
       id
-      image
       name
+      description
+      image
+      carbon_saving
       activityType {
         id
         name
@@ -41,11 +41,17 @@ const GET_USER_EXPENSES = gql`
 `;
 
 const GET_USER_CHALLENGES = gql`
-  query GetUserChallenges($userId: Float!) {
-    getUserChallenges(userId: $userId) {
+  query GetUserChallengesById($getUserChallengesByIdId: Float!) {
+    getUserChallengesById(id: $getUserChallengesByIdId) {
       id
-      challengeId
-      userId
+      challenge {
+        id
+        name
+      }
+      is_validated
+      user {
+        id
+      }
     }
   }
 `;
@@ -65,15 +71,6 @@ function MyEcochallenges() {
     router.push("/challenges");
   };
 
-  const [getUserChallenges] = useLazyQuery(GET_USER_CHALLENGES, {
-    variables: {
-      userId: Number(user.id),
-    },
-    onCompleted: (data) => {
-      console.log(data.getUserChallenges);
-    },
-  });
-
   const { loading, error } = useQuery(GET_USER_EXPENSES, {
     variables: {
       userId: Number(user.id),
@@ -89,6 +86,15 @@ function MyEcochallenges() {
     },
   });
 
+  const [getUserChallenges] = useLazyQuery(GET_USER_CHALLENGES, {
+    variables: {
+      getUserChallengesByIdId: Number(user.id),
+    },
+    onCompleted: (data) => {
+      console.log(data.getUserChallenges);
+    },
+  });
+
   useEffect(() => {
     getChallenges();
     getUserChallenges();
@@ -96,6 +102,7 @@ function MyEcochallenges() {
 
   useEffect(() => {
     challenges.forEach((challenge) => {
+      console.log(userChallenges);
       console.log(
         userChallenges.filter(
           (userChallenge) => userChallenge.challengeId === challenge.id

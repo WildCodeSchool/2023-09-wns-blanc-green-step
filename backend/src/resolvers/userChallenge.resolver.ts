@@ -9,10 +9,8 @@ export class UserChallengeResolver {
     return UserChallengeService.findAll();
   }
 
-  @Query(() => UserChallenge)
-  async getUserChallengesById(
-    @Arg("id") id: number
-  ): Promise<UserChallenge | null> {
+  @Query(() => [UserChallenge])
+  async getUserChallengesById(@Arg("id") id: number): Promise<UserChallenge[]> {
     return UserChallengeService.getById(id);
   }
 }

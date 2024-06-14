@@ -12,14 +12,20 @@ export const findAll = (): Promise<UserChallenge[]> => {
   });
 };
 
-export function getById(id: number): Promise<UserChallenge | null> {
-  return UserChallenge.findOne({
+export async function getById(id: number): Promise<UserChallenge[]> {
+  const result: UserChallenge[] = await UserChallenge.find({
     relations: {
       user: true,
       challenge: true,
     },
-    where: { id: id },
+    where: {
+      user: {
+        id: id,
+      },
+    },
   });
+
+  return result;
 }
 
 /**
