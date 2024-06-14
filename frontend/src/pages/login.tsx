@@ -53,7 +53,7 @@ export default function LoginPage() {
         <div className="flex justify-center items-center flex-col">
           <input
             className="border-none my-2 p-2 pl-4 rounded-3xl bg-gray-80"
-            placeholder="Nom d'utilisateur ou Email"
+            placeholder="Email"
             onChange={(e) => {
               setCredential(e.target.value);
             }}
