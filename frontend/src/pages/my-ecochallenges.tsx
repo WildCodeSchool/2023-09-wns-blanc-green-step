@@ -6,6 +6,7 @@ import { Expense } from "@/types/expense.type";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import { ModalForOneEcoChallenge } from "@/components/ModalForOneEcoChallenge";
+import { Challenge } from "@/types/challengeType.type";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -65,7 +66,12 @@ function MyEcochallenges() {
   const [challenges, setChallenges] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState(null);
-  const [userChallenges, setUserChallenges] = useState([]);
+  const [userChallenges, setUserChallenges] = useState<
+    {
+      challenge: Challenge;
+      is_validated: boolean;
+    }[]
+  >([]);
 
   const redirectChallenges = () => {
     router.push("/challenges");
@@ -126,6 +132,21 @@ function MyEcochallenges() {
     setIsModalOpen(true);
   };
 
+  const handleChangeCheckbox = (id: number, checked: boolean) => {
+    if (checked) {
+      // add user_challenge based on user.id and parameter id (which is challenge id)
+      console.log(id);
+
+      // then return a change of userChallenge state based on the data you get by your post on the oncompleted something like that
+      return "";
+    }
+
+    // else delete user_challenge based on user.id and parameter id (which is challenge id)
+    console.log(id, checked);
+    // then return a change of state by filtering the userChallenge array by id (which is challenge id)
+    return "";
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
@@ -146,15 +167,21 @@ function MyEcochallenges() {
               className="bg-gray-80 py-5 px-7 m-5 rounded-xl cursor-pointer flex flex-row items-center"
             >
               <input
-                id="checkbox-challenge"
+                id={challenge.id}
+                type="checkbox"
+                className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
                 checked={
                   userChallenges.filter(
                     (userChallenge) =>
                       userChallenge.challenge.id === challenge.id
                   )[0]?.is_validated
                 }
-                type="checkbox"
-                className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
+                onChange={(e: any) =>
+                  handleChangeCheckbox(
+                    parseInt(e.target.id, 10),
+                    e.target.checked
+                  )
+                }
               />
               <p onClick={() => handleOpenModal(challenge)} className="ml-6">
                 {challenge.name}
