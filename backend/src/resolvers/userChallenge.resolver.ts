@@ -1,4 +1,4 @@
-import { Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 import { UserChallenge } from "../entities/userChallenge.entity";
 import * as UserChallengeService from "../services/userChallenge.service";
 
@@ -7,5 +7,12 @@ export class UserChallengeResolver {
   @Query(() => [UserChallenge])
   async getUserChallenges(): Promise<UserChallenge[]> {
     return UserChallengeService.findAll();
+  }
+
+  @Query(() => UserChallenge)
+  async getUserChallengesById(
+    @Arg("id") id: number
+  ): Promise<UserChallenge | null> {
+    return UserChallengeService.getById(id);
   }
 }
