@@ -91,7 +91,7 @@ function MyEcochallenges() {
       getUserChallengesByIdId: Number(user.id),
     },
     onCompleted: (data) => {
-      console.log(data.getUserChallenges);
+      setUserChallenges(data.getUserChallengesById);
     },
   });
 
@@ -101,14 +101,15 @@ function MyEcochallenges() {
   }, []);
 
   useEffect(() => {
-    challenges.forEach((challenge) => {
-      console.log(userChallenges);
-      console.log(
-        userChallenges.filter(
-          (userChallenge) => userChallenge.challengeId === challenge.id
-        )[0]?.is_validated
-      );
-    });
+    console.log(userChallenges);
+    // challenges.forEach((challenge) => {
+    //   console.log(userChallenges);
+    //   console.log(
+    //     userChallenges.filter(
+    //       (userChallenge) => userChallenge.challengeId === challenge.id
+    //     )[0]?.is_validated
+    //   );
+    // });
   }, [userChallenges]);
 
   useEffect(() => {
@@ -158,14 +159,14 @@ function MyEcochallenges() {
             >
               <input
                 id="checkbox-challenge"
-                checked={
-                  userChallenges.filter(
-                    (userChallenge) =>
-                      userChallenge.challengeId === challenge.id
-                  )[0]?.is_validated
-                    ? true
-                    : false
-                }
+                // checked={
+                //   userChallenges.filter(
+                //     (userChallenge) =>
+                //       userChallenge.challengeId === challenge.id
+                //   )[0]?.is_validated
+                //     ? true
+                //     : false
+                // }
                 type="checkbox"
                 className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
               />
