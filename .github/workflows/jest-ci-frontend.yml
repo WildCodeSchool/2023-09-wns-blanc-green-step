@@ -34,4 +34,6 @@ jobs:
           context: "{{defaultContext}}:frontend"
           file: build.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/green-step-frontend:latest
-          build-args: NEXT_PUBLIC_API_LINK=${{ secrets.NEXT_PUBLIC_API_LINK }}
+          build-args:
+            - NEXT_PUBLIC_API_LINK=${{ secrets.NEXT_PUBLIC_API_LINK }}
+            - NEXT_PUBLIC_IMAGE_API=${{ secrets.NEXT_PUBLIC_IMAGE_API }}
