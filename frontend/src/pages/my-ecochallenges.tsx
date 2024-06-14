@@ -101,18 +101,6 @@ function MyEcochallenges() {
   }, []);
 
   useEffect(() => {
-    console.log(userChallenges);
-    // challenges.forEach((challenge) => {
-    //   console.log(userChallenges);
-    //   console.log(
-    //     userChallenges.filter(
-    //       (userChallenge) => userChallenge.challengeId === challenge.id
-    //     )[0]?.is_validated
-    //   );
-    // });
-  }, [userChallenges]);
-
-  useEffect(() => {
     const countExpensesByActivity = () => {
       const counts: any = {};
 
@@ -159,14 +147,12 @@ function MyEcochallenges() {
             >
               <input
                 id="checkbox-challenge"
-                // checked={
-                //   userChallenges.filter(
-                //     (userChallenge) =>
-                //       userChallenge.challengeId === challenge.id
-                //   )[0]?.is_validated
-                //     ? true
-                //     : false
-                // }
+                checked={
+                  userChallenges.filter(
+                    (userChallenge) =>
+                      userChallenge.challenge.id === challenge.id
+                  )[0]?.is_validated
+                }
                 type="checkbox"
                 className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
               />
