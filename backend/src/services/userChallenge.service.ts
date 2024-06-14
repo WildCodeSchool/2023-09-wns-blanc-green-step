@@ -1,10 +1,10 @@
-import { UserChallenges } from "../entities/userChallenge.entity";
+import { UserChallenge } from "../entities/userChallenge.entity";
 import * as UserService from "../services/user.service";
 import * as ChallengeService from "../services/challenge.service";
 import { DeleteResult } from "typeorm";
 
-export const findAll = (): Promise<UserChallenges[]> => {
-  return UserChallenges.find({
+export const findAll = (): Promise<UserChallenge[]> => {
+  return UserChallenge.find({
     relations: {
       user: true,
       challenge: true,
@@ -12,8 +12,8 @@ export const findAll = (): Promise<UserChallenges[]> => {
   });
 };
 
-export function getById(id: number): Promise<UserChallenges | null > {
-  return UserChallenges.findOne({
+export function getById(id: number): Promise<UserChallenge | null> {
+  return UserChallenge.findOne({
     relations: {
       user: true,
       challenge: true,
@@ -32,11 +32,11 @@ export function getById(id: number): Promise<UserChallenges | null > {
 export async function create(
   userId: number,
   challengeId: number
-): Promise<UserChallenges> {
+): Promise<UserChallenge> {
   const userFromDB = await UserService.getById(userId);
   const challengeFromDB = await ChallengeService.findById(challengeId);
 
-  const userchallenge = new UserChallenges();
+  const userchallenge = new UserChallenge();
   userchallenge.user = userFromDB;
   userchallenge.challenge = challengeFromDB;
 
@@ -51,5 +51,5 @@ export async function create(
 export const deleteUserChallenge = async (
   id: number
 ): Promise<DeleteResult> => {
-  return UserChallenges.delete({ id });
+  return UserChallenge.delete({ id });
 };

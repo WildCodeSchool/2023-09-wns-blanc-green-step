@@ -11,7 +11,7 @@ import { Challenge } from "./challenge.entity";
 
 @ObjectType()
 @Entity()
-export class UserChallenges extends BaseEntity {
+export class UserChallenge extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
