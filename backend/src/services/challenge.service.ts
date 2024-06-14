@@ -8,6 +8,6 @@ export const findAll = (): Promise<Challenge[]> => {
   });
 };
 
-export const findById = (id: number): Promise<Challenge | null> => {
-  return Challenge.findOneBy({ id: id });
+export const findById = (id: number): Promise<Challenge> => {
+  return Challenge.findOneByOrFail({ id: id });
 };

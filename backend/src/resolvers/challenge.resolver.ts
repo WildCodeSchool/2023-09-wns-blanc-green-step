@@ -10,7 +10,7 @@ export class ChallengeResolver {
   }
 
   @Query(() => Challenge)
-  getChallengeById(@Arg("id") id: number): Promise<Challenge | null> {
+  getChallengeById(@Arg("id") id: number): Promise<Challenge> {
     return ChallengeService.findById(id);
   }
 }
