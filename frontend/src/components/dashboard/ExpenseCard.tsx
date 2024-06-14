@@ -1,6 +1,9 @@
 import { Expense } from "@/types/expense.type";
 import ModalUpdateCarbonExpense from "./ModalUpdateCarbonExpense";
 import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+
+
 function ExpenseCard({
   expense,
   isOpen,
@@ -49,15 +52,24 @@ function ExpenseCard({
         src={expense.activityType.icon}
         alt={expense.activityType.name}
       />
-      <button id="updateExpense" className="self-end" type="button" onClick={openModal} >
-        <img
-          src="/images/edit-button.png"
-          alt={`Edit Expense ${expense.title} Button`}
-        />
-      </button>
+        <button
+          id="updateExpense"
+          className="self-end"
+          type="button"
+          onClick={openModal}
+        >
+          <img
+            src="/images/edit-button.png"
+            alt={`Edit Expense ${expense.title} Button`}
+          />
+        </button>
       <div>
         {isPopUp ? (
-          <ModalUpdateCarbonExpense expense={expense} isOpen={isPopUp} onClose={closeModal}></ModalUpdateCarbonExpense>
+          <ModalUpdateCarbonExpense
+            expense={expense}
+            isOpen={isPopUp}
+            onClose={closeModal}
+          ></ModalUpdateCarbonExpense>
         ) : (
           ""
         )}

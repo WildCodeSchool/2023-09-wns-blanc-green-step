@@ -1,5 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-import styles from "@/styles/addExpense.module.css";
+import styles from "@/styles/updateExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -24,20 +24,30 @@ const GET_ALL_ACTIVITIESTYPES = gql`
 `;
 
 const UPDATE_CARBON_EXPENSE = gql`
-mutation Mutation($expense: UpdateCarbonExpenseType!) {
-  updateCarbonExpense(expense: $expense) {
-    id
-    title
-    date
-    emission
-    activityType {
+  mutation Mutation($expense: UpdateCarbonExpenseType!) {
+    updateCarbonExpense(expense: $expense) {
       id
+      title
+      date
+      emission
+      activityType {
+        id
+      }
     }
   }
-}
 `;
 
-export default function ModalUpdateCarbonExpense({ expense, isOpen, onClose }: ModalProps) {
+export const DELETE_CARBONEEXPENSE = gql`
+  mutation DeleteCarboneExpense($deleteCarboneExpenseId: Float!) {
+    DeleteCarboneExpense(id: $deleteCarboneExpenseId)
+  }
+`;
+
+export default function ModalUpdateCarbonExpense({
+  expense,
+  isOpen,
+  onClose,
+}: ModalProps) {
   // Utile pour la redirection
   const router = useRouter();
 
@@ -57,18 +67,15 @@ export default function ModalUpdateCarbonExpense({ expense, isOpen, onClose }: M
     },
   });
 
-
-  const formatDate = expense.date.substring(0, 10 );
-
-  
+  const formatDate = expense.date.substring(0, 10);
 
   const [updateCarboneExpense] = useMutation(UPDATE_CARBON_EXPENSE);
 
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
-    title: "",
-    date: "",
-    emission: null as unknown as number,
+    title: expense.title,
+    date: expense.date,
+    emission: expense.emission,
   });
 
   // Fonction qui gère les changements des champs
@@ -105,6 +112,19 @@ export default function ModalUpdateCarbonExpense({ expense, isOpen, onClose }: M
     onClose();
   };
 
+  const [deleteExpenseRequest] = useMutation(DELETE_CARBONEEXPENSE);
+
+  const deleteExpense = async () => {
+    deleteExpenseRequest({
+      variables: {
+        deleteCarboneExpenseId: expense.id,
+      },
+      onCompleted: () => {
+        onClose();
+      }
+    });
+  };
+
   // Création de la dépense carbon et redirection
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -134,9 +154,14 @@ export default function ModalUpdateCarbonExpense({ expense, isOpen, onClose }: M
     <dialog open={isOpen} className={styles.modal}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
+          <button onClick={deleteExpense} data-testid="trash-btn">
+            <img src="/images/trash-btn.png" />
+          </button>
           <span onClick={handleClose} className={styles.closeModal}>
             &times;
           </span>
+        </div>
+        <div className={styles.modalTitle}>
           <h2 className="font-poppins">Édition de dépense</h2>
         </div>
         <div className={styles.modalBody}>
@@ -164,7 +189,6 @@ export default function ModalUpdateCarbonExpense({ expense, isOpen, onClose }: M
                 type="date"
                 id="date"
                 name="date"
-                
                 value={dataForm.date}
                 onChange={handleFormChange}
                 className="input"
