@@ -40,6 +40,16 @@ const GET_USER_EXPENSES = gql`
   }
 `;
 
+const GET_USER_CHALLENGES = gql`
+  query GetUserChallenges($userId: Float!) {
+    getUserChallenges(userId: $userId) {
+      id
+      challengeId
+      userId
+    }
+  }
+`;
+
 function MyEcochallenges() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -49,10 +59,20 @@ function MyEcochallenges() {
   const [challenges, setChallenges] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [userChallenges, setUserChallenges] = useState([]);
 
   const redirectChallenges = () => {
     router.push("/challenges");
   };
+
+  const [getUserChallenges] = useLazyQuery(GET_USER_CHALLENGES, {
+    variables: {
+      userId: Number(user.id),
+    },
+    onCompleted: (data) => {
+      console.log(data.getUserChallenges);
+    },
+  });
 
   const { loading, error } = useQuery(GET_USER_EXPENSES, {
     variables: {
@@ -71,7 +91,18 @@ function MyEcochallenges() {
 
   useEffect(() => {
     getChallenges();
+    getUserChallenges();
   }, []);
+
+  useEffect(() => {
+    challenges.forEach((challenge) => {
+      console.log(
+        userChallenges.filter(
+          (userChallenge) => userChallenge.challengeId === challenge.id
+        )[0]?.is_validated
+      );
+    });
+  }, [userChallenges]);
 
   useEffect(() => {
     const countExpensesByActivity = () => {
@@ -120,6 +151,14 @@ function MyEcochallenges() {
             >
               <input
                 id="checkbox-challenge"
+                checked={
+                  userChallenges.filter(
+                    (userChallenge) =>
+                      userChallenge.challengeId === challenge.id
+                  )[0]?.is_validated
+                    ? true
+                    : false
+                }
                 type="checkbox"
                 className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
               />
@@ -139,13 +178,15 @@ function MyEcochallenges() {
         content="Accéder à tous les challenges"
         onClick={redirectChallenges}
       />
-      {selectedChallenge && (
-        <ModalForOneEcoChallenge
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          challenge={selectedChallenge}
-        />
-      )}
+      <div>
+        {selectedChallenge && (
+          <ModalForOneEcoChallenge
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            challenge={selectedChallenge}
+          />
+        )}
+      </div>
     </section>
   );
 }

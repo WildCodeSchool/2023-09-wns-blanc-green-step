@@ -1,24 +1,30 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./user.entity";
 import { Challenge } from "./challenge.entity";
 
 @ObjectType()
 @Entity()
-export class UserChallenge extends BaseEntity {
+export class UserChallenges extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
 
   @Field()
-  @Column()
+  @Column({ default: true })
   is_validated: boolean;
 
-  // @Field()
-  // @Column()
-  // user: User;
+  @Field()
+  @ManyToOne(() => User)
+  user: User;
 
-  // @Field()
-  // @Column()
-  // challenge: Challenge ;
+  @Field()
+  @ManyToOne(() => Challenge)
+  challenge: Challenge;
 }
