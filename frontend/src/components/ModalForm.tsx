@@ -1,10 +1,8 @@
-// import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/addExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
-import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
-// import { Bounce, ToastContainer, toast } from "react-toastify";
+import { useExpenses } from "@/contexts/ExpensesContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,19 +20,8 @@ const GET_ALL_ACTIVITIESTYPES = gql`
   }
 `;
 
-const CREATE_CARBONEXPENSE = gql`
-  mutation Mutation($expense: CreateCarbonExpenseType!) {
-    createCarbonExpense(expense: $expense) {
-      title
-      date
-      emission
-    }
-  }
-`;
-
 export default function ModalForm({ isOpen, onClose }: ModalProps) {
-  // Utile pour la redirection
-  const router = useRouter();
+  const { addExpense } = useExpenses();
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -51,18 +38,7 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
       setSelectImg(data.getActivityTypes[0]);
     },
   });
-  const [createCarboneExpense] = useMutation(CREATE_CARBONEXPENSE);
-
-  interface translateHexInEmojiProps {
-    hexaCode: string;
-  }
-  function TranslateHexInEmoji(props: translateHexInEmojiProps) {
-    const { hexaCode } = props;
-    const decimalCode = parseInt(hexaCode, 16);
-    const emoji = String.fromCharCode(decimalCode);
-
-    return <span> {emoji} </span>;
-  }
+  // const [createCarboneExpense] = useMutation(CREATE_CARBONEXPENSE);
 
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
@@ -113,20 +89,13 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
     const formData = new FormData(form as HTMLFormElement);
     const formDataJson = Object.fromEntries(formData.entries());
 
-    createCarboneExpense({
-      variables: {
-        expense: {
-          title: formDataJson.title,
-          date: formDataJson.date,
-          emission: parseInt(formDataJson.emission as string),
-          activityType: parseInt(formDataJson.activityType as string),
-        },
-      },
-      onCompleted: () => {
-        onClose();
-        router.push("/my-expenses");
-      },
-    });
+    addExpense({
+      title: formDataJson.title,
+      date: formDataJson.date,
+      emission: parseInt(formDataJson.emission as string),
+      activityType: parseInt(formDataJson.activityType as string),
+    }),
+      onClose();
   };
 
   return (
@@ -216,7 +185,6 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
           </form>
         </div>
       </div>
-      {/* <ToastContainer /> */}
     </dialog>
   );
 }

@@ -3,35 +3,10 @@ import { useState, useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import ExpenseElement from "@/components/dashboard/ExpenseElement";
 import { Expense } from "@/types/expense.type";
-
-const GET_USER_EXPENSES = gql`
-  query GetUserCarbonExpenses($userId: Float!) {
-    getUserCarbonExpenses(userId: $userId) {
-      activityType {
-        id
-        name
-        icon
-      }
-      date
-      emission
-      id
-      title
-    }
-  }
-`;
+import { useExpenses } from "@/contexts/ExpensesContext";
 
 function MyExpenses() {
-  const { user } = useContext(AuthContext);
-  const [carbonExpenses, setCarbonExpenses] = useState([]);
-
-  const { loading, error } = useQuery(GET_USER_EXPENSES, {
-    variables: {
-      userId: Number(user.id),
-    },
-    onCompleted: (data: any) => {
-      setCarbonExpenses(data.getUserCarbonExpenses);
-    },
-  });
+  const { expenses, refetchExpenses } = useExpenses();
 
   const [filters, setFilters] = useState<{ title: string }>({
     title: "",
@@ -48,9 +23,6 @@ function MyExpenses() {
           .some((el: string) => el.startsWith(element.toLowerCase()))
       ) &&
     expense.title.toLowerCase().includes(filters.title.trim().toLowerCase());
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
 
   return (
     <section className="font-poppins pt-10 text-center bg-grey-100 text-gray-20 flex flex-col items-center justify-center pb-16 sm:pl-[17px]">
@@ -77,7 +49,7 @@ function MyExpenses() {
       </label>
 
       <div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-stretch gap-5 sm:gap-y-12 sm:gap-x-16 w-full sm:w-[90%] sm:m-auto sm:justify-center">
-        {carbonExpenses
+        {expenses
           .filter((expense) => filterOptions(expense))
           .map((expense: Expense) => (
             <ExpenseElement key={expense.id} expense={expense} />
