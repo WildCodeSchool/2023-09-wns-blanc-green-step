@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
 import { Expense } from "@/types/expense.type";
+import { useExpenses } from "@/contexts/ExpensesContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -37,19 +38,12 @@ const UPDATE_CARBON_EXPENSE = gql`
   }
 `;
 
-export const DELETE_CARBONEEXPENSE = gql`
-  mutation DeleteCarboneExpense($deleteCarboneExpenseId: Float!) {
-    DeleteCarboneExpense(id: $deleteCarboneExpenseId)
-  }
-`;
-
 export default function ModalUpdateCarbonExpense({
   expense,
   isOpen,
   onClose,
 }: ModalProps) {
-  // Utile pour la redirection
-  const router = useRouter();
+  const { deleteExpense } = useExpenses();
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -74,7 +68,7 @@ export default function ModalUpdateCarbonExpense({
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
     title: expense.title,
-    date: expense.date,
+    date: formatDate,
     emission: expense.emission,
   });
 
@@ -112,17 +106,9 @@ export default function ModalUpdateCarbonExpense({
     onClose();
   };
 
-  const [deleteExpenseRequest] = useMutation(DELETE_CARBONEEXPENSE);
-
-  const deleteExpense = async () => {
-    deleteExpenseRequest({
-      variables: {
-        deleteCarboneExpenseId: expense.id,
-      },
-      onCompleted: () => {
-        onClose();
-      }
-    });
+  const handleDeleteExpense = () => {
+    deleteExpense(expense.id);
+    handleClose();
   };
 
   // Création de la dépense carbon et redirection
@@ -144,8 +130,7 @@ export default function ModalUpdateCarbonExpense({
         },
       },
       onCompleted: () => {
-        onClose();
-        window.location.reload();
+        handleClose();
       },
     });
   };
@@ -154,7 +139,7 @@ export default function ModalUpdateCarbonExpense({
     <dialog open={isOpen} className={styles.modal}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <button onClick={deleteExpense} data-testid="trash-btn">
+          <button onClick={handleDeleteExpense} data-testid="trash-btn">
             <img src="/images/trash-btn.png" />
           </button>
           <span onClick={handleClose} className={styles.closeModal}>

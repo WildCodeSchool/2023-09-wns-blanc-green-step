@@ -1,8 +1,6 @@
 import { Expense } from "@/types/expense.type";
 import ModalUpdateCarbonExpense from "./ModalUpdateCarbonExpense";
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-
 
 function ExpenseCard({
   expense,

@@ -9,18 +9,19 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
 
   return (
     <>
-      {user.id !== 0 ? <NavBoard /> : ""}
-      <Header user={user} />
-      <main
-        className={`min-h-screen pt-4 ${
-          user.id !== 0
-            ? "lg:absolute lg:right-0 lg:top-0 lg:w-dashcontent"
-            : ""
-        }`}
-      >
-        {children}
-        {user.id !== 0 ? <AddExpense /> : ""}
-      </main>
+        {user.id !== 0 ? <NavBoard /> : ""}
+        <Header user={user} />
+        <main
+          className={`min-h-screen pt-4 ${
+            user.id !== 0
+              ? "lg:absolute lg:right-0 lg:top-0 lg:w-dashcontent"
+              : ""
+          }`}
+        >
+          {children}
+          {user.id !== 0 ? <AddExpense /> : ""}
+        </main>
+
     </>
   );
 }
