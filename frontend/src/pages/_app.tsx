@@ -18,6 +18,9 @@ import "@/styles/globals.css";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 import HeadMeta from "@/components/meta/HeadMeta";
 import { ExpensesProvider } from "@/contexts/ExpensesContext";
+import { NotifProvider } from "@/contexts/NotifContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_LINK,
@@ -54,12 +57,15 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <AuthContextProvider>
-        <ExpensesProvider>
-          <Layout>
-            <HeadMeta />
-            <Component {...pageProps} />
-          </Layout>
-        </ExpensesProvider>
+        <NotifProvider>
+          <ExpensesProvider>
+            <Layout>
+              <HeadMeta />
+              <ToastContainer />
+              <Component {...pageProps} />
+            </Layout>
+          </ExpensesProvider>
+        </NotifProvider>
       </AuthContextProvider>
     </ApolloProvider>
   );
