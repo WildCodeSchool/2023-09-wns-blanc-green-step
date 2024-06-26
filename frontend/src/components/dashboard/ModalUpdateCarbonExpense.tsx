@@ -3,9 +3,11 @@ import styles from "@/styles/updateExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { Expense } from "@/types/expense.type";
 import { useExpenses } from "@/contexts/ExpensesContext";
+import "react-toastify/dist/ReactToastify.css";
+import NotifContext from "@/contexts/NotifContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -44,6 +46,8 @@ export default function ModalUpdateCarbonExpense({
   onClose,
 }: ModalProps) {
   const { deleteExpense } = useExpenses();
+
+  const notif = useContext(NotifContext); // Utilisation de useContext pour obtenir le contexte de notification
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -111,7 +115,7 @@ export default function ModalUpdateCarbonExpense({
     handleClose();
   };
 
-  // Création de la dépense carbon et redirection
+  // Modification de la dépense carbon
   const submit = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -131,6 +135,8 @@ export default function ModalUpdateCarbonExpense({
       },
       onCompleted: () => {
         handleClose();
+        notif?.notifEditExpense();
+        
       },
     });
   };
