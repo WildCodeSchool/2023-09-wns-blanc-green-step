@@ -27,13 +27,15 @@ describe("CarbonExpense resolver", () => {
     const responseRegister = await server.executeOperation({
       query: register,
       variables: {
-        password: "123",
-        email: "123@gmail.com",
-        username: "123",
+        password: "789",
+        email: "789@gmail.com",
+        username: "789",
       },
     });
 
     expect(responseRegister).toBeDefined();
+
+    console.log(responseRegister);
 
     const responseRegisterTwo = await server.executeOperation({
       query: register,
@@ -46,6 +48,8 @@ describe("CarbonExpense resolver", () => {
 
     expect(responseRegisterTwo).toBeDefined();
 
+    console.log(responseRegisterTwo);
+
     const login = gql`
       mutation Login($password: String!, $email: String!) {
         login(password: $password, email: $email)
@@ -55,8 +59,8 @@ describe("CarbonExpense resolver", () => {
     const responseLogin = await server.executeOperation({
       query: login,
       variables: {
-        password: "123",
-        email: "123@gmail.com",
+        password: "456",
+        email: "456@gmail.com",
       },
     });
 
@@ -85,8 +89,8 @@ describe("CarbonExpense resolver", () => {
     const responseFriendRequest = await server.executeOperation({
       query: ADD_FRIEND,
       variables: {
-        friendId: 1,
-        userId: 2,
+        friendId: 2,
+        userId: 3,
       },
     });
 
