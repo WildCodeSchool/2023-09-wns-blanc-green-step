@@ -1,13 +1,13 @@
 import { ApolloServer, gql } from "apollo-server";
-// import createServer from "../config/server";
+import createServer from "../config/server";
 
 const tokenContext: { token?: string } = {};
 
 describe("Friend Resolver", () => {
   let server: ApolloServer;
-  // beforeAll(async () => {
-  //   server = await createServer(() => tokenContext);
-  // });
+  beforeAll(async () => {
+    server = await createServer(() => tokenContext);
+  });
 
   it("Create two user, login one of them and send a friend request", async () => {
     const register = gql`
