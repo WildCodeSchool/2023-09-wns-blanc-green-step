@@ -9,6 +9,10 @@ describe("Friend Resolver", () => {
     server = await createServer(() => tokenContext);
   });
 
+  afterAll(async () => {
+    await server?.stop();
+  });
+
   it("Create two user, login one of them and send a friend request", async () => {
     const register = gql`
       mutation Mutation(

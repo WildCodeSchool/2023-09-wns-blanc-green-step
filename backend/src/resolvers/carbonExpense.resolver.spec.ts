@@ -9,6 +9,10 @@ describe("CarbonExpense resolver", () => {
     server = await createServer(() => tokenContext);
   });
 
+  afterAll(async () => {
+    await server?.stop();
+  });
+
   it("Create user, login user, create activity type & add expense", async () => {
     const register = gql`
       mutation Mutation(
