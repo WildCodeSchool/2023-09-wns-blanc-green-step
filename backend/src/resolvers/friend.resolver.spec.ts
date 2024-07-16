@@ -9,7 +9,7 @@ describe("CarbonExpense resolver", () => {
     server = await createServer(() => tokenContext);
   });
 
-  it("Create two user, login user, create activity type & add expense", async () => {
+  it("Create two user, login one of them and send a friend request", async () => {
     const register = gql`
       mutation Mutation(
         $password: String!
@@ -91,10 +91,15 @@ describe("CarbonExpense resolver", () => {
       },
     });
 
-    console.log(responseFriendRequest.data);
-
     expect(responseFriendRequest.errors).toBeUndefined();
     expect(responseFriendRequest.data?.addFriend).toBeDefined();
     expect(responseFriendRequest.data?.addFriend.id).toBeGreaterThan(0);
+
+    expect(responseFriendRequest.data?.addFriend.user_one.id).toBe(
+      responseRegisterTwo.data?.register.id
+    );
+    expect(responseFriendRequest.data?.addFriend.user_two.id).toBe(
+      responseRegister.data?.register.id
+    );
   });
 });
