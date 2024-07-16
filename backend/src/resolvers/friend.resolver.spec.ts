@@ -3,7 +3,7 @@ import createServer from "../config/server";
 
 const tokenContext: { token?: string } = {};
 
-describe("CarbonExpense resolver", () => {
+describe("Friend Resolver", () => {
   let server: ApolloServer;
   beforeAll(async () => {
     server = await createServer(() => tokenContext);
