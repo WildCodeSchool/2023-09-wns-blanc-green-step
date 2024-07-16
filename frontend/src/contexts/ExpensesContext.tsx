@@ -1,5 +1,3 @@
-// src/contexts/ExpensesContext.tsx
-
 import React, {
   createContext,
   useContext,
@@ -9,6 +7,7 @@ import React, {
 } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { AuthContext } from "@/contexts/AuthContext";
+import NotifContext from "./NotifContext";
 
 const GET_USER_EXPENSES = gql`
   query GetUserCarbonExpenses($userId: Float!) {
@@ -67,7 +66,9 @@ const ExpensesContext = createContext<ExpensesContextType | undefined>(
 
 export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useContext(AuthContext);
+  const notif  = useContext(NotifContext);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  
 
   const { data, refetch } = useQuery(GET_USER_EXPENSES, {
     variables: { userId: Number(user.id) },
@@ -76,13 +77,15 @@ export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
 
   const [createCarboneExpense] = useMutation(CREATE_CARBONEXPENSE, {
     onCompleted: () => {
-      refetch();
+      refetchExpenses();
+      notif?.notifAddExpense();
     },
   });
 
   const [deleteCarboneExpense] = useMutation(DELETE_CARBONEXPENSE, {
     onCompleted: () => {
       refetchExpenses();
+      notif?.notifSuppExpense();;
     },
   });
 
