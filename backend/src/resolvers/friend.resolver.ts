@@ -1,4 +1,4 @@
-import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { Friend } from "../entities/friend.entity";
 import * as FriendService from "../services/friend.service";
 
@@ -8,6 +8,7 @@ export class FriendResolver {
    *
    * @returns all rows from Friend Entity
    */
+  @Authorized()
   @Query(() => [Friend])
   async getFriends(): Promise<Friend[]> {
     return FriendService.findAll();
@@ -18,6 +19,7 @@ export class FriendResolver {
    * @param id id from a user
    * @returns all rows from Friend Entity where user_one or user_two matches with id param
    */
+  @Authorized()
   @Query(() => [Friend])
   async getFriendsByUserId(@Arg("id") id: number): Promise<Friend[]> {
     return FriendService.findByUser(id);
@@ -29,6 +31,7 @@ export class FriendResolver {
    * @param friend_id id from user who will received the request
    * @returns a created friend request
    */
+  @Authorized()
   @Mutation(() => Friend)
   async addFriend(
     @Arg("user_id") user_id: number,
@@ -42,6 +45,7 @@ export class FriendResolver {
    * @param id friend request id
    * @returns a saved accepted friend request
    */
+  @Authorized()
   @Mutation(() => Friend)
   async acceptFriend(@Arg("id") id: number): Promise<Friend | undefined> {
     return FriendService.updateFriend(id);
@@ -52,6 +56,7 @@ export class FriendResolver {
    * @param id friend request id
    * @returns "OK"
    */
+  @Authorized()
   @Mutation(() => String)
   async deleteFriendRequest(@Arg("id") id: number): Promise<string> {
     const deletedFriend = await FriendService.deleteFriend(id);
