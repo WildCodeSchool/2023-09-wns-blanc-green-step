@@ -14,7 +14,7 @@ app.get("/", (_: Request, res: Response) => {
 });
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (_req, file, cb) {
     cb(null, path.join(__dirname, "../uploads"));
   },
   filename: function (req, file, cb) {
