@@ -3,8 +3,11 @@ import styles from "@/styles/updateExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { Expense } from "@/types/expense.type";
+import { useExpenses } from "@/contexts/ExpensesContext";
+import "react-toastify/dist/ReactToastify.css";
+import NotifContext from "@/contexts/NotifContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -37,19 +40,14 @@ const UPDATE_CARBON_EXPENSE = gql`
   }
 `;
 
-export const DELETE_CARBONEEXPENSE = gql`
-  mutation DeleteCarboneExpense($deleteCarboneExpenseId: Float!) {
-    DeleteCarboneExpense(id: $deleteCarboneExpenseId)
-  }
-`;
-
 export default function ModalUpdateCarbonExpense({
   expense,
   isOpen,
   onClose,
 }: ModalProps) {
-  // Utile pour la redirection
-  const router = useRouter();
+  const { deleteExpense } = useExpenses();
+
+  const notif = useContext(NotifContext); // Utilisation de useContext pour obtenir le contexte de notification
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -74,7 +72,7 @@ export default function ModalUpdateCarbonExpense({
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
     title: expense.title,
-    date: expense.date,
+    date: formatDate,
     emission: expense.emission,
   });
 
@@ -112,20 +110,12 @@ export default function ModalUpdateCarbonExpense({
     onClose();
   };
 
-  const [deleteExpenseRequest] = useMutation(DELETE_CARBONEEXPENSE);
-
-  const deleteExpense = async () => {
-    deleteExpenseRequest({
-      variables: {
-        deleteCarboneExpenseId: expense.id,
-      },
-      onCompleted: () => {
-        onClose();
-      }
-    });
+  const handleDeleteExpense = () => {
+    deleteExpense(expense.id);
+    handleClose();
   };
 
-  // Création de la dépense carbon et redirection
+  // Modification de la dépense carbon
   const submit = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -144,8 +134,9 @@ export default function ModalUpdateCarbonExpense({
         },
       },
       onCompleted: () => {
-        onClose();
-        window.location.reload();
+        handleClose();
+        notif?.notifEditExpense();
+        
       },
     });
   };
@@ -154,7 +145,7 @@ export default function ModalUpdateCarbonExpense({
     <dialog open={isOpen} className={styles.modal}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <button onClick={deleteExpense} data-testid="trash-btn">
+          <button onClick={handleDeleteExpense} data-testid="trash-btn">
             <img src="/images/trash-btn.png" />
           </button>
           <span onClick={handleClose} className={styles.closeModal}>
