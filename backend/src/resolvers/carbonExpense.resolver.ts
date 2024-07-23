@@ -55,7 +55,7 @@ export class CarbonExpenseResolver {
     return CarbonExpenseService.create({ ...carbonExpense, user });
   }
 
-  // @Authorized()
+  @Authorized()
   @Mutation(() => CarbonExpense)
   updateCarbonExpense(
     @Arg("expense") carbonExpense: UpdateCarbonExpenseType,
