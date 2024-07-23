@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
-import { ActivityType } from "@/types/activityType.type";
 import GraphBilanCarbone from "@/components/GraphBilanCarbone";
+import isSecured from "@/components/secure/isSecured";
 
 export type Props = {
   totalEmissions: number;
@@ -27,7 +27,7 @@ const GET_USER_EXPENSES = gql`
   }
 `;
 
-export default function MonBilanCarbone() {
+function MonBilanCarbone() {
   const { user } = useContext(AuthContext);
   const [totalEmissions, setTotalEmissions] = useState(0);
   const [activityTypeEmissions, setActivityTypeEmissions] = useState<
@@ -35,7 +35,7 @@ export default function MonBilanCarbone() {
   >({});
 
   const [activityTypeData, setActivityTypeData] = useState<
-    Record<number, { name: string, icon: string }>
+    Record<number, { name: string; icon: string }>
   >({});
 
   const { loading, error, data } = useQuery(GET_USER_EXPENSES, {
@@ -45,7 +45,7 @@ export default function MonBilanCarbone() {
     onCompleted: (data: any) => {
       const emissionsMap: Record<number, number> = {};
       let total = 0;
-      const activityData: Record<number, { name: string, icon: string }> = {};
+      const activityData: Record<number, { name: string; icon: string }> = {};
       data.getUserCarbonExpenses.forEach((expense: any) => {
         const activityTypeId = expense.activityType.id;
         const emission =
@@ -58,8 +58,8 @@ export default function MonBilanCarbone() {
           activityData[activityTypeId] = {
             name: expense.activityType.name,
             icon: expense.activityType.icon,
+          };
         }
-      }
       });
       setActivityTypeEmissions(emissionsMap);
       setTotalEmissions(total);
@@ -93,8 +93,13 @@ export default function MonBilanCarbone() {
             {Object.entries(activityTypeEmissions).map(
               ([activityTypeId, emission]) => (
                 <li key={activityTypeId} className="mb-2">
-                  <img src={activityTypeData[parseInt(activityTypeId)].icon} alt="" className="mr-2 w-6 h-6" />
-                  {activityTypeData[parseInt(activityTypeId)].name}: {emission} tonnes CO2eq
+                  <img
+                    src={activityTypeData[parseInt(activityTypeId)].icon}
+                    alt=""
+                    className="mr-2 w-6 h-6"
+                  />
+                  {activityTypeData[parseInt(activityTypeId)].name}: {emission}{" "}
+                  tonnes CO2eq
                 </li>
               )
             )}
@@ -104,3 +109,5 @@ export default function MonBilanCarbone() {
     </>
   );
 }
+
+export default isSecured(MonBilanCarbone);

@@ -9,6 +9,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Challenge } from "@/types/challengeType.type";
+import isNotSecured from "@/components/secure/isNotSecured";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -79,4 +80,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default isNotSecured(Home);

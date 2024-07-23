@@ -8,6 +8,8 @@ import { Button } from "@/components/Button";
 import FriendModal from "@/components/friendlist/FriendModal";
 import AddFriend from "@/components/friendlist/AddFriend";
 
+import isSecured from "@/components/secure/isSecured";
+
 const GET_ALL_USER_FRIENDS = gql`
   query Query($getFriendsByUserIdId: Float!) {
     getFriendsByUserId(id: $getFriendsByUserIdId) {
@@ -27,7 +29,7 @@ const GET_ALL_USER_FRIENDS = gql`
   }
 `;
 
-export default function FriendsPage() {
+function FriendsPage() {
   const { user } = useContext(AuthContext);
   const [friendsArray, setFriendsArray] = useState<UserFriend[]>([]);
   const [isMyDemandsOpen, setIsMyDemandsOpen] = useState<boolean>(false);
@@ -142,3 +144,5 @@ export default function FriendsPage() {
     </>
   );
 }
+
+export default isSecured(FriendsPage);
