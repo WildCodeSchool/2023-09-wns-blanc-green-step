@@ -35,6 +35,13 @@ export default function isSecured(Component: any) {
       return null;
     }
 
+    if (token) {
+      const { exp } = jwtDecode(token) as JwtPayload;
+      if (exp * 1000 < Date.now()) {
+        return null;
+      }
+    }
+
     return <Component {...props} />;
   };
 }
