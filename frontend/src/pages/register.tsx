@@ -2,8 +2,8 @@ import { useState } from "react";
 import { gql, useMutation } from "../../node_modules/@apollo/client/index";
 import { useRouter } from "../../node_modules/next/router";
 import { Button } from "@/components/Button";
-import Header from "@/components/Header";
 import Waves from "@/components/Waves";
+import isNotSecured from "@/components/secure/isNotSecured";
 
 const REGISTER = gql`
   mutation Register($password: String!, $username: String!, $email: String!) {
@@ -17,7 +17,7 @@ const REGISTER = gql`
   }
 `;
 
-export default function RegisterPage() {
+function RegisterPage() {
   const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -87,3 +87,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+export default isNotSecured(RegisterPage);

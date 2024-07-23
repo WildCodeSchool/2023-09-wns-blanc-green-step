@@ -4,6 +4,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import ExpenseElement from "@/components/dashboard/ExpenseElement";
 import { Expense } from "@/types/expense.type";
 import { useExpenses } from "@/contexts/ExpensesContext";
+import isSecured from "@/components/secure/isSecured";
 
 function MyExpenses() {
   const { expenses, refetchExpenses } = useExpenses();
@@ -59,4 +60,4 @@ function MyExpenses() {
   );
 }
 
-export default MyExpenses;
+export default isSecured(MyExpenses);

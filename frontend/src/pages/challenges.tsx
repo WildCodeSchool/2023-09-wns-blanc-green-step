@@ -5,6 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useContext } from "react";
+import isNotSecured from "@/components/secure/isNotSecured";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -57,4 +58,4 @@ const Challenges = () => {
   );
 };
 
-export default Challenges;
+export default isNotSecured(Challenges);
