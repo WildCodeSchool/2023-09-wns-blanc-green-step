@@ -2,6 +2,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useState, useContext } from "react";
+import isSecured from "@/components/secure/isSecured";
 
 function NavBoard() {
   const { user, setUser } = useContext(AuthContext);
@@ -132,4 +133,4 @@ function NavBoard() {
   );
 }
 
-export default NavBoard;
+export default isSecured(NavBoard);
