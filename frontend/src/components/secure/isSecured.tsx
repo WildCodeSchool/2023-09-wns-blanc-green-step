@@ -37,9 +37,11 @@ export default function isSecured(Component: any) {
 
     if (token) {
       const { exp } = jwtDecode(token) as JwtPayload;
-      if (exp * 1000 < Date.now()) {
-        return null;
-      }
+
+      const isExpired =
+        exp * 1000 < Date.now() ? null : <Component {...props} />;
+
+      return isExpired;
     }
 
     return <Component {...props} />;
