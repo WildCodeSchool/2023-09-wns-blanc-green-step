@@ -60,3 +60,7 @@
     border: none;
     cursor: pointer;
 }
+
+.error {
+    color: red;
+}

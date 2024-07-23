@@ -2,6 +2,7 @@ import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "t
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./user.entity";
 import { ActivityType } from "./activityType.entity";
+import { MaxLength } from "class-validator";
 
 @ObjectType()
 @Entity()
@@ -10,15 +11,16 @@ export class CarbonExpense extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
+  @MaxLength(20)
   title: string;
 
-  @Field()
+  @Field(() => Date)
   @Column()
   date?: Date;
 
-  @Field()
+  @Field(() => Number)
   @Column()
   emission: number;
 

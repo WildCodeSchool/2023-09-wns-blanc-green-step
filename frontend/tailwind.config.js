@@ -43,6 +43,9 @@ const colors = {
     90: "#F9D9C8",
     100: "#FDF2ED",
   },
+  red: {
+    50: "#ff0000",
+  },
 };
 
 module.exports = {
