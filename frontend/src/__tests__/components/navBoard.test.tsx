@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import NavBoard from "@/components/dashboard/NavBoard";
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter");
@@ -25,8 +25,28 @@ export function mockNextUseRouter(pathname: string) {
   }));
 }
 
+const localStorageMock = (function () {
+  const store: any = {
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNzU3MTc1LCJleHAiOjk5OTk5OTk5OTl9.GNxCYsmFsqaJh0K7YCU8F8bkk_uSb9oW1WGIr4EOFh4",
+  };
+
+  return {
+    getItem: function (key: string) {
+      return store[key] || null;
+    },
+    removeItem: function (key: string) {
+      return (store[key] = "");
+    },
+  };
+})();
+
 describe("Testing Navigation Dashboard", () => {
   mockNextUseRouter("/");
+  Object.defineProperty(window, "localStorage", {
+    value: localStorageMock,
+  });
+
   it("render the navboard with four links", () => {
     render(<NavBoard />);
 
