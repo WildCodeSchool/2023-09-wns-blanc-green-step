@@ -66,7 +66,7 @@ export function AddFriendInput({
             users.filter(
               (filteredUser) => filteredUser.username === friendUsername
             )[0]?.username ? (
-            <p>no match found!</p>
+            <p>Utilisateur inconnu!</p>
           ) : (
             ""
           )}

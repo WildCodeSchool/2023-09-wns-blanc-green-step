@@ -2,6 +2,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useState, useContext } from "react";
+import isSecured from "@/components/secure/isSecured";
 
 function NavBoard() {
   const { user, setUser } = useContext(AuthContext);
@@ -48,8 +49,17 @@ function NavBoard() {
           Bienvenue {user.username} !
         </p>
 
-        <ul className="font-medium self-center text-lg lg:text-base flex flex-col gap-5 h-full w-full p-3 lg:pl-8">
-          <Link href="/mon-bilan-carbone">
+        <ul
+          className={
+            "font-medium self-center text-lg lg:text-base flex flex-col gap-5 h-full w-full p-3 lg:pl-8"
+          }
+        >
+          <Link
+            href="/mon-bilan-carbone"
+            className={`${
+              router.pathname === "/mon-bilan-carbone" ? "bg-green-30" : ""
+            } rounded-md p-2 px-6`}
+          >
             <li className="flex gap-4 items-center">
               <img
                 src="/images/carbon-footprint.png"
@@ -60,7 +70,12 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link href="/my-expenses">
+          <Link
+            href="/my-expenses"
+            className={`${
+              router.pathname === "/my-expenses" ? "bg-green-30" : ""
+            } rounded-md p-2 px-6`}
+          >
             <li className="flex gap-4 items-center">
               <img
                 src="/images/carbon-expenses.png"
@@ -70,28 +85,43 @@ function NavBoard() {
             </li>
           </Link>
 
-          <Link href="/my-ecochallenges">
+          <Link
+            href="/my-ecochallenges"
+            className={`${
+              router.pathname === "/my-ecochallenges" ? "bg-green-30" : ""
+            } rounded-md p-2 px-6`}
+          >
             <li className="flex gap-4 items-center w-8">
               <img src="/images/target.png" alt="My ecochallenges icon" />
               Mes Eco-challenges
             </li>
           </Link>
 
-          <Link href="/friends">
+          <Link
+            href="/friends"
+            className={`${
+              router.pathname === "/friends" ? "bg-green-30" : ""
+            } rounded-md p-2 px-6`}
+          >
             <li className="flex gap-4 items-center">
               <img src="/images/friendlist.png" alt="Friend List Icon" />
               Mes Contacts
             </li>
           </Link>
 
-          <Link className="mt-[2.5vh] lg:mt-auto" href="/profil">
+          <Link
+            href="/profil"
+            className={`${
+              router.pathname === "/profil" ? "bg-green-30" : ""
+            } rounded-md p-2 px-6 mt-[2.5vh] lg:mt-auto`}
+          >
             <li className="flex gap-4 items-center">
               <img src="/images/profile-icon.png" alt="Signout Icon" />
               Mon profil
             </li>
           </Link>
 
-          <Link className="" href="/">
+          <Link className="rounded-md p-2 px-6" href="/">
             <li className="flex gap-4 items-center" onClick={handleDisconnect}>
               <img src="/images/signout.png" alt="Signout Icon" />
               Déconnexion
@@ -103,4 +133,4 @@ function NavBoard() {
   );
 }
 
-export default NavBoard;
+export default isSecured(NavBoard);
