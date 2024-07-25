@@ -79,7 +79,7 @@ function Profil() {
   useEffect(() => {
     setNewEmail(user.email);
     setNewIdentifiant(user.username);
-    setImgUrl(user.image);
+    setImgUrl(`${process.env.NEXT_PUBLIC_IMAGE_API + user.image}`);
   }, [user]);
 
   return (
