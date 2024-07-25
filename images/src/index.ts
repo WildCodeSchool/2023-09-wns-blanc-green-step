@@ -19,40 +19,40 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
-  }
-})
+  },
+});
 
-const upload = multer({ storage: storage});
+const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("file"), (req: any, res: Response) => {
   fs.readFile(req.file.path, (err) => {
     if (err) {
-      console.log("Error:", err)
-      return res.status(500).json({error: err})
+      console.log("Error:", err);
+      return res.status(500).json({ error: err });
     }
 
     return res.status(201).json({
       status: "success",
-      filename: `/files/${req.file.filename}`
-    })
-  })
-})
+      filename: `http://localhost:${port}/files/${req.file.filename}`,
+    });
+  });
+});
 
 app.get("/files/:filename", (req: Request, res: Response) => {
   const filePath = path.join(__dirname + "/../uploads", req.params.filename);
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
-      res.writeHead(404, {"Content-Type": "text"});
+      res.writeHead(404, { "Content-Type": "text" });
       res.write("File not found");
       return res.end();
     }
 
-    res.writeHead(200, {"Content-Type": "image/jpeg"});
+    res.writeHead(200, { "Content-Type": "image/jpeg" });
     res.write(content);
     return res.end();
-  })
-})
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);
