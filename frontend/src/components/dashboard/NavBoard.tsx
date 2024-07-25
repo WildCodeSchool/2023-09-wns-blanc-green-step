@@ -29,7 +29,7 @@ function NavBoard() {
       <nav
         className={`${
           !isBurger ? "hidden lg:flex" : "flex"
-        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit lg:h-screen overflow-y-auto xl:overflow-y-hidden`}
+        } fixed z-10 right-0 top-0 p-5 lg:left-0 bg-green-60 w-fit flex-col gap-5 mt-20 lg:mt-0 lg:w-96 text-gray-30 rounded-xl lg:rounded-none min-h-fit lg:h-screen overflow-y-auto xl:overflow-y-hidden smheight:overflow-y-auto scroll-tiny-height`}
       >
         <Link
           href="/"
@@ -51,7 +51,7 @@ function NavBoard() {
 
         <ul
           className={
-            "font-medium self-center text-lg lg:text-base flex flex-col gap-5 h-full w-full p-3 lg:pl-8"
+            "font-medium self-center text-lg lg:text-base flex flex-col gap-2 h-full w-full p-3 lg:pl-8"
           }
         >
           <Link
