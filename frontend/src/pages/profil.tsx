@@ -4,6 +4,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import isSecured from "@/components/secure/isSecured";
 
 const UPDATE_USER = gql`
   mutation UpdateUser(
@@ -37,7 +38,7 @@ const UPDATE_USER_PASSWORD = gql`
   }
 `;
 
-export default function Profil() {
+function Profil() {
   const { user, setUser } = useContext(AuthContext);
   const [newIdentifiant, setNewIdentifiant] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
@@ -178,3 +179,5 @@ export default function Profil() {
     </>
   );
 }
+
+export default isSecured(Profil);

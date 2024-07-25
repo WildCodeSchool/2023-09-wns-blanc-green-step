@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { CarbonExpense } from "./carbonExpense.entity";
+import { MaxLength } from "class-validator";
 
 @ObjectType()
 @Entity()
@@ -9,15 +10,16 @@ export class ActivityType extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field(() => String)
   @Column()
+  @MaxLength(20)
   name: string;
 
-  @Field()
+  @Field(() => String)
   @Column()
   icon: string;
 
-  @Field()
+  @Field(() => Number)
   @Column()
   carbon_emission: number;
 

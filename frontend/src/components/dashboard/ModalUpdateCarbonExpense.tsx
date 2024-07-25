@@ -3,8 +3,11 @@ import styles from "@/styles/updateExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { Expense } from "@/types/expense.type";
+import { useExpenses } from "@/contexts/ExpensesContext";
+import "react-toastify/dist/ReactToastify.css";
+import NotifContext from "@/contexts/NotifContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -37,19 +40,14 @@ const UPDATE_CARBON_EXPENSE = gql`
   }
 `;
 
-export const DELETE_CARBONEEXPENSE = gql`
-  mutation DeleteCarboneExpense($deleteCarboneExpenseId: Float!) {
-    DeleteCarboneExpense(id: $deleteCarboneExpenseId)
-  }
-`;
-
 export default function ModalUpdateCarbonExpense({
   expense,
   isOpen,
   onClose,
 }: ModalProps) {
-  // Utile pour la redirection
-  const router = useRouter();
+  const { deleteExpense } = useExpenses();
+
+  const notif = useContext(NotifContext); // Utilisation de useContext pour obtenir le contexte de notification
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -59,6 +57,13 @@ export default function ModalUpdateCarbonExpense({
     icon: "",
     name: "",
   });
+
+    // State pour les messages d'erreur
+    const [errorMessages, setErrorMessages] = useState({
+      title: "",
+      date: "",
+      emission: "",
+    });
 
   // Requête gql
   const { data } = useQuery(GET_ALL_ACTIVITIESTYPES, {
@@ -74,7 +79,7 @@ export default function ModalUpdateCarbonExpense({
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
     title: expense.title,
-    date: expense.date,
+    date: formatDate,
     emission: expense.emission,
   });
 
@@ -94,11 +99,31 @@ export default function ModalUpdateCarbonExpense({
   // Vérifie si les données entrées sont conformes
   const checkForm = () => {
     const { title, date, emission } = dataForm;
-    if (title.trim() !== "" && !isNaN(Date.parse(date)) && emission !== null) {
-      setIsActivate(true);
-    } else {
-      setIsActivate(false);
+    let valid = true;
+    const errors = { title: "", date: "", emission: "" };
+
+    if (title.trim() === "") {
+      errors.title = "Le titre est requis.";
+      valid = false;
     }
+
+    if (title.length >= 20) {
+      errors.title = "La longueur maximale est de 20 lettres."
+    }
+
+    if (isNaN(Date.parse(date))) {
+      errors.date = "La date est requis.";
+      valid = false;
+    }
+
+    if (emission === null) {
+      errors.emission = "L'emission est requise.";
+      valid = false;
+    }
+
+    setErrorMessages(errors);
+    setIsActivate(valid);
+    return valid;
   };
 
   // Vérification si empty et type
@@ -112,22 +137,20 @@ export default function ModalUpdateCarbonExpense({
     onClose();
   };
 
-  const [deleteExpenseRequest] = useMutation(DELETE_CARBONEEXPENSE);
-
-  const deleteExpense = async () => {
-    deleteExpenseRequest({
-      variables: {
-        deleteCarboneExpenseId: expense.id,
-      },
-      onCompleted: () => {
-        onClose();
-      }
-    });
+  const handleDeleteExpense = () => {
+    deleteExpense(expense.id);
+    handleClose();
   };
 
-  // Création de la dépense carbon et redirection
+  // Modification de la dépense carbon
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+
+    const isValid = checkForm();
+
+    if (!isValid) {
+      return;
+    }
 
     const form: EventTarget = event.target;
     const formData = new FormData(form as HTMLFormElement);
@@ -144,8 +167,9 @@ export default function ModalUpdateCarbonExpense({
         },
       },
       onCompleted: () => {
-        onClose();
-        window.location.reload();
+        handleClose();
+        notif?.notifEditExpense();
+        
       },
     });
   };
@@ -154,7 +178,7 @@ export default function ModalUpdateCarbonExpense({
     <dialog open={isOpen} className={styles.modal}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <button onClick={deleteExpense} data-testid="trash-btn">
+          <button onClick={handleDeleteExpense} data-testid="trash-btn">
             <img src="/images/trash-btn.png" />
           </button>
           <span onClick={handleClose} className={styles.closeModal}>
@@ -178,8 +202,8 @@ export default function ModalUpdateCarbonExpense({
                 value={dataForm.title}
                 onChange={handleFormChange}
                 className="input"
-                required
               />
+              {errorMessages.title && <p className="text-red-50">{errorMessages.title}</p>}
             </div>
             <div className="contents mb-4">
               <label className="font-poppins" htmlFor="date">
@@ -194,6 +218,7 @@ export default function ModalUpdateCarbonExpense({
                 className="input"
                 required
               />
+              {errorMessages.date && <p className="text-red-50">{errorMessages.date}</p>}
             </div>
             <div className="contents mb-4">
               <label className="font-poppins" htmlFor="emission">
@@ -209,6 +234,7 @@ export default function ModalUpdateCarbonExpense({
                 className="input"
                 required
               />
+              {errorMessages.emission && <p className="text-red-50">{errorMessages.emission}</p>}
             </div>
             <div className="flex justify-center">
               <select
@@ -232,15 +258,13 @@ export default function ModalUpdateCarbonExpense({
                 alt={selectImg.name}
               />
             </div>
-            {isActivate ? (
-              <button
+            <button
                 type="submit"
                 disabled={!isActivate}
                 className="btn bg-blue-70 hover:bg-blue-50 font-poppins py-2 px-4 my-2 mx-4 rounded-full"
               >
                 Éditer la dépense
               </button>
-            ) : null}
           </form>
         </div>
       </div>

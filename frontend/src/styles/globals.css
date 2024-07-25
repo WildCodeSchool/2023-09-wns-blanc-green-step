@@ -39,3 +39,9 @@
 body {
   background-color: #f5f5f5;
 }
+
+.scroll-tiny-height {
+  @media screen and (max-height: 860px) {
+    overflow-y: auto !important;
+  }
+}

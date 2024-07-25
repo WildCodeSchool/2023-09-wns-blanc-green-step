@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { Button } from "@/components/Button";
 import Waves from "@/components/Waves";
 import { JwtPayload } from "@/types/jwtPayloadType.type";
+import isNotSecured from "@/components/secure/isNotSecured";
 
 const LOGIN = gql`
   mutation Mutation($password: String!, $email: String!) {
@@ -13,7 +14,7 @@ const LOGIN = gql`
   }
 `;
 
-export default function LoginPage() {
+function LoginPage() {
   const { setUser } = useContext(AuthContext);
   const router = useRouter();
   const [credential, setCredential] = useState<string>("");
@@ -78,3 +79,5 @@ export default function LoginPage() {
     </section>
   );
 }
+
+export default isNotSecured(LoginPage);

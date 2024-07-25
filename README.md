@@ -11,7 +11,7 @@
 
 ```
 NEXT_PUBLIC_API_LINK=http://localhost:5000/graphql
-NEXT_PUBLIC_IMAGE_API=http://localhost:8000/
+NEXT_PUBLIC_IMAGE_API=http://localhost:8000
 ```
 
 ---

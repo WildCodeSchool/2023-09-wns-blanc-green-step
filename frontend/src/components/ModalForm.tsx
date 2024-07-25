@@ -1,10 +1,8 @@
-// import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/addExpense.module.css";
 import { ActivityType } from "@/types/activityType.type";
-import { useRouter } from "next/router";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import React, { FormEvent, useState } from "react";
-// import { Bounce, ToastContainer, toast } from "react-toastify";
+import { useExpenses } from "@/contexts/ExpensesContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,19 +20,8 @@ const GET_ALL_ACTIVITIESTYPES = gql`
   }
 `;
 
-const CREATE_CARBONEXPENSE = gql`
-  mutation Mutation($expense: CreateCarbonExpenseType!) {
-    createCarbonExpense(expense: $expense) {
-      title
-      date
-      emission
-    }
-  }
-`;
-
 export default function ModalForm({ isOpen, onClose }: ModalProps) {
-  // Utile pour la redirection
-  const router = useRouter();
+  const { addExpense } = useExpenses();
 
   // State qui va autorier l'affichage du bouton de soumission
   const [isActivate, setIsActivate] = useState(false);
@@ -45,24 +32,19 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
     name: "",
   });
 
+  // State pour les messages d'erreur
+  const [errorMessages, setErrorMessages] = useState({
+    title: "",
+    date: "",
+    emission: "",
+  });
+
   // Requête gql
   const { data } = useQuery(GET_ALL_ACTIVITIESTYPES, {
     onCompleted: (data: any) => {
       setSelectImg(data.getActivityTypes[0]);
     },
   });
-  const [createCarboneExpense] = useMutation(CREATE_CARBONEXPENSE);
-
-  interface translateHexInEmojiProps {
-    hexaCode: string;
-  }
-  function TranslateHexInEmoji(props: translateHexInEmojiProps) {
-    const { hexaCode } = props;
-    const decimalCode = parseInt(hexaCode, 16);
-    const emoji = String.fromCharCode(decimalCode);
-
-    return <span> {emoji} </span>;
-  }
 
   // Etat qui va enregistrer les valeurs des différents champs du form
   const [dataForm, setDataForm] = useState({
@@ -84,14 +66,34 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
     });
   };
 
-  // Vérifie si les données entrées sont conformes
+  // Vérifie si les données entrées sont conformes et met à jour les messages d'erreur
   const checkForm = () => {
     const { title, date, emission } = dataForm;
-    if (title.trim() !== "" && !isNaN(Date.parse(date)) && emission !== null) {
-      setIsActivate(true);
-    } else {
-      setIsActivate(false);
+    let valid = true;
+    const errors = { title: "", date: "", emission: "" };
+
+    if (title.trim() === "") {
+      errors.title = "Le titre est requis.";
+      valid = false;
     }
+
+    if (title.length >= 20) {
+      errors.title = "La longueur maximale est de 20 lettres."
+    }
+
+    if (isNaN(Date.parse(date))) {
+      errors.date = "La date est requis.";
+      valid = false;
+    }
+
+    if (emission === null) {
+      errors.emission = "L'emission est requise.";
+      valid = false;
+    }
+
+    setErrorMessages(errors);
+    setIsActivate(valid);
+    return valid;
   };
 
   // Vérification si empty et type
@@ -108,25 +110,24 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
   // Création de la dépense carbon et redirection
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+    const isValid = checkForm();
+
+    if (!isValid) {
+      return;
+    }
 
     const form: EventTarget = event.target;
     const formData = new FormData(form as HTMLFormElement);
     const formDataJson = Object.fromEntries(formData.entries());
 
-    createCarboneExpense({
-      variables: {
-        expense: {
-          title: formDataJson.title,
-          date: formDataJson.date,
-          emission: parseInt(formDataJson.emission as string),
-          activityType: parseInt(formDataJson.activityType as string),
-        },
-      },
-      onCompleted: () => {
-        onClose();
-        router.push("/my-expenses");
-      },
+    addExpense({
+      title: formDataJson.title as string,
+      date: formDataJson.date as string,
+      emission: parseInt(formDataJson.emission as string),
+      activityType: parseInt(formDataJson.activityType as string),
     });
+
+    onClose();
   };
 
   return (
@@ -151,22 +152,22 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
                 value={dataForm.title}
                 onChange={handleFormChange}
                 className="input"
-                required
               />
+              {errorMessages.title && <p className="text-red-50">{errorMessages.title}</p>}
             </div>
             <div className="contents mb-4">
               <label className="font-poppins" htmlFor="date">
                 Date :
               </label>
-              <input
+              <input 
                 type="date"
                 id="date"
                 name="date"
                 value={dataForm.date}
                 onChange={handleFormChange}
                 className="input"
-                required
               />
+              {errorMessages.date && <p className="text-red-50">{errorMessages.date}</p>}
             </div>
             <div className="contents mb-4">
               <label className="font-poppins" htmlFor="emission">
@@ -179,8 +180,8 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
                 value={dataForm.emission === null ? "" : dataForm.emission}
                 onChange={handleFormChange}
                 className="input"
-                required
               />
+              {errorMessages.emission && <p className="text-red-50">{errorMessages.emission}</p>}
             </div>
             <div className="flex justify-center">
               <select
@@ -204,19 +205,15 @@ export default function ModalForm({ isOpen, onClose }: ModalProps) {
                 alt={selectImg.name}
               />
             </div>
-            {isActivate ? (
-              <button
-                type="submit"
-                disabled={!isActivate}
-                className="btn bg-blue-70 hover:bg-blue-50 font-poppins py-2 px-4 my-2 mx-4 rounded-full"
-              >
-                soumettre la dépense
-              </button>
-            ) : null}
+            <button
+              type="submit"
+              className={`btn bg-blue-70 hover:bg-blue-50 font-poppins py-2 px-4 my-2 mx-4 rounded-full`}
+            >
+              soumettre la dépense
+            </button>
           </form>
         </div>
       </div>
-      {/* <ToastContainer /> */}
     </dialog>
   );
 }
