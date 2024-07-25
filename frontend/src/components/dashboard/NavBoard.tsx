@@ -43,8 +43,11 @@ function NavBoard() {
         <img
           className="w-32 h-32 lg:w-52 lg:h-52 self-center mb-2 rounded-full object-cover"
           src={
-            `${process.env.NEXT_PUBLIC_IMAGE_API + user.image}` ||
-            "/images/blank-avatar.png"
+            `${
+              user.image !== ""
+                ? process.env.NEXT_PUBLIC_IMAGE_API + user.image
+                : ""
+            }` || "/images/blank-avatar.png"
           }
           alt={`${user.username} avatar`}
         />
