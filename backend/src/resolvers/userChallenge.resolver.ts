@@ -1,4 +1,4 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver, Mutation } from "type-graphql";
 import { UserChallenge } from "../entities/userChallenge.entity";
 import * as UserChallengeService from "../services/userChallenge.service";
 
@@ -12,5 +12,25 @@ export class UserChallengeResolver {
   @Query(() => [UserChallenge])
   async getUserChallengesById(@Arg("id") id: number): Promise<UserChallenge[]> {
     return UserChallengeService.getById(id);
+  }
+
+  @Mutation(() => UserChallenge)
+  async createUserChallenge(
+    @Arg("userId") userId: number,
+    @Arg("challengeId") challengeId: number
+  ): Promise<UserChallenge> {
+    return UserChallengeService.createUserChallenge(userId, challengeId);
+  }
+
+  @Mutation(() => UserChallenge)
+  async deleteUserChallenge(
+    @Arg("userId") userId: number,
+    @Arg("challengeId") challengeId: number
+  ): Promise<string> {
+    const deletedUserChallenge = await UserChallengeService.deleteUserChallenge(
+      userId,
+      challengeId
+    );
+    return "ok";
   }
 }

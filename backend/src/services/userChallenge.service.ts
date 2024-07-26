@@ -35,7 +35,7 @@ export async function getById(id: number): Promise<UserChallenge[]> {
  * @return the created userchallenge
  */
 
-export async function create(
+export async function createUserChallenge(
   userId: number,
   challengeId: number
 ): Promise<UserChallenge> {
@@ -55,7 +55,14 @@ export async function create(
  * @returns delete a user challenge request
  */
 export const deleteUserChallenge = async (
-  id: number
+  userId: number,
+  challengeId: number
 ): Promise<DeleteResult> => {
-  return UserChallenge.delete({ id });
+  const userFromDB = await UserService.getById(userId);
+  const challengeFromDB = await ChallengeService.findById(challengeId);
+
+  return await UserChallenge.delete({
+    user: userFromDB,
+    challenge: challengeFromDB,
+  });
 };

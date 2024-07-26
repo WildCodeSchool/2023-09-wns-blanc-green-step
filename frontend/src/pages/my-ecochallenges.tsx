@@ -1,5 +1,5 @@
 import React from "react";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Expense } from "@/types/expense.type";
@@ -57,6 +57,28 @@ const GET_USER_CHALLENGES = gql`
   }
 `;
 
+const ADD_USER_CHALLENGE = gql`
+  mutation CreateUserChallenge($userId: Float!, $challengeId: Float!) {
+    createUserChallenge(userId: $userId, challengeId: $challengeId) {
+      id
+      challenge {
+        id
+        name
+      }
+      is_validated
+    }
+  }
+`;
+
+const DELETE_USER_CHALLENGE = gql`
+  mutation DeleteUserChallenge($challengeId: Float!, $userId: Float!) {
+    deleteUserChallenge(challengeId: $challengeId, userId: $userId) {
+      id
+      is_validated
+    }
+  }
+`;
+
 function MyEcochallenges() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -101,6 +123,26 @@ function MyEcochallenges() {
     },
   });
 
+  const [createUserChallenge] = useMutation(ADD_USER_CHALLENGE, {
+    onCompleted: (data) => {
+      setUserChallenges((prevChallenges) => [
+        ...prevChallenges,
+        data.createUserChallenge,
+      ]);
+    },
+  });
+
+  const [deleteUserChallenge] = useMutation(DELETE_USER_CHALLENGE, {
+    onCompleted: (data) => {
+      setUserChallenges((prevChallenges) =>
+        prevChallenges.filter(
+          (challenge) =>
+            challenge.challenge.id !== data.deleteUserChallenge.challenge.id
+        )
+      );
+    },
+  });
+
   useEffect(() => {
     getChallenges();
     getUserChallenges();
@@ -134,17 +176,20 @@ function MyEcochallenges() {
 
   const handleChangeCheckbox = (id: number, checked: boolean) => {
     if (checked) {
-      // add user_challenge based on user.id and parameter id (which is challenge id)
-      console.log(id);
-
-      // then return a change of userChallenge state based on the data you get by your post on the oncompleted something like that
-      return "";
+      createUserChallenge({
+        variables: {
+          userId: Number(user.id),
+          challengeId: Number(id),
+        },
+      });
+    } else {
+      deleteUserChallenge({
+        variables: {
+          userId: Number(user.id),
+          challengeId: Number(id),
+        },
+      });
     }
-
-    // else delete user_challenge based on user.id and parameter id (which is challenge id)
-    console.log(id, checked);
-    // then return a change of state by filtering the userChallenge array by id (which is challenge id)
-    return "";
   };
 
   if (loading) return <p>Loading...</p>;
