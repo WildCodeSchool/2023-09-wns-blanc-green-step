@@ -72,10 +72,7 @@ const ADD_USER_CHALLENGE = gql`
 
 const DELETE_USER_CHALLENGE = gql`
   mutation DeleteUserChallenge($challengeId: Float!, $userId: Float!) {
-    deleteUserChallenge(challengeId: $challengeId, userId: $userId) {
-      id
-      is_validated
-    }
+    deleteUserChallenge(challengeId: $challengeId, userId: $userId)
   }
 `;
 
@@ -132,16 +129,7 @@ function MyEcochallenges() {
     },
   });
 
-  const [deleteUserChallenge] = useMutation(DELETE_USER_CHALLENGE, {
-    onCompleted: (data) => {
-      setUserChallenges((prevChallenges) =>
-        prevChallenges.filter(
-          (challenge) =>
-            challenge.challenge.id !== data.deleteUserChallenge.challenge.id
-        )
-      );
-    },
-  });
+  const [deleteUserChallenge] = useMutation(DELETE_USER_CHALLENGE);
 
   useEffect(() => {
     getChallenges();
@@ -187,6 +175,11 @@ function MyEcochallenges() {
         variables: {
           userId: Number(user.id),
           challengeId: Number(id),
+        },
+        onCompleted: () => {
+          setUserChallenges((prevChallenges) =>
+            prevChallenges.filter((challenge) => challenge.challenge.id !== id)
+          );
         },
       });
     }

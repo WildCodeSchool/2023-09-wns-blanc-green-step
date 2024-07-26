@@ -22,15 +22,15 @@ export class UserChallengeResolver {
     return UserChallengeService.createUserChallenge(userId, challengeId);
   }
 
-  @Mutation(() => UserChallenge)
+  @Mutation(() => String)
   async deleteUserChallenge(
     @Arg("userId") userId: number,
     @Arg("challengeId") challengeId: number
   ): Promise<string> {
-    const deletedUserChallenge = await UserChallengeService.deleteUserChallenge(
+    const deleteUserChallenge = await UserChallengeService.deleteUserChallenge(
       userId,
       challengeId
     );
-    return "ok";
+    return "OK";
   }
 }

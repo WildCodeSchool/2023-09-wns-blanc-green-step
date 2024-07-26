@@ -57,12 +57,25 @@ export async function createUserChallenge(
 export const deleteUserChallenge = async (
   userId: number,
   challengeId: number
-): Promise<DeleteResult> => {
+): Promise<DeleteResult | string> => {
   const userFromDB = await UserService.getById(userId);
   const challengeFromDB = await ChallengeService.findById(challengeId);
 
-  return await UserChallenge.delete({
-    user: userFromDB,
-    challenge: challengeFromDB,
+  const userChallenge = await UserChallenge.findOne({
+    relations: {
+      user: true,
+      challenge: true,
+    },
+    where: {
+      user: userFromDB,
+
+      challenge: challengeFromDB,
+    },
   });
+
+  if (!userChallenge) {
+    return "not found";
+  }
+
+  return await UserChallenge.delete({ id: userChallenge.id });
 };
