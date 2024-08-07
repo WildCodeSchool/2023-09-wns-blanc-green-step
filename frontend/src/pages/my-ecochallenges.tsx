@@ -1,21 +1,21 @@
 import React from "react";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { gql, useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Expense } from "@/types/expense.type";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import { ModalForOneEcoChallenge } from "@/components/ModalForOneEcoChallenge";
-import isSecured from "@/components/secure/isSecured";
+import { Challenge } from "@/types/challengeType.type";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
     getChallenges {
-      carbon_saving
-      description
       id
-      image
       name
+      description
+      image
+      carbon_saving
       activityType {
         id
         name
@@ -41,6 +41,41 @@ const GET_USER_EXPENSES = gql`
   }
 `;
 
+const GET_USER_CHALLENGES = gql`
+  query GetUserChallengesById($getUserChallengesByIdId: Float!) {
+    getUserChallengesById(id: $getUserChallengesByIdId) {
+      id
+      challenge {
+        id
+        name
+      }
+      is_validated
+      user {
+        id
+      }
+    }
+  }
+`;
+
+const ADD_USER_CHALLENGE = gql`
+  mutation CreateUserChallenge($userId: Float!, $challengeId: Float!) {
+    createUserChallenge(userId: $userId, challengeId: $challengeId) {
+      id
+      challenge {
+        id
+        name
+      }
+      is_validated
+    }
+  }
+`;
+
+const DELETE_USER_CHALLENGE = gql`
+  mutation DeleteUserChallenge($challengeId: Float!, $userId: Float!) {
+    deleteUserChallenge(challengeId: $challengeId, userId: $userId)
+  }
+`;
+
 function MyEcochallenges() {
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -50,6 +85,12 @@ function MyEcochallenges() {
   const [challenges, setChallenges] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [userChallenges, setUserChallenges] = useState<
+    {
+      challenge: Challenge;
+      is_validated: boolean;
+    }[]
+  >([]);
 
   const redirectChallenges = () => {
     router.push("/challenges");
@@ -70,8 +111,29 @@ function MyEcochallenges() {
     },
   });
 
+  const [getUserChallenges] = useLazyQuery(GET_USER_CHALLENGES, {
+    variables: {
+      getUserChallengesByIdId: Number(user.id),
+    },
+    onCompleted: (data) => {
+      setUserChallenges(data.getUserChallengesById);
+    },
+  });
+
+  const [createUserChallenge] = useMutation(ADD_USER_CHALLENGE, {
+    onCompleted: (data) => {
+      setUserChallenges((prevChallenges) => [
+        ...prevChallenges,
+        data.createUserChallenge,
+      ]);
+    },
+  });
+
+  const [deleteUserChallenge] = useMutation(DELETE_USER_CHALLENGE);
+
   useEffect(() => {
     getChallenges();
+    getUserChallenges();
   }, []);
 
   useEffect(() => {
@@ -100,6 +162,29 @@ function MyEcochallenges() {
     setIsModalOpen(true);
   };
 
+  const handleChangeCheckbox = (id: number, checked: boolean) => {
+    if (checked) {
+      createUserChallenge({
+        variables: {
+          userId: Number(user.id),
+          challengeId: Number(id),
+        },
+      });
+    } else {
+      deleteUserChallenge({
+        variables: {
+          userId: Number(user.id),
+          challengeId: Number(id),
+        },
+        onCompleted: () => {
+          setUserChallenges((prevChallenges) =>
+            prevChallenges.filter((challenge) => challenge.challenge.id !== id)
+          );
+        },
+      });
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
@@ -120,9 +205,21 @@ function MyEcochallenges() {
               className="bg-gray-80 py-5 px-7 m-5 rounded-xl cursor-pointer flex flex-row items-center"
             >
               <input
-                id="checkbox-challenge"
+                id={challenge.id}
                 type="checkbox"
                 className="w-4 h-4 text-blue-10 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-20 focus:ring-2"
+                checked={
+                  userChallenges.filter(
+                    (userChallenge) =>
+                      userChallenge.challenge.id === challenge.id
+                  )[0]?.is_validated
+                }
+                onChange={(e: any) =>
+                  handleChangeCheckbox(
+                    parseInt(e.target.id, 10),
+                    e.target.checked
+                  )
+                }
               />
               <p onClick={() => handleOpenModal(challenge)} className="ml-6">
                 {challenge.name}
@@ -140,15 +237,17 @@ function MyEcochallenges() {
         content="Accéder à tous les challenges"
         onClick={redirectChallenges}
       />
-      {selectedChallenge && (
-        <ModalForOneEcoChallenge
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          challenge={selectedChallenge}
-        />
-      )}
+      <div>
+        {selectedChallenge && (
+          <ModalForOneEcoChallenge
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            challenge={selectedChallenge}
+          />
+        )}
+      </div>
     </section>
   );
 }
 
-export default isSecured(MyEcochallenges);
+export default MyEcochallenges;
