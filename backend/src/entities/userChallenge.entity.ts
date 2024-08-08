@@ -1,4 +1,10 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./user.entity";
 import { Challenge } from "./challenge.entity";
@@ -11,14 +17,14 @@ export class UserChallenge extends BaseEntity {
   id: number;
 
   @Field()
-  @Column()
+  @Column({ default: true })
   is_validated: boolean;
 
-  // @Field()
-  // @Column()
-  // user: User;
+  @Field()
+  @ManyToOne(() => User)
+  user: User;
 
-  // @Field()
-  // @Column()
-  // challenge: Challenge ;
+  @Field()
+  @ManyToOne(() => Challenge)
+  challenge: Challenge;
 }
