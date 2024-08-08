@@ -7,6 +7,7 @@ import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import { ModalForOneEcoChallenge } from "@/components/ModalForOneEcoChallenge";
 import { Challenge } from "@/types/challengeType.type";
+import isSecured from "@/components/secure/isSecured";
 
 const GET_ALL_CHALLENGES = gql`
   query GetChallenges {
@@ -250,4 +251,4 @@ function MyEcochallenges() {
   );
 }
 
-export default MyEcochallenges;
+export default isSecured(MyEcochallenges);
