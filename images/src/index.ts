@@ -33,7 +33,7 @@ app.post("/imagesupload/upload", upload.single("file"), (req: any, res: Response
 
     return res.status(201).json({
       status: "success",
-      filename: `http://localhost:${port}/files/${req.file.filename}`,
+      filename: `/files/${req.file.filename}`,
     });
   });
 });
