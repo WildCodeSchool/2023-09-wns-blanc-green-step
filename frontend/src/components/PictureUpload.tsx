@@ -26,7 +26,7 @@ export const PictureUpload = ({ imgUrl, setImgUrl }: any) => {
       try {
         const response = await axios.post(url, formData);
         return setImgUrl(
-          process.env.NEXT_PUBLIC_IMAGE_API + response.data.filename
+          `${process.env.NEXT_PUBLIC_IMAGE_API}${response.data.filename}`
         );
       } catch (err) {
         return console.log("error", err);
