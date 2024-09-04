@@ -9,7 +9,7 @@ const port = 8000;
 
 app.use(cors());
 
-app.get("/", (_: Request, res: Response) => {
+app.get("/imagesupload/", (_: Request, res: Response) => {
   res.send("Hello World!");
 });
 
@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), (req: any, res: Response) => {
+app.post("/imagesupload/upload", upload.single("file"), (req: any, res: Response) => {
   fs.readFile(req.file.path, (err) => {
     if (err) {
       console.log("Error:", err);
@@ -33,12 +33,12 @@ app.post("/upload", upload.single("file"), (req: any, res: Response) => {
 
     return res.status(201).json({
       status: "success",
-      filename: `http://localhost:${port}/files/${req.file.filename}`,
+      filename: `/files/${req.file.filename}`,
     });
   });
 });
 
-app.get("/files/:filename", (req: Request, res: Response) => {
+app.get("/imagesupload/files/:filename", (req: Request, res: Response) => {
   const filePath = path.join(__dirname + "/../uploads", req.params.filename);
 
   fs.readFile(filePath, (err, content) => {
